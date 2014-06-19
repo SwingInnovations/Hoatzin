@@ -9,7 +9,7 @@
 
 GameState::GameState() {
 	// TODO Auto-generated constructor stub
-
+	id = 0;
 }
 
 GameState::~GameState() {

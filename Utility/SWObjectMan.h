@@ -17,7 +17,7 @@ public:
 
 private:
 	std::vector<SWObject*> SceneGraph;
-}
+};
 
 
 #endif /* SWOBJECTMAN_H_ */

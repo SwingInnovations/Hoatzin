@@ -13,12 +13,16 @@ static Vector2f mousePosition;
 
 Input::Input() {
     closeRequested = false;
+    mouseX = 0;
+    mouseY = 0;
 }
 
 Input::Input(SDL_Event& _e)
 {
     e =_e;
     closeRequested = false;
+    mouseX = 0;
+    mouseY = 0;
 }
 
 
