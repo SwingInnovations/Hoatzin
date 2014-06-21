@@ -5,12 +5,15 @@
 #include <GL/glew.h>
 #include <fstream>
 #include <iostream>
+#include "../Utility/Transform.h"
+#include "../Utility/Math/Matrix.h"
 
 class Shader {
 public:
 	Shader();
 	Shader(const std::string& filePath);
 	void Bind();
+	void Update(Transform& trans);
 	virtual ~Shader();
 
 private:
@@ -22,6 +25,7 @@ private:
 	GLuint CreateShader(const std::string &text, unsigned int type);
 	GLuint mProgram;
 	GLuint mShaders[NUM_SHADER];
+	GLuint uniform;
 };
 
 #endif /* SHADER_H_ */

@@ -17,6 +17,13 @@ Texture::Texture(const std::string& fileName){
 	SDL_Surface* image = NULL;
 	image = IMG_Load(fileName.c_str());
 
+	if(image == NULL){
+		std::cout << "Error with file: " << IMG_GetError() << std::endl;
+	}
+
+	glGenTextures(1, &mTexture);
+	glBindTexture(GL_TEXTURE_2D, mTexture);
+
 	GLenum mode;
 	GLint nOfColors = image->format->BytesPerPixel;
 
@@ -36,16 +43,18 @@ Texture::Texture(const std::string& fileName){
 		std::cout << "Invalid Texture!" << std::endl;
 	}
 
-	glGenTextures(1, &mTexture);
-	glBindTexture(GL_TEXTURE_2D, mTexture);
-
-	glTexImage2D(mTexture, 0, nOfColors, image->w, image->h, 0, mode, GL_UNSIGNED_BYTE, image->pixels);
+	std::cout << "nOfColor: " << nOfColors << std::endl;
+	std::cout << "Mode: " << GL_RGB << std::endl;
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, mode, image->w, image->h, 0, mode, GL_UNSIGNED_BYTE, image->pixels);
 
 	SDL_FreeSurface(image);
 	image = 0;

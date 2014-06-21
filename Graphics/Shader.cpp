@@ -29,6 +29,8 @@ Shader::Shader(const std::string& filePath){
 
 	glValidateProgram(mProgram);
 	CheckShaderStatus(mProgram, GL_LINK_STATUS, true, "Invalid shader program!");
+
+	uniform = glGetUniformLocation(mProgram, "transform");
 }
 
 Shader::~Shader() {
@@ -40,6 +42,14 @@ Shader::~Shader() {
 
 void Shader::Bind(){
 	glUseProgram(mProgram);
+}
+
+void Shader::Update(Transform& trans){
+	Matrix4f transform;
+
+	transform = trans.GetModel();
+
+	glUniformMatrix4fv(uniform, 1, GL_FALSE, &transform.m[0][0]);
 }
 
 void Shader::CheckShaderStatus(GLuint shaderID, GLuint flag, bool isProgram, const std::string& errorMessage){

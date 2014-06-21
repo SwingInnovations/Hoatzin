@@ -66,7 +66,7 @@ void AppWindow::Update(SDL_Event& e){
 }
 
 void AppWindow::Render(){
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0, 0.0, 0.2, 1.0);
 
 	if(!state.empty()){

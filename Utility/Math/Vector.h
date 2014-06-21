@@ -140,6 +140,7 @@ private:
 };
 
 class Vector4f{
+public:
     Vector4f(){
     	x = 0;
     	y = 0;

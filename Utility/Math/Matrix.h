@@ -34,7 +34,7 @@ public:
         m[3][0] = 0; m[3][1] = 0; m[3][2] = 0; m[3][3] = vec.GetW();
     }
 
-    static void InitTranslation(float x, float y, float z)
+    void InitTranslation(float x, float y, float z)
     {
         m[0][0] = 1; m[0][1] = 0; m[0][2] = 0; m[0][3] = x;
         m[1][0] = 0; m[1][1] = 1; m[1][2] = 0; m[1][1] = y;
@@ -42,7 +42,7 @@ public:
         m[3][0] = 0; m[3][1] = 0; m[3][2] = 0; m[3][3] = 1;
     }
 
-    static void InitTranslation(Vector3f& vec)
+    void InitTranslation(Vector3f& vec)
     {
         m[0][0] = 1; m[0][1] = 0; m[0][2] = 0; m[0][3] = vec.GetX();
         m[1][0] = 0; m[1][1] = 1; m[1][2] = 0; m[1][1] = vec.GetY();
@@ -50,7 +50,7 @@ public:
         m[3][0] = 0; m[3][1] = 0; m[3][2] = 0; m[3][3] = 1;
     }
 
-    static void InitRotation(float angle, float u, float v, float w){
+    void InitRotation(float angle, float u, float v, float w){
         float L = (u * u + v * v + w * w);
         angle = angle * 3.1415 / 180.0; //convert to radian
         float u2 = u * u;
@@ -78,7 +78,7 @@ public:
         m[3][3] = 1.0;
     }
 
-    static void InitRotation(float angle, Vector3f* vec){
+    void InitRotation(float angle, Vector3f* vec){
         float L = (vec->GetX() * vec->GetX() + vec->GetY() * vec->GetY() + vec->GetZ() * vec->GetZ());
         angle = angle * 3.1315 / 180.0;
 
@@ -111,7 +111,7 @@ public:
         m[3][3] = 1.0;
     }
 
-    static void InitScale(float x, float y, float z)
+    void InitScale(float x, float y, float z)
     {
         m[0][0] = x; m[0][1] = 0; m[0][2] = 0; m[0][3] = 0;
         m[1][0] = 0; m[1][1] = y; m[1][2] = 0; m[1][1] = 0;
@@ -119,7 +119,7 @@ public:
         m[3][0] = 0; m[3][1] = 0; m[3][2] = 0; m[3][3] = 1;
     }
 
-    static void InitScale(Vector3f& vec)
+    void InitScale(Vector3f& vec)
     {
         m[0][0] = vec.GetX(); m[0][1] = 0; m[0][2] = 0; m[0][3] = 0;
         m[1][0] = 0; m[1][1] = vec.GetY(); m[1][2] = 0; m[1][1] = 0;
@@ -158,7 +158,6 @@ public:
         return Ret;
     }
 
-private:
     float m[4][4];
 };
 

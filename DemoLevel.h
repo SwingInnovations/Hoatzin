@@ -3,6 +3,7 @@
 
 #include "Utility/GameState.h"
 #include "Utility/Mesh.h"
+#include "Utility/Transform.h"
 #include "Utility/Math/Vector.h"
 #include "Utility/Vertex.h"
 #include "Graphics/Texture.h"
@@ -22,15 +23,17 @@ public:
 		};
 
 		Vertex2D_UV verts2[3] = {
-				Vertex2D_UV(Vector3f(0.0, 0.5, 0.0), Vector2f(0.0, 0.0)),
-				Vertex2D_UV(Vector3f(0.5, -0.5, 0.0), Vector2f(1.0, 1.0)),
-				Vertex2D_UV(Vector3f(-0.5, -0.5, 0.0), Vector2f(0.0, 1.0))
+				Vertex2D_UV(Vector3f(0.0, 0.5, 0.0), Vector2f(0.5, 1.0)),
+				Vertex2D_UV(Vector3f(0.5, -0.5, 0.0), Vector2f(1.0, 0.0)),
+				Vertex2D_UV(Vector3f(-0.5, -0.5, 0.0), Vector2f(0.0, 0.0))
 		};
 
 		mMesh = new Mesh(verts2, (sizeof(verts2)/sizeof(verts2[0])));
 		mesh = new Mesh2(verts, (sizeof(verts) / sizeof(verts[0])));
 		shader = new Shader("basicShader");
 		tex = new Texture("grid.png");
+		transform = new Transform();
+
 	}
 
 	void Update(AppWindow& app, int delta){
@@ -39,6 +42,7 @@ public:
 
 	void Render(){
 		shader->Bind();
+		shader->Update(*transform);
 		tex->bind(0);
 		mMesh->Draw();
 	}
@@ -52,6 +56,7 @@ private:
 	Mesh *mMesh;
 	Shader* shader;
 	Texture* tex;
+	Transform* transform;
 };
 
 
