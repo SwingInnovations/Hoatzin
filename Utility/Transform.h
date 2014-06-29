@@ -13,7 +13,7 @@ public:
         scale = Vector3f(1.0, 1.0, 1.0);
     }
 
-    const Matrix4f GetModel(){
+     	const Matrix4f GetModel(){
 
     	Matrix4f transMat, rotXMat,rotYMat, rotZMat, scaleMat;
     	transMat.InitTranslation(translate);
@@ -25,13 +25,15 @@ public:
         rotMat = rotZMat * rotYMat * rotXMat;
         ret = scaleMat * rotMat * transMat;
 
+        std::cout << "Translate Matrix: " << std::endl;
+        transMat.Print();
+        std::cout << "Rotate Matrix: " << std::endl;
+        rotMat.Print();
+        std::cout << "Scale Matrix: " << std::endl;
+        scaleMat.Print();
 
-        for(unsigned int i = 0; i < 4; i++){
-        	for(unsigned int j = 0; j < 4; j++){
-        		std::cout << ret.m[i][j] << " ";
-        	}
-        	std::cout << " " << std::endl;
-        }
+        std::cout << "Model Matrix: " << std::endl;
+        ret.Print();
 
         return ret;
     }

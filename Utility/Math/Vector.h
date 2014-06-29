@@ -3,14 +3,15 @@
 #define VECTOR_H_
 
 #include <math.h>
+#include <iostream>
 
 class Vector2f;
 
 class Vector2f{
 public:
 	Vector2f(){
-		x = 0;
-		y = 0;
+		x = 0.0;
+		y = 0.0;
 	}
 
 	Vector2f(const float _x, const float _y){
@@ -28,6 +29,11 @@ public:
 		x /= GetLength();
 		y /= GetLength();
 		return *this;
+	}
+
+	void Print(){
+		std::cout << "X: " << this->x << std::endl;
+		std::cout << "Y: " << this->y << std::endl;
 	}
 
 	const float GetX(){ return x; }
@@ -65,9 +71,9 @@ private:
 class Vector3f{
 public:
 	Vector3f(){
-		x = 0;
-		y = 0;
-		z = 0;
+		x = 0.0;
+		y = 0.0;
+		z = 0.0;
 	}
 
 	Vector3f(const float _x, const float _y, const float _z){
@@ -97,13 +103,19 @@ public:
 		return Vector3f(_x, _y, _z);
 	}
 
+	void Print(){
+		std::cout << "X: " << this->x << std::endl;
+		std::cout << "Y: " << this->y << std::endl;
+		std::cout << "Z: " << this->z << std::endl;
+	}
+
 	void SetX(const float _x){this->x = _x;}
 	void SetY(const float _y){this->y = _y;}
 	void SetZ(const float _z){this->z = _z;}
 
-	float GetX(){ return x; }
-	float GetY(){ return y; }
-	float GetZ(){ return z; }
+	float GetX(){ return this->x; }
+	float GetY(){ return this->y; }
+	float GetZ(){ return this->z; }
 
 	const Vector3f operator+(const Vector3f& vec){
 		const float _x = this->x + vec.x;
@@ -142,31 +154,38 @@ private:
 class Vector4f{
 public:
     Vector4f(){
-    	x = 0;
-    	y = 0;
-    	z = 0;
-    	w = 0;
+    	x = 0.0;
+    	y = 0.0;
+    	z = 0.0;
+    	w = 0.0;
     }
     Vector4f(float _x, float _y, float _z, float _w)
     {
-        x = _x;
-        y = _y;
-        z = _z;
-        w = _w;
+        this->x = _x;
+        this->y = _y;
+        this->z = _z;
+        this->w = _w;
     }
 
     Vector4f(const Vector4f& vec)
     {
-        x = vec.x;
-        y = vec.y;
-        z = vec.z;
-        w = vec.w;
+        this->x = vec.x;
+        this->y = vec.y;
+        this->z = vec.z;
+        this->w = vec.w;
     }
 
-    void setX(float _x){ x = _x; }
-    void setY(float _y){ y = _y; }
-    void setZ(float _z){ z = _z; }
-    void setW(float _w){ w = _w; }
+	void Print(){
+		std::cout << "X: " << this->x << std::endl;
+		std::cout << "Y: " << this->y << std::endl;
+		std::cout << "Z: " << this->z << std::endl;
+		std::cout << "W: " << this->w << std::endl;
+	}
+
+    void setX(float _x){ this->x = _x; }
+    void setY(float _y){ this->y = _y; }
+    void setZ(float _z){ this->z = _z; }
+    void setW(float _w){ this->w = _w; }
 
     double Dot(const Vector4f& other)
     {

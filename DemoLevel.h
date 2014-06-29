@@ -1,6 +1,8 @@
 #ifndef DEMOLEVEL_H_
 #define DEMOLEVEL_H_
 
+#include <cmath>
+
 #include "Utility/GameState.h"
 #include "Utility/Mesh.h"
 #include "Utility/Transform.h"
@@ -28,6 +30,8 @@ public:
 				Vertex2D_UV(Vector3f(-0.5, -0.5, 0.0), Vector2f(0.0, 0.0))
 		};
 
+		test = Vector3f(0.5, 2.5, 9.8);
+
 		mMesh = new Mesh(verts2, (sizeof(verts2)/sizeof(verts2[0])));
 		mesh = new Mesh2(verts, (sizeof(verts) / sizeof(verts[0])));
 		shader = new Shader("basicShader");
@@ -37,6 +41,13 @@ public:
 	}
 
 	void Update(AppWindow& app, int delta){
+		float posdif = 0.0;
+		posdif++;
+		transform->SetTranslateX(cos(posdif));
+		std::cout << "Updating" << std::endl;
+
+		std::cout << "Test Vector" << std::endl;
+		test.Print();
 
 	}
 
@@ -57,6 +68,7 @@ private:
 	Shader* shader;
 	Texture* tex;
 	Transform* transform;
+	Vector3f test;
 };
 
 
