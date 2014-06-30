@@ -30,32 +30,56 @@ public:
 				Vertex2D_UV(Vector3f(-0.5, -0.5, 0.0), Vector2f(0.0, 0.0))
 		};
 
-		test = Vector3f(0.5, 2.5, 9.8);
+		Vertex2D_UV vert3[3] = {
+				Vertex2D_UV(Vector3f(0.0, -0.55, 0.0), Vector2f(0.5, 1.0)),
+				Vertex2D_UV(Vector3f(0.3, -0.8, 0.0), Vector2f(1.0, 0.0)),
+				Vertex2D_UV(Vector3f(-0.3, -0.8, 0.0), Vector2f(0.0, 0.0)),
+		};
 
 		mMesh = new Mesh(verts2, (sizeof(verts2)/sizeof(verts2[0])));
+		fMesh = new Mesh(vert3, sizeof(vert3)/sizeof(vert3[0]));
 		mesh = new Mesh2(verts, (sizeof(verts) / sizeof(verts[0])));
 		shader = new Shader("basicShader");
 		tex = new Texture("grid.png");
+		tex2 = new Texture("flower.jpg");
 		transform = new Transform();
+		rot = 0;
+		rot2 = 0;
+		rotAmt = 0;
 
 	}
 
-	void Update(AppWindow& app, int delta){
-		float posdif = 0.0;
-		posdif++;
-		transform->SetTranslateX(cos(posdif));
-		std::cout << "Updating" << std::endl;
+	void UpdateAuto(AppWindow& app, int delta){
+		rot2+= 0.0022 * delta;
+		transform->SetRotateX(rot2);
+		transform->SetRotateZ(rot2);
+	}
 
-		std::cout << "Test Vector" << std::endl;
-		test.Print();
-
+	void UpdateInput(AppWindow& app, int delta){
+		if(app.GetInput().isKeyDown(KEY::KEY_A)){
+			rot-= 0.00025f * delta;
+		}
+		if(app.GetInput().isKeyDown(KEY::KEY_D)){
+			rot+= 0.00025f * delta;
+		}
+		if(app.GetInput().isKeyDown(KEY::KEY_W)){
+			rot2-= 0.025f * delta;
+		}
+		if(app.GetInput().isKeyDown(KEY::KEY_S)){
+			rot2+= 0.025f * delta;
+		}
+		transform->SetTranslateX(rot);
 	}
 
 	void Render(){
-		shader->Bind();
 		shader->Update(*transform);
+		shader->Bind();
 		tex->bind(0);
 		mMesh->Draw();
+
+		tex2->bind(0);
+		fMesh->Draw();
+
 	}
 
 	int GetID(){
@@ -65,10 +89,15 @@ private:
 	int id;
 	Mesh2* mesh;
 	Mesh *mMesh;
+	Mesh *fMesh;
 	Shader* shader;
 	Texture* tex;
+	Texture* tex2;
 	Transform* transform;
 	Vector3f test;
+	float rot;
+	float rot2;
+	float rotAmt;
 };
 
 

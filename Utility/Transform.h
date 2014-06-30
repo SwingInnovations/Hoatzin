@@ -15,24 +15,19 @@ public:
 
      	const Matrix4f GetModel(){
 
-    	Matrix4f transMat, rotXMat,rotYMat, rotZMat, scaleMat;
+    	Matrix4f transMat, rotXMat, rotYMat, rotZMat, scaleMat;
+
     	transMat.InitTranslation(translate);
     	rotXMat.InitRotation(rotate.GetX(), new Vector3f(1.0, 0.0, 0.0));
     	rotYMat.InitRotation(rotate.GetY(), new Vector3f(0.0, 1.0, 0.0));
-    	rotZMat.InitRotation(rotate.GetZ(), new Vector3f(0.0, 1.0, 0.0));
+    	rotZMat.InitRotation(rotate.GetZ(), new Vector3f(0.0, 0.0, 1.0));
     	scaleMat.InitScale(scale);
+
         Matrix4f ret, rotMat;
         rotMat = rotZMat * rotYMat * rotXMat;
+
         ret = scaleMat * rotMat * transMat;
 
-        std::cout << "Translate Matrix: " << std::endl;
-        transMat.Print();
-        std::cout << "Rotate Matrix: " << std::endl;
-        rotMat.Print();
-        std::cout << "Scale Matrix: " << std::endl;
-        scaleMat.Print();
-
-        std::cout << "Model Matrix: " << std::endl;
         ret.Print();
 
         return ret;

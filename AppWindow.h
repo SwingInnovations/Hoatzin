@@ -30,14 +30,17 @@ public:
 protected:
 	bool Running;
 	void Init();
-	void Update(SDL_Event &e);
+	void UpdateInput(SDL_Event &e);
+	void UpdateAuto();
 	void Render();
+	void CalcDelta();
 private:
 	SDL_Window* mWindow;
 	SDL_GLContext mContext;
 	SDL_Event e;
 	Input input;
 	int mCurrentState;
+	Uint32 delta, oldTime, newTime;
 	std::vector<GameState*> state;
 };
 

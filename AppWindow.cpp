@@ -14,6 +14,8 @@ AppWindow::AppWindow() {
 
 AppWindow::AppWindow(const std::string title, int WIDTH, int HEIGHT){
 	//Setup Window
+	oldTime = 0;
+	newTime = SDL_GetTicks();
 	if(SDL_Init(SDL_INIT_EVERYTHING) == -1){
 		std::cout << "Error 401: Failed to load SDL: " << SDL_GetError() << std::endl;
 	}else{
@@ -55,13 +57,27 @@ void AppWindow::Init(){
 	}
 }
 
-void AppWindow::Update(SDL_Event& e){
+void AppWindow::UpdateInput(SDL_Event& e){
 	input.Poll(e);
 	if(input.isCloseRequested()){
 		SetRunning(false);
 	}
+
 	if(!state.empty()){
-		state.at(mCurrentState)->Update(*this, 0);
+		state.at(mCurrentState)->UpdateInput(*this, delta);
+	}
+}
+
+void AppWindow::UpdateAuto(){
+	if(!state.empty()){
+		state.at(mCurrentState)->UpdateAuto(*this, delta);
+	}
+}
+
+void AppWindow::CalcDelta(){
+	if(newTime > oldTime){
+		delta = newTime - oldTime;
+		oldTime = newTime;
 	}
 }
 
@@ -80,9 +96,12 @@ void AppWindow::Start(){
 	SetRunning(true);
 	Init();
 	while(Running){
+		CalcDelta();
 		while(SDL_PollEvent(&e)){
-			Update(e);
+			UpdateInput(e);
 		}
+
+		UpdateAuto();
 		Render();
 	}
 }

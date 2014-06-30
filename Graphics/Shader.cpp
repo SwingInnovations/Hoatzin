@@ -49,7 +49,7 @@ void Shader::Update(Transform& trans){
 
 	transform = trans.GetModel();
 
-	glUniformMatrix4fv(uniform, 1, GL_FALSE, &transform.m[0][0]);
+	glUniformMatrix4fv(uniform, 1, GL_TRUE, &transform.m[0][0]);
 }
 
 void Shader::CheckShaderStatus(GLuint shaderID, GLuint flag, bool isProgram, const std::string& errorMessage){
