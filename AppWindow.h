@@ -27,6 +27,10 @@ public:
 	void EnterState(int id){mCurrentState = id;}
 	Input GetInput(){ return input; }
 	void SetRunning(bool val){Running = val;}
+
+	int GetWidth(){return WIDTH;}
+	int GetHeight(){return HEIGHT;}
+
 protected:
 	bool Running;
 	void Init();
@@ -39,6 +43,7 @@ private:
 	SDL_GLContext mContext;
 	SDL_Event e;
 	Input input;
+	unsigned int WIDTH, HEIGHT;
 	int mCurrentState;
 	Uint32 delta, oldTime, newTime;
 	std::vector<GameState*> state;

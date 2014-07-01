@@ -13,8 +13,6 @@ public:
 		SceneGraph.push_back(NewObject);
 	}
 
-
-
 private:
 	std::vector<SWObject*> SceneGraph;
 };

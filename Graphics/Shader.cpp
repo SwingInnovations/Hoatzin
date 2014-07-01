@@ -52,6 +52,14 @@ void Shader::Update(Transform& trans){
 	glUniformMatrix4fv(uniform, 1, GL_TRUE, &transform.m[0][0]);
 }
 
+void Shader::Update(Transform& trans, Camera& cam){
+	Matrix4f transform, camera, ret;
+	transform = trans.GetModel();
+	camera = cam.GetViewProjection();
+	ret = transform * camera;
+	glUniformMatrix4fv(uniform, 1, GL_TRUE, &ret.m[0][0]);
+}
+
 void Shader::CheckShaderStatus(GLuint shaderID, GLuint flag, bool isProgram, const std::string& errorMessage){
 	GLint success = 0;
 	GLchar error[1024] = {0};

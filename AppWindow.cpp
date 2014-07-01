@@ -16,6 +16,8 @@ AppWindow::AppWindow(const std::string title, int WIDTH, int HEIGHT){
 	//Setup Window
 	oldTime = 0;
 	newTime = SDL_GetTicks();
+	this->WIDTH = WIDTH;
+	this->HEIGHT = HEIGHT;
 	if(SDL_Init(SDL_INIT_EVERYTHING) == -1){
 		std::cout << "Error 401: Failed to load SDL: " << SDL_GetError() << std::endl;
 	}else{

@@ -10,6 +10,7 @@
 #include "Utility/Vertex.h"
 #include "Graphics/Texture.h"
 #include "Graphics/Shader.h"
+#include "Graphics/Camera.h"
 
 class DemoLevel : public GameState{
 public:
@@ -36,6 +37,9 @@ public:
 				Vertex2D_UV(Vector3f(-0.3, -0.8, 0.0), Vector2f(0.0, 0.0)),
 		};
 
+		camPos = Vector3f(0.0, 0.0, 0.0);
+		camera = new Camera(camPos, 80, 1024, 768, -0.5, 1000);
+
 		mMesh = new Mesh(verts2, (sizeof(verts2)/sizeof(verts2[0])));
 		fMesh = new Mesh(vert3, sizeof(vert3)/sizeof(vert3[0]));
 		mesh = new Mesh2(verts, (sizeof(verts) / sizeof(verts[0])));
@@ -46,12 +50,11 @@ public:
 		rot = 0;
 		rot2 = 0;
 		rotAmt = 0;
-
 	}
 
 	void UpdateAuto(AppWindow& app, int delta){
 		rot2+= 0.0022 * delta;
-		transform->SetRotateX(rot2);
+		rotAmt = cos(rot2);
 		transform->SetRotateZ(rot2);
 	}
 
@@ -94,10 +97,12 @@ private:
 	Texture* tex;
 	Texture* tex2;
 	Transform* transform;
+	Camera* camera;
 	Vector3f test;
 	float rot;
 	float rot2;
 	float rotAmt;
+	Vector3f camPos;
 };
 
 

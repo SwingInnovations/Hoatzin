@@ -7,6 +7,7 @@
 #include <iostream>
 #include "../Utility/Transform.h"
 #include "../Utility/Math/Matrix.h"
+#include "Camera.h"
 
 class Shader {
 public:
@@ -14,6 +15,7 @@ public:
 	Shader(const std::string& filePath);
 	void Bind();
 	void Update(Transform& trans);
+	void Update(Transform& trans, Camera& cam);
 	virtual ~Shader();
 
 private:

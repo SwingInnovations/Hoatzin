@@ -5,6 +5,9 @@
 #include <math.h>
 #include "Vector.h"
 
+#define ToRadian(x) (float)(((x) * M_PI / 180.0f))
+#define ToDegree(x) (float)(((x) * 180.0f / M_PI))
+
 class Vector3f;
 class Vector4f;
 
@@ -41,7 +44,7 @@ public:
 
     void InitIdentity(){
     	m[0][0] = 1.0; m[0][1] = 0.0; m[0][2] = 0.0; m[0][3] = 0.0;
-    	m[1][0] = 0.0; m[1][1] = 2.0; m[1][2] = 0.0; m[1][3] = 0.0;
+    	m[1][0] = 0.0; m[1][1] = 1.0; m[1][2] = 0.0; m[1][3] = 0.0;
     	m[2][0] = 0.0; m[2][1] = 0.0; m[2][2] = 1.0; m[2][3] = 0.0;
     	m[3][0] = 0.0; m[3][1] = 0.0; m[3][2] = 0.0; m[3][3] = 1.0;
     }
@@ -137,6 +140,31 @@ public:
         m[1][0] = 0.0; m[1][1] = vec.GetY(); m[1][2] = 0.0; m[1][3] = 0.0;
         m[2][0] = 0.0; m[2][1] = 0.0; m[2][2] = vec.GetZ(); m[2][3] = 0.0;
         m[3][0] = 0.0; m[3][1] = 0; m[3][2] = 0.0; m[3][3] = 1.0;
+    }
+
+    void InitPerspectiveProjection(float FOV, float WIDTH, float HEIGHT, float zNear, float zFar){
+    	const float AspectRatio = WIDTH / HEIGHT;
+    	const float zRange = zNear - zFar;
+    	const float TanHalfFOV = tanf(ToRadian(FOV/2.0f));
+
+    	m[0][0] = 1.0/(TanHalfFOV*AspectRatio); m[0][1] = 0.0; m[0][2] = 0.0; m[0][3] = 0.0;
+    	m[1][0] = 0.0; m[1][1] = 1.0/TanHalfFOV; m[1][2] = 0.0; m[1][3] = 0.0;
+    	m[2][0] = 0.0; m[2][1] = 0.0; m[2][2] = (-zNear - zFar)/zRange; m[2][3] = 2.0 * zFar*zNear/zRange;
+    	m[3][0] = 0.0; m[3][1] = 0.0; m[3][2] = 1.0; m[3][3] = 0.0;
+    }
+
+    void InitCamera(Vector3f& target, Vector3f& up){
+    	Vector3f I = target;
+    	I.Normalize();
+    	Vector3f U = up;
+    	U.Normalize();
+    	U = U.cross(I);
+    	Vector3f V = I.cross(U);
+
+    	m[0][0] = U.GetX(); m[0][1] = U.GetY(); m[0][2] = U.GetZ(); m[0][3] = 0.0;
+    	m[1][0] = V.GetX(); m[1][1] = V.GetY(); m[1][2] = V.GetZ(); m[1][3] = 0.0;
+    	m[2][0] = I.GetX(); m[2][1] = I.GetY(); m[2][2] = I.GetZ(); m[2][3] = 0.0;
+    	m[3][0] = 0.0; m[3][1] = 0.0; m[3][2] = 0.0; m[3][3] = 1.0;
     }
 
     float get(int x, int y)
