@@ -28,8 +28,6 @@ public:
 
         ret = scaleMat * rotMat * transMat;
 
-        ret.Print();
-
         return ret;
     }
 

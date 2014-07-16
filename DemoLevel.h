@@ -37,8 +37,8 @@ public:
 				Vertex2D_UV(Vector3f(-0.3, -0.8, 0.0), Vector2f(0.0, 0.0)),
 		};
 
-		camPos = Vector3f(0.0, 0.0, 0.0);
-		camera = new Camera(camPos, 80, 1024, 768, -0.5, 1000);
+		camPos = Vector3f(0.0, 0.0, 2.0);
+		camera = new Camera(camPos, 66.0f, 1024.0f, 768.0f, 1.0f, 1000.0f);
 
 		mMesh = new Mesh(verts2, (sizeof(verts2)/sizeof(verts2[0])));
 		fMesh = new Mesh(vert3, sizeof(vert3)/sizeof(vert3[0]));
@@ -54,8 +54,9 @@ public:
 
 	void UpdateAuto(AppWindow& app, int delta){
 		rot2+= 0.0022 * delta;
-		rotAmt = cos(rot2);
+		rotAmt-= 0.000022 * delta;
 		transform->SetRotateZ(rot2);
+		transform->SetTranslateZ(rotAmt);
 	}
 
 	void UpdateInput(AppWindow& app, int delta){
@@ -75,7 +76,7 @@ public:
 	}
 
 	void Render(){
-		shader->Update(*transform);
+		shader->Update(*transform, *camera);
 		shader->Bind();
 		tex->bind(0);
 		mMesh->Draw();

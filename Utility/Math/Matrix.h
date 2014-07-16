@@ -143,28 +143,46 @@ public:
     }
 
     void InitPerspectiveProjection(float FOV, float WIDTH, float HEIGHT, float zNear, float zFar){
-    	const float AspectRatio = WIDTH / HEIGHT;
+    	const float ar = WIDTH / HEIGHT;
     	const float zRange = zNear - zFar;
-    	const float TanHalfFOV = tanf(ToRadian(FOV/2.0f));
+    	const float tanHalfFOV = tanf(ToRadian(FOV/2.0));
 
-    	m[0][0] = 1.0/(TanHalfFOV*AspectRatio); m[0][1] = 0.0; m[0][2] = 0.0; m[0][3] = 0.0;
-    	m[1][0] = 0.0; m[1][1] = 1.0/TanHalfFOV; m[1][2] = 0.0; m[1][3] = 0.0;
-    	m[2][0] = 0.0; m[2][1] = 0.0; m[2][2] = (-zNear - zFar)/zRange; m[2][3] = 2.0 * zFar*zNear/zRange;
-    	m[3][0] = 0.0; m[3][1] = 0.0; m[3][2] = 1.0; m[3][3] = 0.0;
+    	m[0][0] = 1.0f / (tanHalfFOV * ar); m[0][1] = 0.0; m[0][2] = 0.0; m[0][3] = 0.0;
+    	m[1][0] = 0.0; m[1][1] = 1.0f / tanHalfFOV; m[1][2] = 0.0; m[1][3] = 0.0;
+    	m[2][0] = 0.0; m[2][1] = 0.0; m[2][2] = -zFar/(zFar-zNear); m[2][3] = -zFar * zNear/(zFar - zNear);
+    	m[3][0] = 0.0; m[3][1] = 0.0; m[3][2] = -1.0f; m[3][3] = 0.0;
+
     }
 
     void InitCamera(Vector3f& target, Vector3f& up){
-    	Vector3f I = target;
-    	I.Normalize();
+    	Vector3f N = target;
+    	N = N.Normalize();
     	Vector3f U = up;
-    	U.Normalize();
-    	U = U.cross(I);
-    	Vector3f V = I.cross(U);
+    	U = U.Normalize();
+    	U = U.cross(N);
+    	Vector3f V;
+    	V = N.cross(U);
 
     	m[0][0] = U.GetX(); m[0][1] = U.GetY(); m[0][2] = U.GetZ(); m[0][3] = 0.0;
     	m[1][0] = V.GetX(); m[1][1] = V.GetY(); m[1][2] = V.GetZ(); m[1][3] = 0.0;
-    	m[2][0] = I.GetX(); m[2][1] = I.GetY(); m[2][2] = I.GetZ(); m[2][3] = 0.0;
-    	m[3][0] = 0.0; m[3][1] = 0.0; m[3][2] = 0.0; m[3][3] = 1.0;
+    	m[2][0] = N.GetX(); m[2][1] = N.GetY(); m[2][2] = N.GetZ(); m[2][3] = 0.0;
+    	m[3][0] = 0.0; 		m[3][1] = 0.0;		m[3][2] = 0.0; 		m[3][3] = 1.0;
+    }
+
+    Matrix4f Normalize(){
+    	Matrix4f ret;
+    	float length[4];
+    	length[0] = m[0][0] + m[1][0] + m[2][0] + m[3][0];
+    	length[1] = m[0][1] + m[1][1] + m[2][1] + m[3][1];
+    	length[2] = m[0][2] + m[1][2] + m[2][2] + m[3][2];
+    	length[3] = m[0][3] + m[1][3] + m[2][3] + m[3][3];
+
+    	ret.m[0][0] = this->m[0][0]/length[0]; ret.m[0][1] = this->m[0][1]/length[1]; ret.m[0][2] = this->m[0][2]/length[2]; ret.m[0][3] = this->m[0][3]/length[3];
+    	ret.m[1][0] = this->m[1][0]/length[0]; ret.m[1][1] = this->m[1][1]/length[1]; ret.m[1][2] = this->m[1][2]/length[2]; ret.m[1][3] = this->m[1][3]/length[3];
+    	ret.m[2][0] = this->m[2][0]/length[0]; ret.m[2][1] = this->m[2][1]/length[1]; ret.m[2][2] = this->m[2][2]/length[2]; ret.m[2][3] = this->m[2][3]/length[3];
+    	ret.m[3][0] = this->m[3][0]/length[0]; ret.m[3][1] = this->m[3][1]/length[1]; ret.m[3][2] = this->m[3][2]/length[2]; ret.m[3][3] = this->m[3][3]/length[3];
+
+    	return ret;
     }
 
     float get(int x, int y)
