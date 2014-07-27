@@ -37,7 +37,7 @@ public:
 				Vertex2D_UV(Vector3f(-0.3, -0.8, 0.0), Vector2f(0.0, 0.0)),
 		};
 
-		camPos = Vector3f(0.0, 0.0, 2.0);
+		camPos = Vector3f(0.0, 0.0, -2.0);
 		camera = new Camera(camPos, 66.0f, 1024.0f, 768.0f, 1.0f, 1000.0f);
 
 		mMesh = new Mesh(verts2, (sizeof(verts2)/sizeof(verts2[0])));
@@ -54,25 +54,17 @@ public:
 
 	void UpdateAuto(AppWindow& app, int delta){
 		rot2+= 0.0022 * delta;
-		rotAmt-= 0.000022 * delta;
-		transform->SetRotateZ(rot2);
-		transform->SetTranslateZ(rotAmt);
+//		rotAmt-= 0.000022 * delta;
+//		transform->SetRotateZ(rot2);
+		transform->SetRotateZ(rot2*3.0);
+		transform->SetTranslateZ(-3.0);
 	}
 
 	void UpdateInput(AppWindow& app, int delta){
-		if(app.GetInput().isKeyDown(KEY::KEY_A)){
-			rot-= 0.00025f * delta;
-		}
-		if(app.GetInput().isKeyDown(KEY::KEY_D)){
-			rot+= 0.00025f * delta;
-		}
-		if(app.GetInput().isKeyDown(KEY::KEY_W)){
-			rot2-= 0.025f * delta;
-		}
-		if(app.GetInput().isKeyDown(KEY::KEY_S)){
-			rot2+= 0.025f * delta;
-		}
-		transform->SetTranslateX(rot);
+		Vector2f mouse;
+		mouse = app.GetInput().getMouseCoord();
+		camera->SetYaw(-mouse.GetX());
+		camera->SetPitch(mouse.GetY());
 	}
 
 	void Render(){

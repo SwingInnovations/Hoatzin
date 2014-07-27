@@ -50,9 +50,14 @@ public:
 		mUp = Vector3f(0.0, 1.0, 0.0);
 	}
 
-	void SetTranslateX(const float _x){
-		this->transform.SetTranslateX(_x);
-	}
+	void SetTranslateX(const float _x){this->transform.SetTranslateX(_x);}
+	void SetTranslateY(const float _y){this->transform.SetTranslateY(_y);}
+	void SetTranslateZ(const float _z){this->transform.SetTranslateZ(_z);}
+//	void SetRotateX(const float _x){this->transform.SetRotateX(_x);}
+//	void SetRotateY(const float _y){this->transform.SetRotateY(_y);}
+//	void SetRotateZ(const float _z){this->transform.SetRotateZ(_z);}
+	void SetYaw(const float _val){this->transform.SetRotateY(_val);}
+	void SetPitch(const float _val){this->transform.SetRotateX(_val);}
 
 	const Matrix4f GetViewProjection(){
 		Matrix4f View, Camera, Perspective;

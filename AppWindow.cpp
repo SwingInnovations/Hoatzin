@@ -108,6 +108,14 @@ void AppWindow::Start(){
 	}
 }
 
+void AppWindow::ShowCursor(bool val){
+	if(val){
+		SDL_ShowCursor(SDL_ENABLE);
+	}else{
+		SDL_ShowCursor(SDL_DISABLE);
+	}
+}
+
 AppWindow::~AppWindow() {
 	SDL_DestroyWindow(mWindow);
 	SDL_GL_DeleteContext(mContext);

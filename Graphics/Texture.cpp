@@ -43,9 +43,6 @@ Texture::Texture(const std::string& fileName){
 		std::cout << "Invalid Texture!" << std::endl;
 	}
 
-	std::cout << "nOfColor: " << nOfColors << std::endl;
-	std::cout << "Mode: " << GL_RGB << std::endl;
-
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 

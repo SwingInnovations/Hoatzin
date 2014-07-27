@@ -27,6 +27,7 @@ public:
 	void EnterState(int id){mCurrentState = id;}
 	Input GetInput(){ return input; }
 	void SetRunning(bool val){Running = val;}
+	void ShowCursor(bool val);
 
 	int GetWidth(){return WIDTH;}
 	int GetHeight(){return HEIGHT;}

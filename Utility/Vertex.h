@@ -6,6 +6,17 @@
 class Vector3f;
 class Vector2f;
 
+
+class Vertex{
+public:
+	enum VertType{VERT_2D, VERT_2DUV, VERT_3D, VERT_3DUV};
+	Vertex();
+	void SetVertType(VertType vertType){this->vertType = vertType;}
+private:
+	VertType vertType;
+
+};
+
 class Vertex2D_UV{
 public:
 	Vertex2D_UV(const Vector3f& vert, const Vector2f& tex){

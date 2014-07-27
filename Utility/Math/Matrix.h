@@ -144,7 +144,6 @@ public:
 
     void InitPerspectiveProjection(float FOV, float WIDTH, float HEIGHT, float zNear, float zFar){
     	const float ar = WIDTH / HEIGHT;
-    	const float zRange = zNear - zFar;
     	const float tanHalfFOV = tanf(ToRadian(FOV/2.0));
 
     	m[0][0] = 1.0f / (tanHalfFOV * ar); m[0][1] = 0.0; m[0][2] = 0.0; m[0][3] = 0.0;
