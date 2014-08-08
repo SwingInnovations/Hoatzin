@@ -28,9 +28,12 @@ public:
 	Input GetInput(){ return input; }
 	void SetRunning(bool val){Running = val;}
 	void ShowCursor(bool val);
+	void SetTargetFPS(float val){fps = val;}
 
 	int GetWidth(){return WIDTH;}
 	int GetHeight(){return HEIGHT;}
+
+	Uint32 GetFPS(){return fps;}
 
 protected:
 	bool Running;
@@ -46,7 +49,7 @@ private:
 	Input input;
 	unsigned int WIDTH, HEIGHT;
 	int mCurrentState;
-	Uint32 delta, oldTime, newTime;
+	Uint32 delta, oldTime, newTime, fps;
 	std::vector<GameState*> state;
 };
 

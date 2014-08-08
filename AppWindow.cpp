@@ -78,8 +78,12 @@ void AppWindow::UpdateAuto(){
 
 void AppWindow::CalcDelta(){
 	if(newTime > oldTime){
-		delta = newTime - oldTime;
 		oldTime = newTime;
+		delta = newTime - oldTime;
+		Uint32 targetInterval = (Uint32)(1.0/this->GetFPS());
+		if(delta < targetInterval){
+			delta = targetInterval;
+		}
 	}
 }
 

@@ -11,9 +11,14 @@
 #include "../Utility/Math/Matrix.h"
 #include "../Utility/Math/Vector.h"
 #include "../Utility/SWObject.h"
+#include "../AppWindow.h"
+
+class AppWindow;
 
 class Camera : public SWObject{
 public:
+	enum CameraType{Perspective, Orthographic};
+
 	Camera(){
 		this->position = Vector3f(0.0, 0.0, 0.0);
 		mFOV = 0.0;
@@ -21,8 +26,19 @@ public:
 		mHEIGHT = 0.0;
 		mZNear = 0.0;
 		mZFar = 0.0;
-
 	}
+
+	Camera(CameraType camType, AppWindow& app, Vector3f& pos, float FOV, float zNear, float zFar){
+		mCameraType = camType;
+		mWIDTH = app.GetWidth();
+		mHEIGHT = app.GetHeight();
+		mFOV = FOV;
+		mZNear = zNear;
+		mZFar = zFar;
+		mForward = Vector3f(0.0, 0.0, 1.0);
+		mUp = Vector3f(0.0, 1.0, 0.0);
+	}
+
 	Camera(Vector3f& pos, float FOV, float WIDTH, float HEIGHT, float zNear, float zFar){
 //		std::cout << " " << std::endl;
 //		mPerspective.InitPerspectiveProjection(FOV, WIDTH, HEIGHT, zNear, zFar);
@@ -67,6 +83,7 @@ public:
 		return View;
 ;	}
 private:
+	CameraType mCameraType;
 	Vector3f mForward;
 	Vector3f mUp;
 	float mFOV, mWIDTH, mHEIGHT, mZNear, mZFar;

@@ -53,18 +53,16 @@ public:
 	}
 
 	void UpdateAuto(AppWindow& app, int delta){
-		rot2+= 0.0022 * delta;
+		rot2+= 0.0025f * delta;
 //		rotAmt-= 0.000022 * delta;
 //		transform->SetRotateZ(rot2);
 		transform->SetRotateZ(rot2*3.0);
 		transform->SetTranslateZ(-3.0);
+		std::cout << "Delta: " << delta << std::endl;
 	}
 
 	void UpdateInput(AppWindow& app, int delta){
-		Vector2f mouse;
-		mouse = app.GetInput().getMouseCoord();
-		camera->SetYaw(-mouse.GetX());
-		camera->SetPitch(mouse.GetY());
+
 	}
 
 	void Render(){
