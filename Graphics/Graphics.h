@@ -5,6 +5,8 @@ class Graphics {
 public:
 	Graphics();
 	virtual ~Graphics();
+private:
+	bool legacyGraphicsInUse;
 };
 
 #endif /* GRAPHICS_H_ */

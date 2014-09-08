@@ -53,7 +53,7 @@ public:
 	}
 
 	void UpdateAuto(AppWindow& app, int delta){
-		rot2+= 0.0025f * delta;
+		rot2+= 0.025f * delta;
 //		rotAmt-= 0.000022 * delta;
 //		transform->SetRotateZ(rot2);
 		transform->SetRotateZ(rot2*3.0);

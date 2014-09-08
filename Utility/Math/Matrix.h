@@ -2,7 +2,7 @@
 #define MATRIX_H_
 
 #include <iostream>
-#include <math.h>
+#include "cmath"
 #include "Vector.h"
 
 #define ToRadian(x) (float)(((x) * M_PI / 180.0f))

@@ -6,6 +6,7 @@
 #include <iostream>
 
 class Vector2f;
+class Quaternion;
 
 class Vector2f{
 public:

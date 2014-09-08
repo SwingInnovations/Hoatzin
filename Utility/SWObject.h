@@ -5,6 +5,7 @@
 #include "Transform.h"
 #include "../Graphics/Shader.h"
 #include "../Graphics/Texture.h"
+#include "../Graphics/Graphics.h"
 
 class SWObject{
 public:
@@ -13,6 +14,9 @@ public:
 	Vector3f *Position(){return &this->position;}
 	Vector3f position;
 	Transform transform;
+	//Mesh mesh
+	//Shader shader
+	//Texture tex
 
 	void SetTranslate(Vector3f& vec){transform.SetTranslate(vec);}
 	void SetTranslateX(float _x){transform.SetTranslateX(_x);}
@@ -28,6 +32,8 @@ public:
 	void SetScaleX(float _x){transform.SetScaleX(_x);}
 	void SetScaleY(float _y){transform.SetScaleY(_y);}
 	void SetScaleZ(float _z){transform.SetScaleZ(_z);}
+
+	//void Draw(Graphics g);
 };
 
 
