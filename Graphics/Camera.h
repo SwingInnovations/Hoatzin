@@ -40,22 +40,6 @@ public:
 	}
 
 	Camera(Vector3f& pos, float FOV, float WIDTH, float HEIGHT, float zNear, float zFar){
-//		std::cout << " " << std::endl;
-//		mPerspective.InitPerspectiveProjection(FOV, WIDTH, HEIGHT, zNear, zFar);
-//		mPerspective.Print();
-//		std::cout << " " << std::endl;
-//		this->position = pos;
-//		mForward = Vector3f(0.0, 0.0, 1.0);
-//		mUp = Vector3f(0.0, 1.0, 0.0);
-//		mCameraProjection.InitCamera(mForward, mUp);
-//
-//		mCameraProjection.Print();
-//
-//		mViewProjection = mPerspective * this->transform.GetModel() * mCameraProjection;
-//
-//		std::cout << " " << std::endl;
-//		mViewProjection.Print();
-
 		mFOV = FOV;
 		mWIDTH = WIDTH;
 		mHEIGHT = HEIGHT;
@@ -69,11 +53,33 @@ public:
 	void SetTranslateX(const float _x){this->transform.SetTranslateX(_x);}
 	void SetTranslateY(const float _y){this->transform.SetTranslateY(_y);}
 	void SetTranslateZ(const float _z){this->transform.SetTranslateZ(_z);}
-//	void SetRotateX(const float _x){this->transform.SetRotateX(_x);}
-//	void SetRotateY(const float _y){this->transform.SetRotateY(_y);}
-//	void SetRotateZ(const float _z){this->transform.SetRotateZ(_z);}
+	void SetRotateX(const float _x){this->mRotX = _x;}
+	void SetRotateY(const float _y){this->mRotY = _y;}
+	void SetRotateZ(const float _z){this->mRotZ = _z;}
+
 	void SetYaw(const float _val){this->transform.SetRotateY(_val);}
 	void SetPitch(const float _val){this->transform.SetRotateX(_val);}
+
+	void Update(Input &input){
+		mRotX = input.getMouseCoord().GetX();
+		mRotY = input.getMouseCoord().GetY();
+
+		Vector3f vAxis(0.0f, 1.0f, 0.0f);
+
+		Vector3f view(1.0f, 0.0f, 0.0f);
+		view.Rotate(mRotX, vAxis);
+		view.Normalize();
+
+		Vector3f hAxis = vAxis.cross(view);
+		hAxis.Normalize();
+		view.Rotate(mRotY, hAxis);
+
+		mForward = view;
+		mForward.Normalize();
+
+		mUp = mForward.cross(hAxis);
+		mUp.Normalize();
+	}
 
 	const Matrix4f GetViewProjection(){
 		Matrix4f View, Camera, Perspective;
@@ -86,7 +92,7 @@ private:
 	CameraType mCameraType;
 	Vector3f mForward;
 	Vector3f mUp;
-	float mFOV, mWIDTH, mHEIGHT, mZNear, mZFar;
+	float mFOV, mWIDTH, mHEIGHT, mZNear, mZFar, mRotX, mRotY, mRotZ;
 };
 
 

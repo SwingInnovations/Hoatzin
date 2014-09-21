@@ -1,12 +1,13 @@
-
 #ifndef VECTOR_H_
 #define VECTOR_H_
 
-#include <math.h>
+#include <cmath>
 #include <iostream>
 
-class Vector2f;
 class Quaternion;
+class Vector2f;
+
+#define ToRadian(x) (float)(((x)* M_PI / 180.f))
 
 class Vector2f{
 public:
@@ -69,6 +70,8 @@ private:
 	float y;
 };
 
+class Quaternion;
+
 class Vector3f{
 public:
 	Vector3f(){
@@ -103,6 +106,8 @@ public:
 		float _z = this->x * other.y - this->y * other.x;
 		return Vector3f(_x, _y, _z);
 	}
+
+	void Rotate(float angle, Vector3f& axis);
 
 	void Print(){
 		std::cout << "X: " << this->x << std::endl;

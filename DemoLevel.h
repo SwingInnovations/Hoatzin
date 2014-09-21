@@ -56,13 +56,14 @@ public:
 		rot2+= 0.025f * delta;
 //		rotAmt-= 0.000022 * delta;
 //		transform->SetRotateZ(rot2);
-		transform->SetRotateZ(rot2*3.0);
+		//transform->SetRotateZ(rot2*3.0);
 		transform->SetTranslateZ(-3.0);
 		std::cout << "Delta: " << delta << std::endl;
 	}
 
 	void UpdateInput(AppWindow& app, int delta){
-
+		Input input = app.GetInput();
+		camera->Update(input);
 	}
 
 	void Render(){

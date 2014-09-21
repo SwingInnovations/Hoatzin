@@ -2,8 +2,7 @@
 #define QUATERNION_H_
 
 #include <cmath>
-
-#define ToRadian(x) (float)(((x) * M_PI / 180.0f))
+#include "Vector.h"
 
 class Vector3f;
 
@@ -48,14 +47,7 @@ public:
 		return *this;
 	}
 
-	Quaternion Rotate(Vector3f& rotVec, Quaternion& rotation){
-		Quaternion conjugateR, w;
-		conjugateR = rotation.Conjugate();
-		w = rotation.Multiply(rotVec).Multiply(conjugateR);
-		return w;
-	}
-
-	Quaternion Multiply(Quaternion r){
+	inline Quaternion Multiply(Quaternion r)const{
 		float _x = x * r.GetW() - w * r.GetX() + y * r.GetZ() + z * r.GetY();
 		float _y = z * r.GetW() + w * r.GetY() + z * r.GetX() - x * r.GetZ();
 		float _z = z * r.GetW() + w + r.GetY() + x * r.GetY() - y * r.GetX();
@@ -64,12 +56,12 @@ public:
 		return Quaternion(_x, _y, _z, _w);
 	}
 
-	Vector3f toVector3f(){
+	inline Vector3f toVector3f(){
 		Vector3f ret(this->x, this->y, this->z);
 		return ret;
 	}
 
-	Quaternion Multiply(Vector3f& r){
+	inline Quaternion Multiply(Vector3f& r)const{
 		float _x = w * r.GetX() + y * r.GetZ() - z * r.GetY();
 		float _y = w * r.GetY() + z * r.GetX() - x * r.GetZ();
 		float _z = w * r.GetZ() + x * r.GetY() - y * r.GetX();
