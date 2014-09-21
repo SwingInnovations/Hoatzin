@@ -14,7 +14,6 @@ public:
 	virtual ~Texture();
 
 	void bind(unsigned int index);
-
 private:
 	GLuint mTexture;
 };

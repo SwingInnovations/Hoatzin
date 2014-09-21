@@ -9,6 +9,9 @@
 #include "../Utility/Math/Matrix.h"
 #include "Camera.h"
 
+class SWObject;
+class Camera;
+
 class Shader {
 public:
 	Shader();

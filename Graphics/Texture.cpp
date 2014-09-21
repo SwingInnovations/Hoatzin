@@ -55,6 +55,7 @@ Texture::Texture(const std::string& fileName){
 
 	SDL_FreeSurface(image);
 	image = 0;
+	std::cout << "Generated Texture" << std::endl;
 }
 
 Texture::~Texture() {

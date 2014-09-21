@@ -23,6 +23,7 @@ Shader::Shader(const std::string& filePath){
 
 	glBindAttribLocation(mProgram, 0, "position");
 	glBindAttribLocation(mProgram, 1, "texCoord");
+	glBindAttribLocation(mProgram, 2, "normal");
 
 	glLinkProgram(mProgram);
 	CheckShaderStatus(mProgram, GL_LINK_STATUS, true, "Error Linking Shader Program");

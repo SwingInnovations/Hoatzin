@@ -25,7 +25,6 @@ Input::Input(SDL_Event& _e)
     mouseY = 0;
 }
 
-
 Input::~Input() {
 
 }

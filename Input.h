@@ -2,6 +2,8 @@
 #define INPUT_H_
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_joystick.h>
+#include <SDL2/SDL_gamecontroller.h>
 #include "Utility/Math/Vector.h"
 
 namespace KEY{

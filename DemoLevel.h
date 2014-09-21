@@ -10,6 +10,7 @@
 #include "Utility/Vertex.h"
 #include "Graphics/Texture.h"
 #include "Graphics/Shader.h"
+#include "Utility/SWObject.h"
 #include "Graphics/Camera.h"
 
 class DemoLevel : public GameState{
@@ -19,33 +20,22 @@ public:
 	}
 
 	void Init(){
-		Vertex2D verts[3] = {
-				Vertex2D(Vector3f(0.0, 0.5, 0.0)),
-				Vertex2D(Vector3f(-0.5, -0.5, 0.0)),
-				Vertex2D(Vector3f(0.5, -0.5, 0.0))
-		};
 
-		Vertex2D_UV verts2[3] = {
-				Vertex2D_UV(Vector3f(0.0, 0.5, 0.0), Vector2f(0.5, 1.0)),
-				Vertex2D_UV(Vector3f(0.5, -0.5, 0.0), Vector2f(1.0, 0.0)),
-				Vertex2D_UV(Vector3f(-0.5, -0.5, 0.0), Vector2f(0.0, 0.0))
-		};
-
-		Vertex2D_UV vert3[3] = {
-				Vertex2D_UV(Vector3f(0.0, -0.55, 0.0), Vector2f(0.5, 1.0)),
-				Vertex2D_UV(Vector3f(0.3, -0.8, 0.0), Vector2f(1.0, 0.0)),
-				Vertex2D_UV(Vector3f(-0.3, -0.8, 0.0), Vector2f(0.0, 0.0)),
-		};
+		Vertex verts[] = {Vertex(Vector3f(-0.75, 0.25, 0.0), Vector2f(0.0, 0.0)),
+							Vertex(Vector3f(-0.75, -0.25, 0.0), Vector2f(0.0, 1.0)),
+							Vertex(Vector3f(0.75, -0.25, 0.0), Vector2f(1.0, 1.0)),
+							Vertex(Vector3f(0.75, -0.25, 0.0), Vector2f(1.0, 0.0))};
+		int indicies[] = {0, 1, 2, 3, 2, 0};
 
 		camPos = Vector3f(0.0, 0.0, -2.0);
 		camera = new Camera(camPos, 66.0f, 1024.0f, 768.0f, 1.0f, 1000.0f);
 
-		mMesh = new Mesh(verts2, (sizeof(verts2)/sizeof(verts2[0])));
-		fMesh = new Mesh(vert3, sizeof(vert3)/sizeof(vert3[0]));
-		mesh = new Mesh2(verts, (sizeof(verts) / sizeof(verts[0])));
 		shader = new Shader("basicShader");
 		tex = new Texture("grid.png");
 		tex2 = new Texture("flower.jpg");
+
+		obj = new SWObject(new Mesh(verts, sizeof(verts)/sizeof(verts[0]), indicies, sizeof(indicies)/sizeof(indicies[0])), shader, tex);
+
 		transform = new Transform();
 		rot = 0;
 		rot2 = 0;
@@ -54,10 +44,7 @@ public:
 
 	void UpdateAuto(AppWindow& app, int delta){
 		rot2+= 0.025f * delta;
-//		rotAmt-= 0.000022 * delta;
-//		transform->SetRotateZ(rot2);
-		//transform->SetRotateZ(rot2*3.0);
-		transform->SetTranslateZ(-3.0);
+		obj->SetTranslateZ(-3.0);
 		std::cout << "Delta: " << delta << std::endl;
 	}
 
@@ -67,18 +54,15 @@ public:
 	}
 
 	void Render(){
-		shader->Update(*transform, *camera);
-		shader->Bind();
-		tex->bind(0);
-		mMesh->Draw();
-
-		tex2->bind(0);
-		fMesh->Draw();
-
+		obj->Draw(*camera);
 	}
 
 	int GetID(){
 		return id;
+	}
+
+	~DemoLevel(){
+		std::cout << SDL_GetError() << std::endl;
 	}
 private:
 	int id;
@@ -95,6 +79,7 @@ private:
 	float rot2;
 	float rotAmt;
 	Vector3f camPos;
+	SWObject *obj;
 };
 
 

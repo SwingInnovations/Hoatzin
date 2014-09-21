@@ -156,7 +156,7 @@ public:
 
     }
 
-    void InitCamera(Vector3f& target, Vector3f& up){
+    void InitCamera(const Vector3f& target, const Vector3f& up){
     	Vector3f N = target;
     	N = N.Normalize();
     	Vector3f U = up;

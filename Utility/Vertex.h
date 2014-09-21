@@ -9,12 +9,20 @@ class Vector2f;
 
 class Vertex{
 public:
-	enum VertType{VERT_2D, VERT_2DUV, VERT_3D, VERT_3DUV};
-	Vertex();
-	void SetVertType(VertType vertType){this->vertType = vertType;}
-private:
-	VertType vertType;
+	Vertex(const Vector3f& vert, const Vector2f& tex, const Vector3f& normal = Vector3f(0.0f, 0.0f, 0.0f)){
+		this->vertex = vert;
+		this->texCoord = tex;
+		this->normal = normal;
+	}
 
+	Vector3f* GetVertices(){return &this->vertex;}
+	Vector2f* GetTexCoord(){return &this->texCoord;}
+	Vector3f* GetNormal(){return &this->normal;}
+
+private:
+	Vector3f vertex;
+	Vector2f texCoord;
+	Vector3f normal;
 };
 
 class Vertex2D_UV{
