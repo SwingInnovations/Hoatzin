@@ -120,6 +120,12 @@ void AppWindow::ShowCursor(bool val){
 	}
 }
 
+void AppWindow::CenterCursor(){
+	int newX = this->GetWidth()/2;
+	int newY = this->GetHeight()/2;
+	SDL_WarpMouseInWindow(this->GetWindow(), newX, newY);
+}
+
 AppWindow::~AppWindow() {
 	SDL_DestroyWindow(mWindow);
 	SDL_GL_DeleteContext(mContext);

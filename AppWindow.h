@@ -28,12 +28,15 @@ public:
 	Input GetInput(){ return input; }
 	void SetRunning(bool val){Running = val;}
 	void ShowCursor(bool val);
+	void CenterCursor();
 	void SetTargetFPS(float val){fps = val;}
 
 	int GetWidth(){return WIDTH;}
 	int GetHeight(){return HEIGHT;}
 
 	Uint32 GetFPS(){return fps;}
+
+	SDL_Window* GetWindow(){return mWindow;}
 
 protected:
 	bool Running;

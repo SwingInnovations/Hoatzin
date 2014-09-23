@@ -6,6 +6,8 @@
 #include <SDL2/SDL_gamecontroller.h>
 #include "Utility/Math/Vector.h"
 
+class AppWindow;
+
 namespace KEY{
     enum{
     //keyboard keys

@@ -24,7 +24,7 @@ public:
 		Vertex verts[] = {Vertex(Vector3f(-0.75, 0.25, 0.0), Vector2f(0.0, 0.0)),
 							Vertex(Vector3f(-0.75, -0.25, 0.0), Vector2f(0.0, 1.0)),
 							Vertex(Vector3f(0.75, -0.25, 0.0), Vector2f(1.0, 1.0)),
-							Vertex(Vector3f(0.75, -0.25, 0.0), Vector2f(1.0, 0.0))};
+							Vertex(Vector3f(0.75, 0.25, 0.0), Vector2f(1.0, 0.0))};
 		int indicies[] = {0, 1, 2, 3, 2, 0};
 
 		camPos = Vector3f(0.0, 0.0, -2.0);

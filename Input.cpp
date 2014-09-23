@@ -1,4 +1,5 @@
 
+#include "AppWindow.h"
 #include "Input.h"
 
 static const int NUM_KEYS = 512;
