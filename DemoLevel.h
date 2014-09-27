@@ -45,7 +45,6 @@ public:
 	void UpdateAuto(AppWindow& app, int delta){
 		rot2+= 0.025f * delta;
 		obj->SetTranslateZ(-3.0);
-		std::cout << "Delta: " << delta << std::endl;
 	}
 
 	void UpdateInput(AppWindow& app, int delta){

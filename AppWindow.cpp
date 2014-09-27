@@ -18,8 +18,11 @@ AppWindow::AppWindow(const std::string title, int WIDTH, int HEIGHT){
 	newTime = SDL_GetTicks();
 	this->WIDTH = WIDTH;
 	this->HEIGHT = HEIGHT;
-	if(SDL_Init(SDL_INIT_EVERYTHING) == -1){
+	if(SDL_Init(SDL_INIT_EVERYTHING | SDL_INIT_JOYSTICK) == -1){
 		std::cout << "Error 401: Failed to load SDL: " << SDL_GetError() << std::endl;
+		if(SDL_NumJoysticks() < 1){
+			std::cout << "Error 411: No Joysticks Connected" << std::endl;
+		}
 	}else{
 		mWindow = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 		if(mWindow == NULL){

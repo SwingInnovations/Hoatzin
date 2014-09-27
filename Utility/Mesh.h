@@ -69,8 +69,6 @@ public:
 		glDrawElements(GL_TRIANGLES, mDrawCount, GL_UNSIGNED_INT, 0);
 
 		glBindVertexArray(0);
-		std::cout << "Draw count" << mDrawCount << std::endl;
-		std::cout << "numVerts:" << mNumVert << std::endl;
 	}
 
 	~Mesh(){

@@ -10,8 +10,6 @@ static bool mMouseButtonPressed[NUM_MOUSE];
 
 static Vector2f mousePosition;
 
-
-
 Input::Input() {
     closeRequested = false;
     mouseX = 0;
@@ -76,7 +74,29 @@ void Input::Poll(SDL_Event &event)
         int val = event.button.button;
         mMouseButtonPressed[val] = false;
     }
+}
 
+void Input::AddJoystick(int id){
+	if(SDL_NumJoysticks() < 1){
+		std::cout << "Error 411: No Joysticks Connected";
+	}else{
+		mJoystick[id] = SDL_JoystickOpen(id);
+	}
+}
+
+void Input::GetJoystickAxis(int numJoystick, int* x, int* y){
+	*x = SDL_JoystickGetAxis(mJoystick[numJoystick], 0);
+	*y = SDL_JoystickGetAxis(mJoystick[numJoystick], 1);
+}
+
+void Input::GetJoystickAxis(int numJoystick, int* x, int* y, int* z){
+	*x = SDL_JoystickGetAxis(mJoystick[numJoystick], 0);
+	*y = SDL_JoystickGetAxis(mJoystick[numJoystick], 1);
+	*z = SDL_JoystickGetAxis(mJoystick[numJoystick], 2);
+}
+
+bool Input::GetJoystickButton(int numJoystick, int btn){
+	return (bool)SDL_JoystickGetButton(mJoystick[numJoystick], btn);
 }
 
 bool Input::isCloseRequested()

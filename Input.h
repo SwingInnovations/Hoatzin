@@ -8,6 +8,27 @@
 
 class AppWindow;
 
+namespace JOYSTICKBUTTON{
+	enum{
+		BUTTON_1 = 0,
+		BUTTON_2 = 1,
+		BUTTON_3 = 2,
+		BUTTON_4 = 3,
+		BUTTON_5 = 4,
+		BUTTON_6 = 5,
+		BUTTON_7 = 6,
+		BUTTON_8 = 7,
+		BUTTON_9 = 8,
+		BUTTON_10 = 9,
+		BUTTON_11 = 10,
+		BUTTON_12 = 11,
+		BUTTON_13 = 12,
+		BUTTON_14 = 13,
+		BUTTON_15 = 14,
+		BUTTON_16 = 15
+	};
+};
+
 namespace KEY{
     enum{
     //keyboard keys
@@ -60,6 +81,11 @@ public:
     void Poll(SDL_Event &e);
     void RequestClose(){ closeRequested = true; }
 
+    void AddJoystick(int id);
+    void GetJoystickAxis(int numJoystick, int* x, int* y);
+    void GetJoystickAxis(int numJoystick, int* x, int* y, int* z);
+    bool GetJoystickButton(int numJoystick, int button);
+
     bool isCloseRequested();
 
     bool isKeyDown(int Key);
@@ -69,6 +95,7 @@ public:
 private:
     bool closeRequested;
     SDL_Event e;
+    SDL_Joystick* mJoystick[5];
 
     int mouseX, mouseY;
 };
