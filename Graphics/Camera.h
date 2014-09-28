@@ -16,17 +16,16 @@ public:
 	Camera(CameraType camType, AppWindow& app, Vector3f& pos, float FOV, float zNear, float zFar);
 
 	Camera(Vector3f& pos, float FOV, float WIDTH, float HEIGHT, float zNear, float zFar);
-	void SetRotateX(const float _x){this->mRotX = _x;}
-	void SetRotateY(const float _y){this->mRotY = _y;}
-	void SetRotateZ(const float _z){this->mRotZ = _z;}
+	void SetRotateX(const float _x){this->hAngle = _x;}
+	void SetRotateY(const float _y){this->vAngle = _y;}
 
+	void Init();
 	void Update(Input &input);
 
 	void SetTranslate(Vector3f& vec){transform.SetTranslate(vec);}
 	void SetTranslateX(float _x){transform.SetTranslateX(_x);}
 	void SetTranslateY(float _y){transform.SetTranslateY(_y);}
 	void SetTranslateZ(float _z){transform.SetTranslateZ(_z);}
-
 
 	void SetScale(Vector3f& vec){transform.SetScale(vec);}
 	void SetScaleX(float _x){transform.SetScaleX(_x);}
@@ -39,8 +38,9 @@ private:
 	CameraType mCameraType;
 	Vector3f mForward;
 	Vector3f mUp;
+	Vector3f mView;
 	Vector3f mPosition;
-	float mFOV, mWIDTH, mHEIGHT, mZNear, mZFar, mRotX, mRotY, mRotZ;
+	float mFOV, mWIDTH, mHEIGHT, mZNear, mZFar, mDeltaX, mDeltaY, mPasX, mPasY, hAngle, vAngle;
 };
 
 

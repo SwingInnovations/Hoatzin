@@ -12,6 +12,8 @@
 #include "Graphics/Shader.h"
 #include "Utility/SWObject.h"
 #include "Graphics/Camera.h"
+#include "Utility/Math/Geom/Plane.h"
+#include "Utility/Math/Geom/Box.h"
 
 class DemoLevel : public GameState{
 public:
@@ -21,39 +23,56 @@ public:
 
 	void Init(){
 
-		Vertex verts[] = {Vertex(Vector3f(-0.75, 0.25, 0.0), Vector2f(0.0, 0.0)),
-							Vertex(Vector3f(-0.75, -0.25, 0.0), Vector2f(0.0, 1.0)),
-							Vertex(Vector3f(0.75, -0.25, 0.0), Vector2f(1.0, 1.0)),
-							Vertex(Vector3f(0.75, 0.25, 0.0), Vector2f(1.0, 0.0))};
-		int indicies[] = {0, 1, 2, 3, 2, 0};
-
 		camPos = Vector3f(0.0, 0.0, -2.0);
 		camera = new Camera(camPos, 66.0f, 1024.0f, 768.0f, 1.0f, 1000.0f);
 
 		shader = new Shader("basicShader");
 		tex = new Texture("grid.png");
 		tex2 = new Texture("flower.jpg");
+		Vector3f position(0.0, 0.0, -3.0);
 
-		obj = new SWObject(new Mesh(verts, sizeof(verts)/sizeof(verts[0]), indicies, sizeof(indicies)/sizeof(indicies[0])), shader, tex);
+		plane = new SWObject(new Mesh(new Plane(30, 30)), shader, tex2);
+		plane->SetTranslateX(-20);
+		plane->SetTranslateY(-20);
+		plane->SetRotateX(90);
+		box = new SWObject(new Mesh(new Box(position, 3, 3, 3)), shader, tex);
 
-		transform = new Transform();
 		rot = 0;
 		rot2 = 0;
 		rotAmt = 0;
+		transX = 0; transZ = 0;
 	}
 
 	void UpdateAuto(AppWindow& app, int delta){
 		rot2+= 0.025f * delta;
-		obj->SetTranslateZ(-3.0);
+		box->SetRotateZ(rot2);
 	}
 
 	void UpdateInput(AppWindow& app, int delta){
 		Input input = app.GetInput();
+		if(input.isKeyDown(KEY::KEY_A)){
+			transX += 0.025f*delta;
+			camera->SetTranslateX(transX);
+		}
+		if(input.isKeyDown(KEY::KEY_D)){
+			transX -= 0.025f*delta;
+			camera->SetTranslateX(transX);
+		}
+		if(input.isKeyDown(KEY::KEY_W)){
+			transZ += 0.025f*delta;
+			camera->SetTranslateZ(transZ);
+		}
+		if(input.isKeyDown(KEY::KEY_S)){
+			transZ -= 0.025f * delta;
+			camera->SetTranslateZ(transZ);
+		}
 		camera->Update(input);
 	}
 
 	void Render(){
-		obj->Draw(*camera);
+		//obj->Draw(*camera);
+		box->Draw(*camera);
+		plane->Draw(*camera);
 	}
 
 	int GetID(){
@@ -71,14 +90,14 @@ private:
 	Shader* shader;
 	Texture* tex;
 	Texture* tex2;
-	Transform* transform;
 	Camera* camera;
 	Vector3f test;
 	float rot;
 	float rot2;
 	float rotAmt;
+	float transX, transZ;
 	Vector3f camPos;
-	SWObject *obj;
+	SWObject *plane, *box;
 };
 
 

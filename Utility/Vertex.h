@@ -15,6 +15,15 @@ public:
 		this->normal = normal;
 	}
 
+	void Print(){
+		std::cout << "Vertex: ";
+		vertex.Print();
+		std::cout << "TexCoord: ";
+		texCoord.Print();
+		std::cout << "Normal: ";
+		normal.Print();
+	}
+
 	Vector3f* GetVertices(){return &this->vertex;}
 	Vector2f* GetTexCoord(){return &this->texCoord;}
 	Vector3f* GetNormal(){return &this->normal;}

@@ -24,6 +24,16 @@ Input::Input(SDL_Event& _e)
     mouseY = 0;
 }
 
+Input::Input(unsigned int _screenWidth, unsigned int _screenHeight, Uint32 delta, SDL_Event& e){
+	this->e = e;
+	closeRequested = false;
+	mouseX = 0;
+	mouseY = 0;
+	screenWidth = _screenWidth;
+	screenHeight = _screenHeight;
+	this->delta = delta;
+}
+
 Input::~Input() {
 
 }
@@ -89,10 +99,21 @@ void Input::GetJoystickAxis(int numJoystick, int* x, int* y){
 	*y = SDL_JoystickGetAxis(mJoystick[numJoystick], 1);
 }
 
+void Input::GetJoystickAxis(int numJoystick, double* x, double* y){
+	*x = SDL_JoystickGetAxis(mJoystick[numJoystick], 0) / 32768.0;
+	*y = SDL_JoystickGetAxis(mJoystick[numJoystick], 1) / 32768.0;
+}
+
 void Input::GetJoystickAxis(int numJoystick, int* x, int* y, int* z){
 	*x = SDL_JoystickGetAxis(mJoystick[numJoystick], 0);
 	*y = SDL_JoystickGetAxis(mJoystick[numJoystick], 1);
 	*z = SDL_JoystickGetAxis(mJoystick[numJoystick], 2);
+}
+
+void Input::GetJoystickAxis(int numJoystick, double* x, double* y, double* z){
+	*x = SDL_JoystickGetAxis(mJoystick[numJoystick], 0) / 32768.0;
+	*y = SDL_JoystickGetAxis(mJoystick[numJoystick], 1) / 32768.0;
+	*z = SDL_JoystickGetAxis(mJoystick[numJoystick], 2) / 32768.0;
 }
 
 bool Input::GetJoystickButton(int numJoystick, int btn){

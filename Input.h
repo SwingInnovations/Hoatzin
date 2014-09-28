@@ -75,6 +75,7 @@ namespace KEY{
 class Input {
 public:
     Input();
+    Input(unsigned int _screenWidth, unsigned int _screenHeight, Uint32 delta, SDL_Event& e);
     Input(SDL_Event &_e);
     virtual ~Input();
 
@@ -82,6 +83,8 @@ public:
     void RequestClose(){ closeRequested = true; }
 
     void AddJoystick(int id);
+    void GetJoystickAxis(int numJoystick, double* x, double* y);
+    void GetJoystickAxis(int numJoystick, double* x, double* y, double* z);
     void GetJoystickAxis(int numJoystick, int* x, int* y);
     void GetJoystickAxis(int numJoystick, int* x, int* y, int* z);
     bool GetJoystickButton(int numJoystick, int button);
@@ -91,6 +94,10 @@ public:
     bool isKeyDown(int Key);
     bool isMouseDown(int mouseButton);
 
+    unsigned int GetScreenWidth(){return screenWidth;}
+    unsigned int GetScreenHeight(){return screenHeight;}
+    Uint32 GetDelta(){return delta;}
+
     Vector2f getMouseCoord();
 private:
     bool closeRequested;
@@ -98,6 +105,8 @@ private:
     SDL_Joystick* mJoystick[5];
 
     int mouseX, mouseY;
+    unsigned int screenWidth, screenHeight;
+    Uint32 delta;
 };
 
 #endif /* INPUT_H_ */

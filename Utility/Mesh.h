@@ -4,6 +4,9 @@
 #include <GL/glew.h>
 #include <vector>
 #include "Vertex.h"
+#include "Math/Geom/Shape.h"
+#include "Math/Geom/Plane.h"
+#include "Math/Geom/Box.h"
 
 class Vertex;
 class Vertex2D_UV;
@@ -61,6 +64,136 @@ public:
 
 		glBindVertexArray(0);
 		std::cout << "Generated Mesh" << std::endl;
+	}
+
+	Mesh(Shape* shape){
+		mNumVert = shape->GetVerticiesSize();
+		mDrawCount = shape->GetIndiciesSize();
+		std::vector<Vector3f> vertex;
+		std::vector<Vector2f> texCoord;
+		std::vector<Vector3f> normal;
+
+		glGenVertexArrays(1, &mVAO);
+		glBindVertexArray(mVAO);
+
+		vertex.reserve(mNumVert);
+		texCoord.reserve(mNumVert);
+		normal.reserve(mNumVert);
+		for(unsigned int i = 0; i < mNumVert; i++){
+			vertex.push_back(*shape->GetVertices()->GetVertices());
+			texCoord.push_back(*shape->GetVertices()->GetTexCoord());
+			normal.push_back(*shape->GetVertices()->GetNormal());
+		}
+		glGenBuffers(NUM_BUFFERS, mVBO);
+
+		glBindBuffer(GL_ARRAY_BUFFER, mVBO[VERTEX_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, mNumVert * sizeof(vertex[0]), &vertex[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, mVBO[TEXCOORD_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, mNumVert * sizeof(texCoord[0]), &texCoord[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, mVBO[NORMAL_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, mNumVert*sizeof(normal[0]), &normal[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mVBO[INDEX_BUFFER]);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, mDrawCount * sizeof(shape->GetIndicies()[0]), &shape->GetIndicies()[0], GL_STATIC_DRAW);
+
+		glBindVertexArray(0);
+	}
+
+	Mesh(Plane* shape){
+		mNumVert = 4;
+		mDrawCount = shape->GetIndiciesSize();
+
+		std::cout << "Num Verts: "<< mNumVert << std::endl;
+		std::cout << "Num Ind: " << mDrawCount << std::endl;
+
+		std::vector<Vector3f> vertex;
+		std::vector<Vector2f> texCoord;
+		std::vector<Vector3f> normal;
+
+		glGenVertexArrays(1, &mVAO);
+		glBindVertexArray(mVAO);
+
+		vertex.reserve(mNumVert);
+		texCoord.reserve(mNumVert);
+		normal.reserve(mNumVert);
+		for(unsigned int i = 0; i < mNumVert; i++){
+			vertex.push_back(*shape->mVertices[i].GetVertices());
+			texCoord.push_back(*shape->mVertices[i].GetTexCoord());
+			normal.push_back(*shape->mVertices[i].GetNormal());
+		}
+		glGenBuffers(NUM_BUFFERS, mVBO);
+
+		glBindBuffer(GL_ARRAY_BUFFER, mVBO[VERTEX_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, mNumVert * sizeof(vertex[0]), &vertex[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, mVBO[TEXCOORD_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, mNumVert * sizeof(texCoord[0]), &texCoord[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, mVBO[NORMAL_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, mNumVert*sizeof(normal[0]), &normal[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mVBO[INDEX_BUFFER]);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, mDrawCount * sizeof(shape->GetIndicies()[0]), &shape->GetIndicies()[0], GL_STATIC_DRAW);
+
+		glBindVertexArray(0);
+	}
+
+	Mesh(Box* box){
+		mNumVert = 8;
+		mDrawCount = box->GetIndicesSize();
+
+		std::vector<Vector3f> vertex;
+		std::vector<Vector2f> texCoord;
+		std::vector<Vector3f> normal;
+
+		glGenVertexArrays(1, &mVAO);
+		glBindVertexArray(mVAO);
+
+		vertex.reserve(mNumVert);
+		texCoord.reserve(mNumVert);
+		normal.reserve(mNumVert);
+		for(unsigned int i = 0; i < mNumVert; i++){
+			vertex.push_back(*box->mVertices[i].GetVertices());
+			texCoord.push_back(*box->mVertices[i].GetTexCoord());
+			normal.push_back(*box->mVertices[i].GetNormal());
+		}
+
+		glGenBuffers(NUM_BUFFERS, mVBO);
+
+		glBindBuffer(GL_ARRAY_BUFFER, mVBO[VERTEX_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, mNumVert* sizeof(vertex[0]), &vertex[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, mVBO[TEXCOORD_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, mNumVert* sizeof(texCoord[0]), &texCoord[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, mVBO[NORMAL_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, mNumVert*sizeof(normal[0]), &normal[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mVBO[INDEX_BUFFER]);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, mDrawCount*sizeof(box->GetIndicies()[0]), &box->GetIndicies()[0], GL_STATIC_DRAW);
+
+		glBindVertexArray(0);
+
 	}
 
 	void Draw(){

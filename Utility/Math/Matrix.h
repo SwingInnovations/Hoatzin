@@ -171,6 +171,17 @@ public:
     	m[3][0] = 0.0; 		m[3][1] = 0.0;		m[3][2] = 0.0; 		m[3][3] = 1.0;
     }
 
+    void InitCamera(const Vector3f& target, const Vector3f& up, const Vector3f& view){
+    	Vector3f N = target;
+    	Vector3f U = up;
+    	Vector3f V = view;
+
+    	m[0][0] = U.GetX(); m[0][1] = U.GetY(); m[0][2] = U.GetZ(); m[0][3] = 0.0;
+    	m[1][0] = V.GetX(); m[1][1] = V.GetY(); m[1][2] = V.GetZ(); m[1][3] = 0.0;
+    	m[2][0] = N.GetX(); m[2][1] = N.GetY(); m[2][2] = N.GetZ(); m[2][3] = 0.0;
+    	m[3][0] = 0.0; 		m[3][1] = 0.0;		m[3][2] = 0.0; 		m[3][3] = 1.0;
+    }
+
     Matrix4f Normalize(){
     	Matrix4f ret;
     	float length[4];
