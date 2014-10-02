@@ -28,7 +28,7 @@ AppWindow::AppWindow(const std::string title, int WIDTH, int HEIGHT){
 		if(mWindow == NULL){
 			std::cout << "Error 402: Failed to load Window: " << SDL_GetError() << std::endl;
 		}else{
-			input = Input(e);
+			input = Input(this, e);
 		}
 	}
 }

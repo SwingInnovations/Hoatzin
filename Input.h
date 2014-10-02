@@ -76,6 +76,7 @@ class Input {
 public:
     Input();
     Input(unsigned int _screenWidth, unsigned int _screenHeight, Uint32 delta, SDL_Event& e);
+    Input(AppWindow* app, SDL_Event& e);
     Input(SDL_Event &_e);
     virtual ~Input();
 
@@ -88,6 +89,8 @@ public:
     void GetJoystickAxis(int numJoystick, int* x, int* y);
     void GetJoystickAxis(int numJoystick, int* x, int* y, int* z);
     bool GetJoystickButton(int numJoystick, int button);
+
+    void CenterMouseInWindow();
 
     bool isCloseRequested();
 
@@ -107,6 +110,7 @@ private:
     int mouseX, mouseY;
     unsigned int screenWidth, screenHeight;
     Uint32 delta;
+    SDL_Window* templateWin;
 };
 
 #endif /* INPUT_H_ */

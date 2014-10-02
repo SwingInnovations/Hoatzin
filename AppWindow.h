@@ -35,6 +35,7 @@ public:
 	int GetHeight(){return HEIGHT;}
 
 	Uint32 GetFPS(){return fps;}
+	Uint32 GetDelta(){return delta;}
 
 	SDL_Window* GetWindow(){return mWindow;}
 

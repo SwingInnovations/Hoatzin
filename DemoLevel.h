@@ -46,10 +46,20 @@ public:
 	void UpdateAuto(AppWindow& app, int delta){
 		rot2+= 0.025f * delta;
 		box->SetRotateZ(rot2);
+		box->SetRotateY(rot2);
+		Vector3f scale(rot2, rot2, rot2);
+		//box->SetScale(scale);
 	}
 
 	void UpdateInput(AppWindow& app, int delta){
 		Input input = app.GetInput();
+		app.ShowCursor(false);
+
+		if(input.isKeyDown(KEY::KEY_Q)){
+			std::cout << "Quiting" << std::endl;
+			input.RequestClose();
+		}
+
 		if(input.isKeyDown(KEY::KEY_A)){
 			transX += 0.025f*delta;
 			camera->SetTranslateX(transX);
@@ -66,13 +76,13 @@ public:
 			transZ -= 0.025f * delta;
 			camera->SetTranslateZ(transZ);
 		}
+
 		camera->Update(input);
 	}
 
 	void Render(){
 		//obj->Draw(*camera);
 		box->Draw(*camera);
-		plane->Draw(*camera);
 	}
 
 	int GetID(){

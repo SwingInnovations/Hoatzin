@@ -58,9 +58,12 @@ Camera::Camera(Vector3f& pos, float FOV, float WIDTH, float HEIGHT, float zNear,
 
 void Camera::Update(Input &input){
 
-	hAngle += 0.0025f * (float)((1024/2) - input.getMouseCoord().GetX());
-	vAngle += 0.0025f * (float)((768/2) - input.getMouseCoord().GetY());
+	if(hAngle > 360.0f){
+		hAngle = 0.0f;
+	}
 
+	hAngle += 0.035f * (float)((1024/2) - input.getMouseCoord().GetX());
+	vAngle += 0.035f * (float)((768/2) - input.getMouseCoord().GetY());
 
 	Vector3f vAxis(0.0f, 1.0f, 0.0f);
 
@@ -78,7 +81,7 @@ void Camera::Update(Input &input){
 	mUp = mForward.cross(hAxis);
 	mUp.Normalize();
 
-	std::cout << " Up vector: "; mUp.Print();
+	input.CenterMouseInWindow();
 }
 
 Matrix4f Camera::GetViewProjection(){

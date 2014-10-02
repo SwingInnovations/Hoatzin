@@ -34,6 +34,17 @@ Input::Input(unsigned int _screenWidth, unsigned int _screenHeight, Uint32 delta
 	this->delta = delta;
 }
 
+Input::Input(AppWindow* app, SDL_Event& e){
+	this->e = e;
+	closeRequested = false;
+	mouseX = 0;
+	mouseY = 0;
+	screenWidth = app->GetWidth();
+	screenHeight = app->GetHeight();
+	templateWin = app->GetWindow();
+	delta = app->GetDelta();
+}
+
 Input::~Input() {
 
 }
@@ -114,6 +125,12 @@ void Input::GetJoystickAxis(int numJoystick, double* x, double* y, double* z){
 	*x = SDL_JoystickGetAxis(mJoystick[numJoystick], 0) / 32768.0;
 	*y = SDL_JoystickGetAxis(mJoystick[numJoystick], 1) / 32768.0;
 	*z = SDL_JoystickGetAxis(mJoystick[numJoystick], 2) / 32768.0;
+}
+
+void Input::CenterMouseInWindow(){
+	int cX = screenWidth/2;
+	int cY = screenHeight/2;
+	SDL_WarpMouseInWindow(templateWin, cX, cY);
 }
 
 bool Input::GetJoystickButton(int numJoystick, int btn){
