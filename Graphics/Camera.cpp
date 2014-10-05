@@ -7,6 +7,7 @@ Camera::Camera(){
 	mHEIGHT = 0.0;
 	mZNear = 0.0;
 	mZFar = 0.0;
+	yAxis = Vector3f(0.0f, 1.0f, 0.0f);
 }
 
 Camera::Camera(CameraType camType, AppWindow& app, Vector3f& pos, float FOV, float zNear, float zFar){
@@ -18,8 +19,9 @@ Camera::Camera(CameraType camType, AppWindow& app, Vector3f& pos, float FOV, flo
 	mZFar = zFar;
 
 	mForward = Vector3f(0.0, 0.0, 1.0);
-	mUp = Vector3f(0.0, 1.0, 0.0);
-	mView = Vector3f(1.0, 0.0, 0.0);
+	mUp = Vector3f(0.0, 1.0f, 0.0);
+	mView = Vector3f(1.0f, 0.0, 0.0);
+	yAxis = Vector3f(0.0f, 1.0f, 0.0f);
 }
 
 Camera::Camera(Vector3f& pos, float FOV, float WIDTH, float HEIGHT, float zNear, float zFar){
@@ -31,40 +33,17 @@ Camera::Camera(Vector3f& pos, float FOV, float WIDTH, float HEIGHT, float zNear,
 
 	mPosition = pos;
 	mForward = Vector3f(0.0, 0.0, 1.0);
-	mForward.Normalize();
-	mUp = Vector3f(0.0, 1.0, 0.0);
-	mUp.Normalize();
-	mView = Vector3f(1.0, 0.0, 0.0);
+	mForward = mForward.Normalize();
+	mUp = Vector3f(0.0, 1.0f, 0.0);
+	mView = Vector3f(1.0f, 0.0, 0.0);
+	yAxis = Vector3f(0.0f, 1.0f, 0.0f);
 
-	Vector3f HTarget(mForward.GetX(), 0.0f, mForward.GetZ());
-	HTarget.Normalize();
-	if(HTarget.GetZ() >= 0.0f){
-		if(HTarget.GetX() >= 0.0f){
-			hAngle = 360.0f - ToDegree(asin(HTarget.GetZ()));
-		}else{
-			hAngle = 360.0f - ToDegree(asin(HTarget.GetZ()));
-		}
-	}else{
-		if(HTarget.GetX() >= 0.0f){
-			hAngle = ToDegree(asin(-HTarget.GetZ()));
-		}else{
-			hAngle = 90.0f + ToDegree(asin(-HTarget.GetZ()));
-		}
-	}
-
-	vAngle = ToDegree(asin(mForward.GetY()));
+	hAngle = 0;
+	vAngle = 0;
 
 }
 
-void Camera::Update(Input &input){
-
-	if(hAngle > 360.0f){
-		hAngle = 0.0f;
-	}
-
-	hAngle += 0.035f * (float)((1024/2) - input.getMouseCoord().GetX());
-	vAngle += 0.035f * (float)((768/2) - input.getMouseCoord().GetY());
-
+void Camera::Update(){
 	Vector3f vAxis(0.0f, 1.0f, 0.0f);
 
 	mView = Vector3f(1.0f, 0.0f, 0.0f);
@@ -81,13 +60,63 @@ void Camera::Update(Input &input){
 	mUp = mForward.cross(hAxis);
 	mUp.Normalize();
 
+}
+
+void Camera::SetRotateX(const float _x){
+	Vector3f hAxis = yAxis.cross(mForward);
+	hAxis.Print();
+	hAxis.Normalize();
+
+	mForward.Rotate(_x, yAxis);
+
+	mForward.Normalize();
+	mUp = mForward.cross(hAxis);
+	mUp.Normalize();
+}
+
+void Camera::SetRotateY(const float _y){
+	Vector3f hAxis = yAxis.cross(mForward);
+	hAxis.Normalize();
+	mForward.Rotate(_y, hAxis);
+	mForward.Normalize();
+	mUp = mForward.cross(hAxis);
+	mUp.Normalize();
+}
+
+void Camera::Update(Input &input){
+
+	hAngle += 0.035f * (float)((1024/2) - input.getMouseCoord().GetX());
+	vAngle += 0.035f * (float)((768/2) - input.getMouseCoord().GetY());
+
+	std::cout << "H-Angle: " << hAngle << std::endl;
+	std::cout << "V-Angle: " << vAngle << std::endl;
+
+	Vector3f vAxis(0.0f, 1.0f, 0.0f);
+
+	mView = Vector3f(1.0f, 0.0f, 0.0f);
+	mView.Rotate(hAngle, vAxis);
+	mView.Normalize();
+
+	Vector3f hAxis = vAxis.cross(mView);
+	hAxis.Normalize();
+	mView.Rotate(vAngle, hAxis);
+
+	mView.Print();
+
+	mForward = mView;
+	mForward.Normalize();
+
+	mUp = mForward.cross(hAxis);
+	mUp.Normalize();
+
 	input.CenterMouseInWindow();
 }
 
 Matrix4f Camera::GetViewProjection(){
-	Matrix4f View, Camera, Perspective;
+	Matrix4f View, Camera, Perspective, TransformTranslate;
 	Perspective.InitPerspectiveProjection(mFOV, mWIDTH, mHEIGHT, mZNear, mZFar);
 	Camera.InitCamera(mForward, mUp);
-	View = Perspective * this->transform.GetModel() * Camera;
+	TransformTranslate.InitTranslation(transform.GetTranslation().GetX(), transform.GetTranslation().GetY(), transform.GetTranslation().GetZ());
+	View = Perspective * TransformTranslate * Camera;
 	return View;
 }

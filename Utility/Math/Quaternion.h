@@ -12,7 +12,7 @@ public:
 		this->x = 0.0;
 		this->y = 0.0;
 		this->z = 0.0;
-		this->w = 0.0;
+		this->w = 1.0;
 	}
 
 	Quaternion(const float _x, const float _y, const float _z, const float _w){
@@ -31,6 +31,10 @@ public:
 		return (float)sqrt(x * x + y * y + z * z + w * w);
 	}
 
+	void Inverse(){
+
+	}
+
 	Quaternion Normalize(){
 		float Length = GetLength();
 		this->x /= Length;
@@ -41,17 +45,15 @@ public:
 	}
 
 	Quaternion Conjugate(){
-		x = -x;
-		y = -y;
-		z = -z;
-		return *this;
+		Quaternion ret(-x, -y, -z, w);
+		return ret;
 	}
 
 	inline Quaternion Multiply(Quaternion r)const{
-		float _x = x * r.GetW() - w * r.GetX() + y * r.GetZ() + z * r.GetY();
-		float _y = z * r.GetW() + w * r.GetY() + z * r.GetX() - x * r.GetZ();
-		float _z = z * r.GetW() + w + r.GetY() + x * r.GetY() - y * r.GetX();
-		float _w = w * r.GetW() - x * r.GetX() - y * r.GetY() - z * r.GetZ();
+		float _x = this->w*r.GetX() + this->x*r.GetW() + this->y*r.GetZ() - this->z*r.GetY();
+		float _y = this->w*r.GetY() - this->x*r.GetZ() + this->y*r.GetW() + this->z*r.GetX();
+		float _z = this->w*r.GetZ() + this->x*r.GetY() - this->y*r.GetX() + this->z*r.GetW();
+		float _w = this->w*r.GetW() - this->x*r.GetX() - this->y*r.GetY() - this->z*r.GetZ();
 
 		return Quaternion(_x, _y, _z, _w);
 	}
@@ -62,10 +64,10 @@ public:
 	}
 
 	inline Quaternion Multiply(Vector3f& r)const{
-		float _x = w * r.GetX() + y * r.GetZ() - z * r.GetY();
-		float _y = w * r.GetY() + z * r.GetX() - x * r.GetZ();
-		float _z = w * r.GetZ() + x * r.GetY() - y * r.GetX();
-		float _w = -x * r.GetX() - y * r.GetY() - z * r.GetZ();
+		float _x = (w * r.GetX()) + (y * r.GetZ()) - (z * r.GetY());
+		float _y = (w * r.GetY()) + (z * r.GetX()) - (x * r.GetZ());
+		float _z = (w * r.GetZ()) + (x * r.GetY()) - (y * r.GetX());
+		float _w = -(x * r.GetX()) - (y * r.GetY()) - (z * r.GetZ());
 
 		return Quaternion(_x, _y, _z, _w);
 	}

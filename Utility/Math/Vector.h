@@ -101,9 +101,9 @@ public:
 	}
 
 	Vector3f cross(const Vector3f& other){
-		float _x = this->y * other.z - this->z * other.y;
-		float _y = this->z * other.x - this->x * other.z;
-		float _z = this->x * other.y - this->y * other.x;
+		float _x = (this->y * other.z) - (this->z * other.y);
+		float _y = (this->z * other.x) - (this->x * other.z);
+		float _z = (this->x * other.y) - (this->y * other.x);
 		return Vector3f(_x, _y, _z);
 	}
 

@@ -23,7 +23,7 @@ public:
 
 	void Init(){
 
-		camPos = Vector3f(0.0, 0.0, -2.0);
+		camPos = Vector3f(0.0, 0.0, 0.0);
 		camera = new Camera(camPos, 66.0f, 1024.0f, 768.0f, 1.0f, 1000.0f);
 
 		shader = new Shader("basicShader");
@@ -45,9 +45,7 @@ public:
 
 	void UpdateAuto(AppWindow& app, int delta){
 		rot2+= 0.025f * delta;
-		box->SetRotateZ(rot2);
-		box->SetRotateY(rot2);
-		Vector3f scale(rot2, rot2, rot2);
+		//box->SetRotateY(rot2);
 		//box->SetScale(scale);
 	}
 
@@ -76,7 +74,6 @@ public:
 			transZ -= 0.025f * delta;
 			camera->SetTranslateZ(transZ);
 		}
-
 		camera->Update(input);
 	}
 
