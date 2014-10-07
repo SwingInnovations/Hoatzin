@@ -51,6 +51,7 @@ public:
 private:
 	Transform transform;
 	CameraType mCameraType;
+	bool init;
 	Vector3f mForward;
 	Vector3f mUp;
 	Vector3f yAxis;

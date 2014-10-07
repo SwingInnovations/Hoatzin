@@ -17,8 +17,8 @@ public:
 		mVertices.reserve(4);
 		mVertices.push_back(Vertex(Vector3f(centerWidth - centerWidth, centerHeight + centerHeight, 0.0), Vector2f(0.0, 0.0)));
 		mVertices.push_back(Vertex(Vector3f(centerWidth + centerWidth, centerHeight + centerHeight, 0.0), Vector2f(0.0, 1.0)));
-		mVertices.push_back(Vertex(Vector3f(centerWidth + centerWidth, centerHeight - centerHeight, 0.0), Vector2f(1.0, 0.0)));
-		mVertices.push_back(Vertex(Vector3f(centerWidth - centerWidth, centerHeight - centerHeight, 0.0), Vector2f(1.0, 1.0)));
+		mVertices.push_back(Vertex(Vector3f(centerWidth + centerWidth, centerHeight - centerHeight, 0.0), Vector2f(1.0, 1.0)));
+		mVertices.push_back(Vertex(Vector3f(centerWidth - centerWidth, centerHeight - centerHeight, 0.0), Vector2f(1.0, 0.0)));
 
 		mIndicies.reserve(6);
 		mIndicies.push_back(0);

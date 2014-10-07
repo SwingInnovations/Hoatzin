@@ -25,7 +25,7 @@ public:
 	void Start();
 	void AddState(GameState* newState);
 	void EnterState(int id){mCurrentState = id;}
-	Input GetInput(){ return input; }
+	Input *GetInput(){ return input; }
 	void SetRunning(bool val){Running = val;}
 	void ShowCursor(bool val);
 	void CenterCursor();
@@ -50,7 +50,7 @@ private:
 	SDL_Window* mWindow;
 	SDL_GLContext mContext;
 	SDL_Event e;
-	Input input;
+	Input *input;
 	unsigned int WIDTH, HEIGHT;
 	int mCurrentState;
 	Uint32 delta, oldTime, newTime, fps;

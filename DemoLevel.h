@@ -23,19 +23,17 @@ public:
 
 	void Init(){
 
-		camPos = Vector3f(0.0, 0.0, 0.0);
+		camPos = Vector3f(0.0, -3.0, 0.0);
 		camera = new Camera(camPos, 66.0f, 1024.0f, 768.0f, 1.0f, 1000.0f);
 
 		shader = new Shader("basicShader");
 		tex = new Texture("grid.png");
 		tex2 = new Texture("flower.jpg");
-		Vector3f position(0.0, 0.0, -3.0);
+		Vector3f position(0.0, 0.0, 0.0);
 
-		plane = new SWObject(new Mesh(new Plane(30, 30)), shader, tex2);
-		plane->SetTranslateX(-20);
-		plane->SetTranslateY(-20);
-		plane->SetRotateX(90);
-		box = new SWObject(new Mesh(new Box(position, 3, 3, 3)), shader, tex);
+		plane = new SWObject(new Mesh(new Plane(30, 30)), shader, tex);
+		plane->SetTranslateY(-10);
+		box = new SWObject(new Mesh(new Box(position, 3.0f, 3.0f, 3.0f)), shader, tex2);
 
 		rot = 0;
 		rot2 = 0;
@@ -44,41 +42,45 @@ public:
 	}
 
 	void UpdateAuto(AppWindow& app, int delta){
-		rot2+= 0.025f * delta;
-		//box->SetRotateY(rot2);
-		//box->SetScale(scale);
+//		rot2+= 0.00000025f * delta;
+//		box->SetRotateY(rot2);
+//		box->SetRotateZ(rot2);
+//		box->SetRotateX(rot2);
 	}
 
 	void UpdateInput(AppWindow& app, int delta){
-		Input input = app.GetInput();
+		Input *input = app.GetInput();
 		app.ShowCursor(false);
 
-		if(input.isKeyDown(KEY::KEY_Q)){
+		std::cout << delta << std::endl;
+
+		if(input->isKeyDown(KEY::KEY_Q)){
 			std::cout << "Quiting" << std::endl;
-			input.RequestClose();
+			input->RequestClose();
 		}
 
-		if(input.isKeyDown(KEY::KEY_A)){
-			transX += 0.025f*delta;
+		if(input->isKeyDown(KEY::KEY_A)){
+			transX += 0.000000025f*delta;
 			camera->SetTranslateX(transX);
 		}
-		if(input.isKeyDown(KEY::KEY_D)){
-			transX -= 0.025f*delta;
+		if(input->isKeyDown(KEY::KEY_D)){
+			transX -= 0.000000025f*delta;
 			camera->SetTranslateX(transX);
 		}
-		if(input.isKeyDown(KEY::KEY_W)){
-			transZ += 0.025f*delta;
+		if(input->isKeyDown(KEY::KEY_W)){
+			transZ += 0.000000025f*delta;
 			camera->SetTranslateZ(transZ);
 		}
-		if(input.isKeyDown(KEY::KEY_S)){
-			transZ -= 0.025f * delta;
+		if(input->isKeyDown(KEY::KEY_S)){
+			transZ -= 0.000000025f * delta;
 			camera->SetTranslateZ(transZ);
 		}
-		camera->Update(input);
+		camera->Update(*input);
 	}
 
 	void Render(){
 		//obj->Draw(*camera);
+		plane->Draw(*camera);
 		box->Draw(*camera);
 	}
 
@@ -91,9 +93,6 @@ public:
 	}
 private:
 	int id;
-	Mesh2* mesh;
-	Mesh *mMesh;
-	Mesh *fMesh;
 	Shader* shader;
 	Texture* tex;
 	Texture* tex2;

@@ -28,7 +28,7 @@ AppWindow::AppWindow(const std::string title, int WIDTH, int HEIGHT){
 		if(mWindow == NULL){
 			std::cout << "Error 402: Failed to load Window: " << SDL_GetError() << std::endl;
 		}else{
-			input = Input(this, e);
+			input = new Input(this, e);
 		}
 	}
 }
@@ -63,8 +63,8 @@ void AppWindow::Init(){
 }
 
 void AppWindow::UpdateInput(SDL_Event& e){
-	input.Poll(e);
-	if(input.isCloseRequested()){
+	input->Poll(e);
+	if(input->isCloseRequested()){
 		SetRunning(false);
 	}
 

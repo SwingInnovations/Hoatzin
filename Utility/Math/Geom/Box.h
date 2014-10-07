@@ -179,6 +179,8 @@ public:
 
 		mVerticesSize = 8;
 		mIndiciesSize = 36;
+		Vector3f translate = mTransform.GetTranslation() + pos;
+		mTransform.SetTranslate(translate);
 	}
 
 	int* GetIndicies(){
