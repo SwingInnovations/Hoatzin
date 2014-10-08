@@ -8,6 +8,7 @@ Camera::Camera(){
 	mZNear = 0.0;
 	mZFar = 0.0;
 	yAxis = Vector3f(0.0f, 1.0f, 0.0f);
+	init = false;
 }
 
 Camera::Camera(CameraType camType, AppWindow& app, Vector3f& pos, float FOV, float zNear, float zFar){
@@ -22,6 +23,7 @@ Camera::Camera(CameraType camType, AppWindow& app, Vector3f& pos, float FOV, flo
 	mUp = Vector3f(0.0, 1.0f, 0.0);
 	mView = Vector3f(1.0f, 0.0, 0.0);
 	yAxis = Vector3f(0.0f, 1.0f, 0.0f);
+	init = false;
 }
 
 Camera::Camera(Vector3f& pos, float FOV, float WIDTH, float HEIGHT, float zNear, float zFar){
@@ -40,7 +42,7 @@ Camera::Camera(Vector3f& pos, float FOV, float WIDTH, float HEIGHT, float zNear,
 
 	hAngle = 0;
 	vAngle = 0;
-
+	init = false;
 }
 
 void Camera::Update(){
@@ -85,11 +87,15 @@ void Camera::SetRotateY(const float _y){
 
 void Camera::Update(Input &input){
 
+	if(!init){
+		hAngle = 0;
+		vAngle = 0;
+		input.CenterMouseInWindow();
+		init = true;
+	}
+
 	hAngle += 0.035f * (float)((1024/2) - input.getMouseCoord().GetX());
 	vAngle += 0.035f * (float)((768/2) - input.getMouseCoord().GetY());
-
-	std::cout << "H-Angle: " << hAngle << std::endl;
-	std::cout << "V-Angle: " << vAngle << std::endl;
 
 	Vector3f vAxis(0.0f, 1.0f, 0.0f);
 
@@ -100,8 +106,6 @@ void Camera::Update(Input &input){
 	Vector3f hAxis = vAxis.cross(mView);
 	hAxis.Normalize();
 	mView.Rotate(vAngle, hAxis);
-
-	mView.Print();
 
 	mForward = mView;
 	mForward.Normalize();

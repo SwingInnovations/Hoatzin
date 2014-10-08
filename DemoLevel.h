@@ -39,20 +39,20 @@ public:
 		rot2 = 0;
 		rotAmt = 0;
 		transX = 0; transZ = 0;
+		oT = 0;
+		nT = SDL_GetTicks();
 	}
 
 	void UpdateAuto(AppWindow& app, int delta){
-//		rot2+= 0.00000025f * delta;
-//		box->SetRotateY(rot2);
-//		box->SetRotateZ(rot2);
-//		box->SetRotateX(rot2);
+		rot2+= 0.25f * delta;
+		box->SetRotateY(rot2);
+		box->SetRotateZ(rot2);
+		box->SetRotateX(rot2);
 	}
 
 	void UpdateInput(AppWindow& app, int delta){
 		Input *input = app.GetInput();
 		app.ShowCursor(false);
-
-		std::cout << delta << std::endl;
 
 		if(input->isKeyDown(KEY::KEY_Q)){
 			std::cout << "Quiting" << std::endl;
@@ -60,21 +60,24 @@ public:
 		}
 
 		if(input->isKeyDown(KEY::KEY_A)){
-			transX += 0.000000025f*delta;
+			transX += 0.025f*delta;
 			camera->SetTranslateX(transX);
 		}
 		if(input->isKeyDown(KEY::KEY_D)){
-			transX -= 0.000000025f*delta;
+			transX -= 0.025f*delta;
 			camera->SetTranslateX(transX);
 		}
 		if(input->isKeyDown(KEY::KEY_W)){
-			transZ += 0.000000025f*delta;
+			transZ += 0.025f*delta;
 			camera->SetTranslateZ(transZ);
 		}
 		if(input->isKeyDown(KEY::KEY_S)){
-			transZ -= 0.000000025f * delta;
+			transZ -= 0.025f * delta;
 			camera->SetTranslateZ(transZ);
 		}
+
+		std::cout << "Delta:" << delta << std::endl;
+
 		camera->Update(*input);
 	}
 
@@ -104,6 +107,8 @@ private:
 	float transX, transZ;
 	Vector3f camPos;
 	SWObject *plane, *box;
+	std::vector<SWObject*> boxArray;
+	Uint32 oT, nT;
 };
 
 

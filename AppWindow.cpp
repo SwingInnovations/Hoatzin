@@ -14,8 +14,6 @@ AppWindow::AppWindow() {
 
 AppWindow::AppWindow(const std::string title, int WIDTH, int HEIGHT){
 	//Setup Window
-	oldTime = 0;
-	newTime = SDL_GetTicks();
 	this->WIDTH = WIDTH;
 	this->HEIGHT = HEIGHT;
 	if(SDL_Init(SDL_INIT_EVERYTHING | SDL_INIT_JOYSTICK) == -1){
@@ -31,6 +29,8 @@ AppWindow::AppWindow(const std::string title, int WIDTH, int HEIGHT){
 			input = new Input(this, e);
 		}
 	}
+	oldTime = 0;
+	newTime = SDL_GetTicks();
 }
 
 void AppWindow::SetOpenGLVersion(int MajorVersion, int MinorVersion){
@@ -81,12 +81,13 @@ void AppWindow::UpdateAuto(){
 
 void AppWindow::CalcDelta(){
 	if(newTime > oldTime){
-		oldTime = newTime;
 		delta = newTime - oldTime;
-		Uint32 targetInterval = (Uint32)(1.0/this->GetFPS());
+		Uint32 targetInterval = (Uint32)(1.0/this->GetFPS() * 1000);
 		if(delta < targetInterval){
 			delta = targetInterval;
 		}
+		oldTime = newTime;
+		newTime = SDL_GetTicks();
 	}
 }
 
