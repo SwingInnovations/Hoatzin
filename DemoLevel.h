@@ -14,6 +14,7 @@
 #include "Graphics/Camera.h"
 #include "Utility/Math/Geom/Plane.h"
 #include "Utility/Math/Geom/Box.h"
+#include "Utility/LuaScript.h"
 
 class DemoLevel : public GameState{
 public:
@@ -26,6 +27,8 @@ public:
 		camPos = Vector3f(0.0, -3.0, 0.0);
 		camera = new Camera(camPos, 66.0f, 1024.0f, 768.0f, 1.0f, 1000.0f);
 
+		l = new LuaScript("script.lua");
+
 		shader = new Shader("basicShader");
 		tex = new Texture("grid.png");
 		tex2 = new Texture("flower.jpg");
@@ -33,21 +36,24 @@ public:
 
 		plane = new SWObject(new Mesh(new Plane(30, 30)), shader, tex);
 		plane->SetTranslateY(-10);
+		plane->SetTranslateX(-10);
+		plane->SetTranslateZ(3);
+		plane->SetRotateX(90);
 		box = new SWObject(new Mesh(new Box(position, 3.0f, 3.0f, 3.0f)), shader, tex2);
 
 		rot = 0;
 		rot2 = 0;
 		rotAmt = 0;
 		transX = 0; transZ = 0;
-		oT = 0;
-		nT = SDL_GetTicks();
 	}
 
 	void UpdateAuto(AppWindow& app, int delta){
-		rot2+= 0.25f * delta;
+		rot2+= 0.025f * delta;
+		rotAmt = cos(rot2);
 		box->SetRotateY(rot2);
 		box->SetRotateZ(rot2);
 		box->SetRotateX(rot2);
+		box->SetTranslateY(rotAmt/4);
 	}
 
 	void UpdateInput(AppWindow& app, int delta){
@@ -75,14 +81,12 @@ public:
 			transZ -= 0.025f * delta;
 			camera->SetTranslateZ(transZ);
 		}
-
-		std::cout << "Delta:" << delta << std::endl;
-
+		std::cout << l->GetVarI("window","width") << std::endl;
 		camera->Update(*input);
 	}
 
 	void Render(){
-		//obj->Draw(*camera);
+//		obj->Draw(*camera);
 		plane->Draw(*camera);
 		box->Draw(*camera);
 	}
@@ -107,8 +111,8 @@ private:
 	float transX, transZ;
 	Vector3f camPos;
 	SWObject *plane, *box;
-	std::vector<SWObject*> boxArray;
-	Uint32 oT, nT;
+	SWObject *boxArray[3][3];
+	LuaScript* l;
 };
 
 
