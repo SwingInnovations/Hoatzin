@@ -17,6 +17,7 @@ public:
 	LuaScript(){}
 	LuaScript(const std::string& file){
 		L = luaL_newstate();
+		//TODO - Load Swing related functions
 		luaL_dofile(L, file.c_str());
 		luaL_openlibs(L);
 		if(luaL_loadfile(L, file.c_str())||lua_pcall(L, 0, 0, 0)){

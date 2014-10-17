@@ -40,6 +40,7 @@ public:
 		plane->SetTranslateZ(3);
 		plane->SetRotateX(90);
 		box = new SWObject(new Mesh(new Box(position, 3.0f, 3.0f, 3.0f)), shader, tex2);
+		box2 = new SWObject(new Mesh("box.obj", MESH_TYPE::MODEL_OBJ), shader, tex2);
 
 		rot = 0;
 		rot2 = 0;
@@ -89,6 +90,7 @@ public:
 //		obj->Draw(*camera);
 		plane->Draw(*camera);
 		box->Draw(*camera);
+		//box2->Draw(*camera);
 	}
 
 	int GetID(){
@@ -110,7 +112,7 @@ private:
 	float rotAmt;
 	float transX, transZ;
 	Vector3f camPos;
-	SWObject *plane, *box;
+	SWObject *plane, *box, *box2;
 	SWObject *boxArray[3][3];
 	LuaScript* l;
 };
