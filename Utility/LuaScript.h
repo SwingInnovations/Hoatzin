@@ -4,6 +4,7 @@
 
 #include <LuaBridge.h>
 #include <iostream>
+#include <vector>
 extern "C"{
 #include "lua.h"
 #include "lauxlib.h"
@@ -29,7 +30,7 @@ public:
 
 	int GetVarI(std::string var){
 		LuaRef t = getGlobal(L, var.c_str());
-		return (int)t.cast<int>();
+		return t.cast<int>();
 	}
 
 	int GetVarI(std::string tableRef, std::string var){

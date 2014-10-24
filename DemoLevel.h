@@ -40,7 +40,6 @@ public:
 		plane->SetTranslateZ(3);
 		plane->SetRotateX(90);
 		box = new SWObject(new Mesh(new Box(position, 3.0f, 3.0f, 3.0f)), shader, tex2);
-		box2 = new SWObject(new Mesh("box.obj", MESH_TYPE::MODEL_OBJ), shader, tex2);
 
 		rot = 0;
 		rot2 = 0;
@@ -48,7 +47,7 @@ public:
 		transX = 0; transZ = 0;
 	}
 
-	void UpdateAuto(AppWindow& app, int delta){
+	void UpdateAuto(AppWindow* app, int delta){
 		rot2+= 0.025f * delta;
 		rotAmt = cos(rot2);
 		box->SetRotateY(rot2);
@@ -57,13 +56,17 @@ public:
 		box->SetTranslateY(rotAmt/4);
 	}
 
-	void UpdateInput(AppWindow& app, int delta){
-		Input *input = app.GetInput();
-		app.ShowCursor(false);
+	void UpdateInput(AppWindow* app, int delta){
+		Input *input = app->GetInput();
+		app->ShowCursor(false);
 
 		if(input->isKeyDown(KEY::KEY_Q)){
 			std::cout << "Quiting" << std::endl;
 			input->RequestClose();
+		}
+
+		if(input->isKeyDown(KEY::KEY_1)){
+			app->EnterState(1);
 		}
 
 		if(input->isKeyDown(KEY::KEY_A)){
@@ -82,7 +85,9 @@ public:
 			transZ -= 0.025f * delta;
 			camera->SetTranslateZ(transZ);
 		}
-		std::cout << l->GetVarI("window","width") << std::endl;
+
+		std::cout << "delta: " << delta << std::endl;
+
 		camera->Update(*input);
 	}
 

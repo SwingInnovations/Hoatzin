@@ -11,8 +11,8 @@ public:
 	GameState(int id){this->id = id;}
 	virtual ~GameState();
 	virtual void Init(){}
-	virtual void UpdateInput(AppWindow& app, int delta){}
-	virtual void UpdateAuto(AppWindow& app ,int delta){}
+	virtual void UpdateInput(AppWindow* app, int delta){}
+	virtual void UpdateAuto(AppWindow* app ,int delta){}
 	virtual void Render(){}
 	virtual int GetID(){return id;}
 private:

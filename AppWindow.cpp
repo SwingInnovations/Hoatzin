@@ -69,13 +69,13 @@ void AppWindow::UpdateInput(SDL_Event& e){
 	}
 
 	if(!state.empty()){
-		state.at(mCurrentState)->UpdateInput(*this, delta);
+		state.at(mCurrentState)->UpdateInput(this, delta);
 	}
 }
 
 void AppWindow::UpdateAuto(){
 	if(!state.empty()){
-		state.at(mCurrentState)->UpdateAuto(*this, delta);
+		state.at(mCurrentState)->UpdateAuto(this, delta);
 	}
 }
 
