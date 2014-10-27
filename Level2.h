@@ -12,6 +12,7 @@ public:
 
 	void Init(){
 		box = new SWObject(new Mesh(new Box(3.0f, 3.0f, 3.0f)), new Shader("basicShader"), new Texture("grid.png"));
+		box->AddChild(new SWObject(new Mesh(new Box(2.0f, 5.0f, 2.0f)), new Shader("basicShader"), new Texture("grid.png")));
 		Vector3f camPos(0.0, -3.0, 0.0);
 		camera = new Camera(camPos, 66.0f, 1024, 768, 1.0f, 1000.0f);
 	}
@@ -27,6 +28,26 @@ public:
 		}
 		if(input->isKeyDown(KEY::KEY_1)){
 			app->EnterState(0);
+		}
+		if(input->isKeyDown(KEY::KEY_W)){
+			float _z = camera->GetTransform().GetTranslation().GetZ();
+			_z += 0.025f*delta;
+			camera->SetTranslateZ(_z);
+		}
+		if(input->isKeyDown(KEY::KEY_S)){
+			float _z = camera->GetTransform().GetTranslation().GetZ();
+			_z -= 0.025f*delta;
+			camera->SetTranslateZ(_z);
+		}
+		if(input->isKeyDown(KEY::KEY_A)){
+			float _x = camera->GetTransform().GetTranslation().GetX();
+			_x += 0.025f*delta;
+			camera->SetTranslateX(_x);
+		}
+		if(input->isKeyDown(KEY::KEY_D)){
+			float _x = camera->GetTransform().GetTranslation().GetX();
+			_x -= 0.025f*delta;
+			camera->SetTranslateX(_x);
 		}
 		camera->Update(*input);
 	}

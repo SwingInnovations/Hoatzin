@@ -5,6 +5,7 @@ SWObject::SWObject(){
 	shader = 0;
 	tex = 0;
 	transform = new Transform();
+	hasChildren = false;
 }
 
 SWObject::SWObject(Mesh* mesh, Shader* shader, Texture* texture){
@@ -15,6 +16,7 @@ SWObject::SWObject(Mesh* mesh, Shader* shader, Texture* texture){
 	std::cout << "Assigned shader" << std::endl;
 	this->tex = texture;
 	std::cout << "Assigned Texture" << std::endl;
+	hasChildren = false;
 }
 
 

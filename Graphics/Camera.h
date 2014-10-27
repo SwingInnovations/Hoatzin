@@ -26,6 +26,8 @@ public:
 	float GetYaw(){return this->hAngle;}
 	float GetPitch(){return this->vAngle;}
 
+	Transform GetTransform()const{return this->transform;}
+
 	void SetTranslate(Vector3f& vec){transform.SetTranslate(vec);}
 	void SetTranslateX(float _x){transform.SetTranslateX(_x);}
 	void SetTranslateY(float _y){transform.SetTranslateY(_y);}
