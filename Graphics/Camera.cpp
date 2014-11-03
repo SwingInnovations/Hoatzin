@@ -11,8 +11,7 @@ Camera::Camera(){
 	init = false;
 }
 
-Camera::Camera(CameraType camType, AppWindow& app, Vector3f& pos, float FOV, float zNear, float zFar){
-	mCameraType = camType;
+Camera::Camera(AppWindow& app, Vector3f& pos, float FOV, float zNear, float zFar){
 	mWIDTH = app.GetWidth();
 	mHEIGHT = app.GetHeight();
 	mFOV = FOV;
