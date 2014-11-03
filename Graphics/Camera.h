@@ -7,15 +7,33 @@
 
 class AppWindow;
 
+namespace CAMERA_VIEW{
+	enum Mode{
+		PERSPECTIVE = 0,
+		ORTHOGRAPHIC = 1
+	};
+};
+
+namespace CAMERA_MOVEMENT{
+	enum Mode{
+		FirstPerson = 0,
+		ThirdPerson = 1,
+		ISOMETRIC = 2,
+		LOCKED = 3
+	};
+};
+
 class Camera{
 public:
-	enum CameraType{Perspective, Orthographic};
-
 	Camera();
 
-	Camera(CameraType camType, AppWindow& app, Vector3f& pos, float FOV, float zNear, float zFar);
+	Camera(AppWindow& app, Vector3f& pos, float FOV, float zNear, float zFar);
 
 	Camera(Vector3f& pos, float FOV, float WIDTH, float HEIGHT, float zNear, float zFar);
+
+	void SetViewMode(int mode){viewMode = mode;}
+	void SetMoveMode(int mode){moveMode = mode;}
+
 	void SetRotateX(const float _x);
 	void SetRotateY(const float _y);
 
@@ -52,8 +70,9 @@ public:
 	}
 private:
 	Transform transform;
-	CameraType mCameraType;
 	bool init;
+	int viewMode;
+	int moveMode;
 	Vector3f mForward;
 	Vector3f mUp;
 	Vector3f yAxis;
