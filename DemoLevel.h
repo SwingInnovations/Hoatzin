@@ -40,6 +40,7 @@ public:
 		plane->SetTranslateZ(3);
 		plane->SetRotateX(90);
 		box = new SWObject(new Mesh(new Box(position, 3.0f, 3.0f, 3.0f)), shader, tex2);
+		box->AddChild(new SWObject(new Mesh(new Plane(10, 10)), shader, new Texture("profilePic.png")));
 
 		rot = 0;
 		rot2 = 0;
@@ -54,6 +55,8 @@ public:
 		box->SetRotateZ(rot2);
 		box->SetRotateX(rot2);
 		box->SetTranslateY(rotAmt/4);
+
+		box->GetChild(0)->SetTranslateY(rotAmt);
 	}
 
 	void UpdateInput(AppWindow* app, int delta){
@@ -67,6 +70,11 @@ public:
 
 		if(input->isKeyDown(KEY::KEY_1)){
 			app->EnterState(1);
+		}
+
+		if(input->isKeyDown(KEY::KEY_P)){
+			bool temp = app->GetPause();
+			app->SetPause(!temp);
 		}
 
 		if(input->isKeyDown(KEY::KEY_A)){

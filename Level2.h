@@ -12,13 +12,17 @@ public:
 
 	void Init(){
 		box = new SWObject(new Mesh(new Box(3.0f, 3.0f, 3.0f)), new Shader("basicShader"), new Texture("grid.png"));
-		box->AddChild(new SWObject(new Mesh(new Box(2.0f, 5.0f, 2.0f)), new Shader("basicShader"), new Texture("grid.png")));
+		box->AddChild(new SWObject(new Mesh(new Box(2.0f, 5.0f, 2.0f)), new Shader("basicShader"), new Texture("flower.jpg")));
 		Vector3f camPos(0.0, -3.0, 0.0);
 		camera = new Camera(camPos, 66.0f, 1024, 768, 1.0f, 1000.0f);
 	}
 
 	void UpdateAuto(AppWindow* app, int delta){
-
+		float pX = box->GetChild(0)->transform->GetTranslation().GetX();
+		pX += 0.035f * delta;
+		for(unsigned int i = 0; i < box->children.size(); i++){
+			box->GetChild(i)->SetTranslateY(cos(pX)*2);
+		}
 	}
 
 	void UpdateInput(AppWindow* app, int delta){

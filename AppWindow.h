@@ -27,12 +27,14 @@ public:
 	void EnterState(int id){mCurrentState = id;}
 	Input *GetInput(){ return input; }
 	void SetRunning(bool val){Running = val;}
+	void SetPause(bool val){pause = val;}
 	void ShowCursor(bool val);
 	void CenterCursor();
 	void SetTargetFPS(float val){fps = val;}
 
 	int GetWidth(){return WIDTH;}
 	int GetHeight(){return HEIGHT;}
+	bool GetPause(){return pause;}
 
 	Uint32 GetFPS(){return fps;}
 	Uint32 GetDelta(){return delta;}
@@ -51,6 +53,7 @@ private:
 	SDL_GLContext mContext;
 	SDL_Event e;
 	Input *input;
+	bool pause;
 	unsigned int WIDTH, HEIGHT;
 	int mCurrentState;
 	Uint32 delta, oldTime, newTime, fps;

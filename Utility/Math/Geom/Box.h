@@ -61,6 +61,7 @@ public:
 		mIndicies.push_back(5);
 		mIndicies.push_back(5);
 		mIndicies.push_back(7);
+		mIndicies.push_back(1);
 		mVerticesSize = 8;
 		mIndiciesSize = 36;
 	}
@@ -116,7 +117,7 @@ public:
 		mIndicies.push_back(5);
 		mIndicies.push_back(5);
 		mIndicies.push_back(7);
-		mIndicies.push_back(0);
+		mIndicies.push_back(1);
 		mVerticesSize = 8;
 		mIndiciesSize = 36;
 	}
@@ -179,8 +180,6 @@ public:
 
 		mVerticesSize = 8;
 		mIndiciesSize = 36;
-		Vector3f translate = mTransform.GetTranslation() + pos;
-		mTransform.SetTranslate(translate);
 	}
 
 	int* GetIndicies(){

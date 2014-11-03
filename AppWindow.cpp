@@ -8,7 +8,7 @@
 #include "AppWindow.h"
 
 AppWindow::AppWindow() {
-
+	pause = false;
 
 }
 
@@ -29,6 +29,7 @@ AppWindow::AppWindow(const std::string title, int WIDTH, int HEIGHT){
 			input = new Input(this, e);
 		}
 	}
+	pause = false;
 	oldTime = 0;
 	newTime = SDL_GetTicks();
 }
@@ -108,7 +109,11 @@ void AppWindow::Start(){
 	SetRunning(true);
 	Init();
 	while(Running){
-		CalcDelta();
+		if(!pause){
+			CalcDelta();
+		}else{
+			delta = 0;
+		}
 		while(SDL_PollEvent(&e)){
 			UpdateInput(e);
 		}
