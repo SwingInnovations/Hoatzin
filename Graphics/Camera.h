@@ -28,49 +28,51 @@ public:
 	Camera();
 
 	Camera(AppWindow& app, Vector3f& pos, float FOV, float zNear, float zFar);
+	Camera(AppWindow& app, Vector3f& pos, float FOV, float zNear, float zFar, int _viewMode, int _moveMode);
 
 	Camera(Vector3f& pos, float FOV, float WIDTH, float HEIGHT, float zNear, float zFar);
+	Camera(Vector3f& pos, float FOV, float WIDTH, float HEIGHT, float zNear, float zFar, int _viewMode, int _moveMode);
 
-	void SetViewMode(int mode){viewMode = mode;}
-	void SetMoveMode(int mode){moveMode = mode;}
+	void setViewMode(int mode){viewMode = mode;}
+	void setMoveMode(int mode){moveMode = mode;}
 
-	void SetRotateX(const float _x);
-	void SetRotateY(const float _y);
+	void setRotateX(const float _x);
+	void setRotateY(const float _y);
 
-	void Init();
-	void Update();
-	void Update(Input &input);
+	void init();
+	void update();
+	void update(Input &input);
 
-	float GetYaw(){return this->hAngle;}
-	float GetPitch(){return this->vAngle;}
+	float getYaw(){return this->hAngle;}
+	float getPitch(){return this->vAngle;}
 
-	Transform GetTransform()const{return this->transform;}
+	Transform getTransform()const{return this->transform;}
 
-	void SetTranslate(Vector3f& vec){transform.SetTranslate(vec);}
-	void SetTranslateX(float _x){transform.SetTranslateX(_x);}
-	void SetTranslateY(float _y){transform.SetTranslateY(_y);}
-	void SetTranslateZ(float _z){transform.SetTranslateZ(_z);}
+	void setTranslate(Vector3f& vec){transform.setTranslate(vec);}
+	void setTranslateX(float _x){transform.setTranslateX(_x);}
+	void setTranslateY(float _y){transform.setTranslateY(_y);}
+	void setTranslateZ(float _z){transform.setTranslateZ(_z);}
 
-	void SetScale(Vector3f& vec){transform.SetScale(vec);}
-	void SetScaleX(float _x){transform.SetScaleX(_x);}
-	void SetScaleY(float _y){transform.SetScaleY(_y);}
-	void SetScaleZ(float _z){transform.SetScaleZ(_z);}
+	void setScale(Vector3f& vec){transform.setScale(vec);}
+	void setScaleX(float _x){transform.setScaleX(_x);}
+	void setScaleY(float _y){transform.setScaleY(_y);}
+	void setScaleZ(float _z){transform.setScaleZ(_z);}
 
-	Matrix4f GetViewProjection();
-	Vector3f GetLeft(){
+	Matrix4f getViewProjection();
+	Vector3f getLeft(){
 		Vector3f left = mForward.cross(mUp);
-		left.Normalize();
+		left.normalize();
 		return left;
 	}
 
-	Vector3f GetRight(){
+	Vector3f getRight(){
 		Vector3f right = mUp.cross(mForward);
-		right.Normalize();
+		right.normalize();
 		return right;
 	}
 private:
 	Transform transform;
-	bool init;
+	bool start;
 	int viewMode;
 	int moveMode;
 	Vector3f mForward;
@@ -78,7 +80,7 @@ private:
 	Vector3f yAxis;
 	Vector3f mView;
 	Vector3f mPosition;
-	float mFOV, mWIDTH, mHEIGHT, mZNear, mZFar, mDeltaX, mDeltaY, mPasX, mPasY, hAngle, vAngle;
+	float mFOV, mWIDTH, mHEIGHT, mZNear, mZFar, hAngle, vAngle;
 };
 
 

@@ -28,28 +28,28 @@ public:
 
     Matrix4f(Vector3f& vec)
     {
-        m[0][0] = vec.GetX(); m[0][1] = 0.0; m[0][2] = 0.0; m[0][3] = 0.0;
-        m[1][0] = 0.0; m[1][1] = vec.GetY(); m[1][2] = 0.0; m[1][3] = 0.0;
-        m[2][0] = 0.0; m[2][1] = 0.0; m[2][2] = vec.GetZ(); m[2][3] = 0.0;
+        m[0][0] = vec.getX(); m[0][1] = 0.0; m[0][2] = 0.0; m[0][3] = 0.0;
+        m[1][0] = 0.0; m[1][1] = vec.getY(); m[1][2] = 0.0; m[1][3] = 0.0;
+        m[2][0] = 0.0; m[2][1] = 0.0; m[2][2] = vec.getZ(); m[2][3] = 0.0;
         m[3][0] = 0.0; m[3][1] = 0.0; m[3][2] = 0.0; m[3][3] = 1.0;
     }
 
     Matrix4f(Vector4f& vec)
     {
-        m[0][0] = vec.GetX(); m[0][1] = 0; m[0][2] = 0.0; m[0][3] = 0.0;
-        m[1][0] = 0.0; m[1][1] = vec.GetY(); m[1][2] = 0.0; m[1][3] = 0.0;
-        m[2][0] = 0.0; m[2][1] = 0.0; m[2][2] = vec.GetZ(); m[2][3] = 0.0;
-        m[3][0] = 0.0; m[3][1] = 0.0; m[3][2] = 0.0; m[3][3] = vec.GetW();
+        m[0][0] = vec.getX(); m[0][1] = 0; m[0][2] = 0.0; m[0][3] = 0.0;
+        m[1][0] = 0.0; m[1][1] = vec.getY(); m[1][2] = 0.0; m[1][3] = 0.0;
+        m[2][0] = 0.0; m[2][1] = 0.0; m[2][2] = vec.getZ(); m[2][3] = 0.0;
+        m[3][0] = 0.0; m[3][1] = 0.0; m[3][2] = 0.0; m[3][3] = vec.getW();
     }
 
-    void InitIdentity(){
+    void initIdentity(){
     	m[0][0] = 1.0; m[0][1] = 0.0; m[0][2] = 0.0; m[0][3] = 0.0;
     	m[1][0] = 0.0; m[1][1] = 1.0; m[1][2] = 0.0; m[1][3] = 0.0;
     	m[2][0] = 0.0; m[2][1] = 0.0; m[2][2] = 1.0; m[2][3] = 0.0;
     	m[3][0] = 0.0; m[3][1] = 0.0; m[3][2] = 0.0; m[3][3] = 1.0;
     }
 
-    void InitTranslation(float x, float y, float z)
+    void initTranslation(float x, float y, float z)
     {
         m[0][0] = 1.0; m[0][1] = 0.0; m[0][2] = 0.0; m[0][3] = x;
         m[1][0] = 0.0; m[1][1] = 1.0; m[1][2] = 0.0; m[1][3] = y;
@@ -57,15 +57,15 @@ public:
         m[3][0] = 0.0; m[3][1] = 0.0; m[3][2] = 0.0; m[3][3] = 1.0;
     }
 
-    void InitTranslation(Vector3f& vec)
+    void initTranslation(Vector3f& vec)
     {
-        m[0][0] = 1.0; m[0][1] = 0.0; m[0][2] = 0.0; m[0][3] = vec.GetX();
-        m[1][0] = 0.0; m[1][1] = 1.0; m[1][2] = 0.0; m[1][3] = vec.GetY();
-        m[2][0] = 0.0; m[2][1] = 0.0; m[2][2] = 1.0; m[2][3] = vec.GetZ();
+        m[0][0] = 1.0; m[0][1] = 0.0; m[0][2] = 0.0; m[0][3] = vec.getX();
+        m[1][0] = 0.0; m[1][1] = 1.0; m[1][2] = 0.0; m[1][3] = vec.getY();
+        m[2][0] = 0.0; m[2][1] = 0.0; m[2][2] = 1.0; m[2][3] = vec.getZ();
         m[3][0] = 0.0; m[3][1] = 0.0; m[3][2] = 0.0; m[3][3] = 1.0;
     }
 
-    void InitRotation(float angle, float u, float v, float w){
+    void initRotation(float angle, float u, float v, float w){
         float L = (u * u + v * v + w * w);
         angle = angle * 3.1415 / 180.0; //convert to radian
         float u2 = u * u;
@@ -93,17 +93,17 @@ public:
         m[3][3] = 1.0;
     }
 
-    void InitRotation(float angle, Vector3f* vec){
-        float L = (vec->GetX() * vec->GetX() + vec->GetY() * vec->GetY() + vec->GetZ() * vec->GetZ());
+    void initRotation(float angle, Vector3f* vec){
+        float L = (vec->getX() * vec->getX() + vec->getY() * vec->getY() + vec->getZ() * vec->getZ());
         angle = angle * 3.1315 / 180.0;
 
-        float u = vec->GetX();
-        float v = vec->GetY();
-        float w = vec->GetZ();
+        float u = vec->getX();
+        float v = vec->getY();
+        float w = vec->getZ();
 
-        float u2 = vec->GetX() * vec->GetX();
-        float v2 = vec->GetY() * vec->GetY();
-        float w2 = vec->GetZ() * vec->GetZ();
+        float u2 = vec->getX() * vec->getX();
+        float v2 = vec->getY() * vec->getY();
+        float w2 = vec->getZ() * vec->getZ();
 
         m[0][0] = (u2 + (v2 + w2) * cos((double)angle))/ L;
         m[0][1] = (u * v * (1 - cos((double)angle)) - w * sqrt(L) * sin((double)angle)) / L;
@@ -126,7 +126,7 @@ public:
         m[3][3] = 1.0;
     }
 
-    void InitScale(float x, float y, float z)
+    void initScale(float x, float y, float z)
     {
         m[0][0] = x; m[0][1] = 0.0; m[0][2] = 0.0; m[0][3] = 0.0;
         m[1][0] = 0.0; m[1][1] = y; m[1][2] = 0.0; m[1][3] = 0.0;
@@ -134,15 +134,15 @@ public:
         m[3][0] = 0.0; m[3][1] = 0.0; m[3][2] = 0.0; m[3][3] = 1.0;
     }
 
-    void InitScale(Vector3f& vec)
+    void initScale(Vector3f& vec)
     {
-        m[0][0] = vec.GetX(); m[0][1] = 0.0; m[0][2] = 0.0; m[0][3] = 0.0;
-        m[1][0] = 0.0; m[1][1] = vec.GetY(); m[1][2] = 0.0; m[1][3] = 0.0;
-        m[2][0] = 0.0; m[2][1] = 0.0; m[2][2] = vec.GetZ(); m[2][3] = 0.0;
+        m[0][0] = vec.getX(); m[0][1] = 0.0; m[0][2] = 0.0; m[0][3] = 0.0;
+        m[1][0] = 0.0; m[1][1] = vec.getY(); m[1][2] = 0.0; m[1][3] = 0.0;
+        m[2][0] = 0.0; m[2][1] = 0.0; m[2][2] = vec.getZ(); m[2][3] = 0.0;
         m[3][0] = 0.0; m[3][1] = 0; m[3][2] = 0.0; m[3][3] = 1.0;
     }
 
-    void InitPerspectiveProjection(float FOV, float WIDTH, float HEIGHT, float zNear, float zFar){
+    void initPerspectiveProjection(float FOV, float WIDTH, float HEIGHT, float zNear, float zFar){
     	const float ar = WIDTH / HEIGHT;
     	const float tanHalfFOV = tanf(ToRadian(FOV/2.0));
 
@@ -152,37 +152,37 @@ public:
     	m[3][0] = 0.0; m[3][1] = 0.0; m[3][2] = -1.0f; m[3][3] = 0.0;
     }
 
-    void InitOrthographicProjection(){
+    void initOrthographicProjection(){
 
     }
 
-    void InitCamera(const Vector3f& target, const Vector3f& up){
+    void initCamera(const Vector3f& target, const Vector3f& up){
     	Vector3f N = target;
-    	N.Normalize();
+    	N.normalize();
     	Vector3f U = up;
-    	U.Normalize();
+    	U.normalize();
     	U = U.cross(N);
     	Vector3f V;
     	V = N.cross(U);
 
-    	m[0][0] = U.GetX(); m[0][1] = U.GetY(); m[0][2] = U.GetZ(); m[0][3] = 0.0;
-    	m[1][0] = V.GetX(); m[1][1] = V.GetY(); m[1][2] = V.GetZ(); m[1][3] = 0.0;
-    	m[2][0] = N.GetX(); m[2][1] = N.GetY(); m[2][2] = N.GetZ(); m[2][3] = 0.0;
+    	m[0][0] = U.getX(); m[0][1] = U.getY(); m[0][2] = U.getZ(); m[0][3] = 0.0;
+    	m[1][0] = V.getX(); m[1][1] = V.getY(); m[1][2] = V.getZ(); m[1][3] = 0.0;
+    	m[2][0] = N.getX(); m[2][1] = N.getY(); m[2][2] = N.getZ(); m[2][3] = 0.0;
     	m[3][0] = 0.0; 		m[3][1] = 0.0;		m[3][2] = 0.0; 		m[3][3] = 1.0f;
     }
 
-    void InitCamera(const Vector3f& target, const Vector3f& up, const Vector3f& view){
+    void initCamera(const Vector3f& target, const Vector3f& up, const Vector3f& view){
     	Vector3f N = target;
     	Vector3f U = up;
     	Vector3f V = view;
 
-    	m[0][0] = U.GetX(); m[0][1] = U.GetY(); m[0][2] = U.GetZ(); m[0][3] = 0.0;
-    	m[1][0] = V.GetX(); m[1][1] = V.GetY(); m[1][2] = V.GetZ(); m[1][3] = 0.0;
-    	m[2][0] = N.GetX(); m[2][1] = N.GetY(); m[2][2] = N.GetZ(); m[2][3] = 0.0;
+    	m[0][0] = U.getX(); m[0][1] = U.getY(); m[0][2] = U.getZ(); m[0][3] = 0.0;
+    	m[1][0] = V.getX(); m[1][1] = V.getY(); m[1][2] = V.getZ(); m[1][3] = 0.0;
+    	m[2][0] = N.getX(); m[2][1] = N.getY(); m[2][2] = N.getZ(); m[2][3] = 0.0;
     	m[3][0] = 0.0; 		m[3][1] = 0.0;		m[3][2] = 0.0; 		m[3][3] = 1.0;
     }
 
-    Matrix4f Normalize(){
+    Matrix4f normalize(){
     	Matrix4f ret;
     	float length[4];
     	length[0] = m[0][0] + m[1][0] + m[2][0] + m[3][0];
@@ -203,7 +203,7 @@ public:
         return m[x][y];
     }
 
-    void Print(){
+    void print(){
     	for(unsigned int i = 0; i < 4; i++){
     		for(unsigned int j = 0; j < 4; j++){
     			std::cout << m[i][j] << " ";
@@ -212,7 +212,7 @@ public:
     	}
     }
 
-    Vector4f ToVector4f() const
+    Vector4f toVector4f() const
     {
         const float _x = m[0][0] * 1 + m[0][1] * 1 + m[0][2] * 1 + m[0][3] * 1;
         const float _y = m[1][0] * 1 + m[1][1] * 1 + m[1][2] * 1 + m[1][3] * 1;

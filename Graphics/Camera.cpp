@@ -8,12 +8,12 @@ Camera::Camera(){
 	mZNear = 0.0;
 	mZFar = 0.0;
 	yAxis = Vector3f(0.0f, 1.0f, 0.0f);
-	init = false;
+	start = false;
 }
 
 Camera::Camera(AppWindow& app, Vector3f& pos, float FOV, float zNear, float zFar){
-	mWIDTH = app.GetWidth();
-	mHEIGHT = app.GetHeight();
+	mWIDTH = app.getWidth();
+	mHEIGHT = app.getHeight();
 	mFOV = FOV;
 	mZNear = zNear;
 	mZFar = zFar;
@@ -22,7 +22,31 @@ Camera::Camera(AppWindow& app, Vector3f& pos, float FOV, float zNear, float zFar
 	mUp = Vector3f(0.0, 1.0f, 0.0);
 	mView = Vector3f(1.0f, 0.0, 0.0);
 	yAxis = Vector3f(0.0f, 1.0f, 0.0f);
-	init = false;
+	start = false;
+	hAngle = 0;
+	vAngle = 0;
+	transform.setTranslate(pos);
+}
+
+Camera::Camera(AppWindow& app, Vector3f& pos, float FOV, float zNear, float zFar, int _viewMode, int _moveMode){
+	mWIDTH = app.getWidth();
+	mHEIGHT = app.getHeight();
+	mFOV = FOV;
+	mZNear = zNear;
+	mZFar = zFar;
+
+	mPosition = pos;
+	transform.setTranslate(pos);
+	mForward = Vector3f(0.0f, 0.0f, 1.0f);
+	mUp = Vector3f(0.0, 1.0f, 0.0f);
+	mView = Vector3f(1.0f, 0.0f, 0.0f);
+	viewMode = _viewMode;
+	moveMode = _moveMode;
+
+	hAngle = 0;
+	vAngle = 0;
+
+	start = false;
 }
 
 Camera::Camera(Vector3f& pos, float FOV, float WIDTH, float HEIGHT, float zNear, float zFar){
@@ -33,93 +57,114 @@ Camera::Camera(Vector3f& pos, float FOV, float WIDTH, float HEIGHT, float zNear,
 	mZFar = zFar;
 
 	mPosition = pos;
+	transform.setTranslate(pos);
 	mForward = Vector3f(0.0, 0.0, 1.0);
-	mForward = mForward.Normalize();
+	mForward = mForward.normalize();
 	mUp = Vector3f(0.0, 1.0f, 0.0);
 	mView = Vector3f(1.0f, 0.0, 0.0);
 	yAxis = Vector3f(0.0f, 1.0f, 0.0f);
 
 	hAngle = 0;
 	vAngle = 0;
-	init = false;
+	start = false;
 }
 
-void Camera::Update(){
+Camera::Camera(Vector3f& pos, float FOV, float WIDTH, float HEIGHT, float zNear, float zFar, int _viewMode, int _moveMode){
+	mPosition = pos;
+	mFOV = FOV;
+	mWIDTH = WIDTH;
+	mHEIGHT = HEIGHT;
+	mZNear = zNear;
+	mZFar = zFar;
+
+	mForward = Vector3f(0.0f, 0.0f, 1.0f);
+	mUp = Vector3f(0.0f, 1.0f, 0.0f);
+	mView = Vector3f(1.0f, 0.0f, 0.0f);
+	transform.setTranslate(pos);
+
+	hAngle = 0;
+	vAngle = 0;
+	viewMode = _viewMode;
+	moveMode = _moveMode;
+	start = false;
+}
+
+void Camera::update(){
 	Vector3f vAxis(0.0f, 1.0f, 0.0f);
 
 	mView = Vector3f(1.0f, 0.0f, 0.0f);
-	mView.Rotate(hAngle, vAxis);
-	mView.Normalize();
+	mView.rotate(hAngle, vAxis);
+	mView.normalize();
 
 	Vector3f hAxis = vAxis.cross(mView);
-	hAxis.Normalize();
-	mView.Rotate(vAngle, hAxis);
+	hAxis.normalize();
+	mView.rotate(vAngle, hAxis);
 
 	mForward = mView;
-	mForward.Normalize();
+	mForward.normalize();
 
 	mUp = mForward.cross(hAxis);
-	mUp.Normalize();
+	mUp.normalize();
 
 }
 
-void Camera::SetRotateX(const float _x){
+void Camera::setRotateX(const float _x){
 	Vector3f hAxis = yAxis.cross(mForward);
-	hAxis.Print();
-	hAxis.Normalize();
+	hAxis.print();
+	hAxis.normalize();
 
-	mForward.Rotate(_x, yAxis);
+	mForward.rotate(_x, yAxis);
 
-	mForward.Normalize();
+	mForward.normalize();
 	mUp = mForward.cross(hAxis);
-	mUp.Normalize();
+	mUp.normalize();
 }
 
-void Camera::SetRotateY(const float _y){
+void Camera::setRotateY(const float _y){
 	Vector3f hAxis = yAxis.cross(mForward);
-	hAxis.Normalize();
-	mForward.Rotate(_y, hAxis);
-	mForward.Normalize();
+	hAxis.normalize();
+	mForward.rotate(_y, hAxis);
+	mForward.normalize();
 	mUp = mForward.cross(hAxis);
-	mUp.Normalize();
+	mUp.normalize();
 }
 
-void Camera::Update(Input &input){
+void Camera::update(Input &input){
 
-	if(!init){
+	if(!start){
 		input.CenterMouseInWindow();
 		hAngle = 0;
 		vAngle = 0;
-		init = true;
+		start = true;
 	}else{
-		hAngle += 0.035f * (float)((1024/2) - input.getMouseCoord().GetX());
-		vAngle += 0.035f * (float)((768/2) - input.getMouseCoord().GetY());
+		hAngle += 0.035f * (float)((1024/2) - input.getMouseCoord().getX());
+		vAngle += 0.035f * (float)((768/2) - input.getMouseCoord().getY());
 
 		Vector3f vAxis(0.0f, 1.0f, 0.0f);
 
 		mView = Vector3f(1.0f, 0.0f, 0.0f);
-		mView.Rotate(hAngle, vAxis);
-		mView.Normalize();
+		mView.rotate(hAngle, vAxis);
+		mView.normalize();
 
 		Vector3f hAxis = vAxis.cross(mView);
-		hAxis.Normalize();
-		mView.Rotate(vAngle, hAxis);
+		hAxis.normalize();
+		mView.rotate(vAngle, hAxis);
 
 		mForward = mView;
-		mForward.Normalize();
+		mForward.normalize();
 
 		mUp = mForward.cross(hAxis);
-		mUp.Normalize();
+		mUp.normalize();
 
 		input.CenterMouseInWindow();
 	}
 }
 
-Matrix4f Camera::GetViewProjection(){
+Matrix4f Camera::getViewProjection(){
 	Matrix4f View, Camera, Perspective, TransformTranslate;
-	Perspective.InitPerspectiveProjection(mFOV, mWIDTH, mHEIGHT, mZNear, mZFar);
-	Camera.InitCamera(mForward, mUp);
-	TransformTranslate.InitTranslation(transform.GetTranslation().GetX(), transform.GetTranslation().GetY(), transform.GetTranslation().GetZ());
+	Perspective.initPerspectiveProjection(mFOV, mWIDTH, mHEIGHT, mZNear, mZFar);
+	Camera.initCamera(mForward, mUp);
+	TransformTranslate.initTranslation(transform.getTranslate().getX(), transform.getTranslate().getY(), transform.getTranslate().getZ());
 	View = Perspective * Camera * TransformTranslate;
 	return View;
 }

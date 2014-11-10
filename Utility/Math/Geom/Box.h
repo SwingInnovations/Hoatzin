@@ -123,9 +123,9 @@ public:
 	}
 
 	Box(Vector3f& pos, int width, int height, int depth){
-		int posX = (int)pos.GetX();
-		int posY = (int)pos.GetY();
-		int posZ = (int)pos.GetZ();
+		int posX = (int)pos.getX();
+		int posY = (int)pos.getY();
+		int posZ = (int)pos.getZ();
 		int centerWidth = width/2;
 		int centerHeight = height/2;
 		int centerDepth = depth/2;

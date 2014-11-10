@@ -68,7 +68,21 @@ namespace KEY{
         KEY_7 = 36,
         KEY_8 = 37,
         KEY_9 = 38,
-        KEY_0 = 39
+        KEY_0 = 39,
+
+        KEY_ENTER = 40,
+        KEY_RETURN = 40,
+        KEY_ESC = 41,
+        KEY_BACKSPACE = 42,
+        KEY_TAB = 43,
+        KEY_SPACE = 44,
+
+        KEY_L_CONTROL = 224,
+        KEY_L_SHIFT = 225,
+        KEY_L_ALT = 226,
+        KEY_R_CONTROL = 228,
+        KEY_R_SHIFT = 229,
+        KEY_R_ALT = 230
     };
 };
 
@@ -80,15 +94,15 @@ public:
     Input(SDL_Event &_e);
     virtual ~Input();
 
-    void Poll(SDL_Event &e);
-    void RequestClose(){ closeRequested = true; }
+    void poll(SDL_Event &e);
+    void requestClose(){ closeRequested = true; }
 
-    void AddJoystick(int id);
-    void GetJoystickAxis(int numJoystick, double* x, double* y);
-    void GetJoystickAxis(int numJoystick, double* x, double* y, double* z);
-    void GetJoystickAxis(int numJoystick, int* x, int* y);
-    void GetJoystickAxis(int numJoystick, int* x, int* y, int* z);
-    bool GetJoystickButton(int numJoystick, int button);
+    void addJoystick(int id);
+    void getJoystickAxis(int numJoystick, double* x, double* y);
+    void getJoystickAxis(int numJoystick, double* x, double* y, double* z);
+    void getJoystickAxis(int numJoystick, int* x, int* y);
+    void getJoystickAxis(int numJoystick, int* x, int* y, int* z);
+    bool getJoystickButton(int numJoystick, int button);
 
     void CenterMouseInWindow();
 
@@ -97,9 +111,9 @@ public:
     bool isKeyDown(int Key);
     bool isMouseDown(int mouseButton);
 
-    unsigned int GetScreenWidth(){return screenWidth;}
-    unsigned int GetScreenHeight(){return screenHeight;}
-    Uint32 GetDelta(){return delta;}
+    unsigned int getScreenWidth(){return screenWidth;}
+    unsigned int getScreenHeight(){return screenHeight;}
+    Uint32 getDelta(){return delta;}
 
     Vector2f getMouseCoord();
 private:

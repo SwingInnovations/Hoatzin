@@ -45,9 +45,9 @@ public:
 		normal.reserve(mNumVert);
 
 		for(unsigned int i = 0; i < mNumVert; i++){
-			vertex.push_back(*vertices[i].GetVertices());
-			texCoord.push_back(*vertices[i].GetTexCoord());
-			normal.push_back(*vertices[i].GetVertices());
+			vertex.push_back(*vertices[i].getVerticies());
+			texCoord.push_back(*vertices[i].getTexCoord());
+			normal.push_back(*vertices[i].getVerticies());
 		}
 
 		glGenBuffers(NUM_BUFFERS, mVBO);
@@ -88,9 +88,9 @@ public:
 		texCoord.reserve(mNumVert);
 		normal.reserve(mNumVert);
 		for(unsigned int i = 0; i < mNumVert; i++){
-			vertex.push_back(*shape->GetVertices()->GetVertices());
-			texCoord.push_back(*shape->GetVertices()->GetTexCoord());
-			normal.push_back(*shape->GetVertices()->GetNormal());
+			vertex.push_back(*shape->GetVertices()->getVerticies());
+			texCoord.push_back(*shape->GetVertices()->getTexCoord());
+			normal.push_back(*shape->GetVertices()->getNormal());
 		}
 		glGenBuffers(NUM_BUFFERS, mVBO);
 
@@ -133,9 +133,9 @@ public:
 		texCoord.reserve(mNumVert);
 		normal.reserve(mNumVert);
 		for(unsigned int i = 0; i < mNumVert; i++){
-			vertex.push_back(*shape->mVertices[i].GetVertices());
-			texCoord.push_back(*shape->mVertices[i].GetTexCoord());
-			normal.push_back(*shape->mVertices[i].GetNormal());
+			vertex.push_back(*shape->mVertices[i].getVerticies());
+			texCoord.push_back(*shape->mVertices[i].getTexCoord());
+			normal.push_back(*shape->mVertices[i].getNormal());
 		}
 		glGenBuffers(NUM_BUFFERS, mVBO);
 
@@ -175,9 +175,9 @@ public:
 		texCoord.reserve(mNumVert);
 		normal.reserve(mNumVert);
 		for(unsigned int i = 0; i < mNumVert; i++){
-			vertex.push_back(*box->mVertices[i].GetVertices());
-			texCoord.push_back(*box->mVertices[i].GetTexCoord());
-			normal.push_back(*box->mVertices[i].GetNormal());
+			vertex.push_back(*box->mVertices[i].getVerticies());
+			texCoord.push_back(*box->mVertices[i].getTexCoord());
+			normal.push_back(*box->mVertices[i].getNormal());
 		}
 
 		glGenBuffers(NUM_BUFFERS, mVBO);

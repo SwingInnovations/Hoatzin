@@ -16,18 +16,18 @@ class Shader {
 public:
 	Shader();
 	Shader(const std::string& filePath);
-	void Bind();
-	void Update(Transform& trans);
-	void Update(Transform& trans, Camera& cam);
+	void bind();
+	void update(Transform& trans);
+	void update(Transform& trans, Camera& cam);
 	virtual ~Shader();
 
 private:
 	static const unsigned int NUM_SHADER = 2;
 	enum ShaderType{VERTEX_SHADER, FRAGMENT_SHADER};
 
-	void CheckShaderStatus(GLuint shaderID, GLuint flag, bool isProgram, const std::string& errorMessage);
-	std::string LoadShader(const std::string &filePath);
-	GLuint CreateShader(const std::string &text, unsigned int type);
+	void checkShaderStatus(GLuint shaderID, GLuint flag, bool isProgram, const std::string& errorMessage);
+	std::string loadShader(const std::string &filePath);
+	GLuint createShader(const std::string &text, unsigned int type);
 	GLuint mProgram;
 	GLuint mShaders[NUM_SHADER];
 	GLuint uniform;

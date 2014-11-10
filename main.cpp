@@ -6,10 +6,10 @@
 int main(int argc, char** argv){
 	AppWindow app("Test", 1024, 768);
 	app.SetOpenGLVersion(3, 3);
-	app.AddState(new DemoLevel(0));
-	app.AddState(new Level2(1));
-	app.EnterState(0);
-	app.SetTargetFPS(60);
-	app.Start();
+	app.addState(new DemoLevel(0));
+	app.addState(new Level2(1));
+	app.enterState(0);
+	app.setTargetFPS(60);
+	app.start();
 	return 0;
 }

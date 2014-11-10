@@ -22,32 +22,32 @@ public:
 	void SetOpenGLVersion(int MajorVersion, int MinorVersion);
 	virtual ~AppWindow();
 
-	void Start();
-	void AddState(GameState* newState);
-	void EnterState(int id){mCurrentState = id;}
-	Input *GetInput(){ return input; }
-	void SetRunning(bool val){Running = val;}
-	void SetPause(bool val){pause = val;}
-	void ShowCursor(bool val);
-	void CenterCursor();
-	void SetTargetFPS(float val){fps = val;}
+	void start();
+	void addState(GameState* newState);
+	void enterState(int id){mCurrentState = id;}
+	Input *getInput(){ return input; }
+	void setRunning(bool val){Running = val;}
+	void setPause(bool val){pause = val;}
+	void showCursor(bool val);
+	void centerCursor();
+	void setTargetFPS(float val){fps = val;}
 
-	int GetWidth(){return WIDTH;}
-	int GetHeight(){return HEIGHT;}
-	bool GetPause(){return pause;}
+	int getWidth(){return WIDTH;}
+	int getHeight(){return HEIGHT;}
+	bool getPause(){return pause;}
 
-	Uint32 GetFPS(){return fps;}
-	Uint32 GetDelta(){return delta;}
+	Uint32 getFPS(){return fps;}
+	Uint32 getDelta(){return delta;}
 
 	SDL_Window* GetWindow(){return mWindow;}
 
 protected:
 	bool Running;
-	void Init();
-	void UpdateInput(SDL_Event &e);
-	void UpdateAuto();
-	void Render();
-	void CalcDelta();
+	void init();
+	void updateInput(SDL_Event &e);
+	void updateAuto();
+	void render();
+	void calcDelta();
 private:
 	SDL_Window* mWindow;
 	SDL_GLContext mContext;

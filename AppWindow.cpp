@@ -12,7 +12,7 @@ AppWindow::AppWindow() {
 
 }
 
-AppWindow::AppWindow(const std::string title, int WIDTH, int HEIGHT){
+AppWindow::AppWindow(const std::string title, int WIDTH, int HEIGHT) : fps(60){
 	//Setup Window
 	this->WIDTH = WIDTH;
 	this->HEIGHT = HEIGHT;
@@ -42,6 +42,15 @@ void AppWindow::SetOpenGLVersion(int MajorVersion, int MinorVersion){
 	mContext = SDL_GL_CreateContext(mWindow);
 	if(mContext == NULL){
 		std::cout << "Error 403: Failed to create context! " << SDL_GetError() << std::endl;
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+		mContext = SDL_GL_CreateContext(mWindow);
+		if(mContext == NULL){
+			std::cout << "Error 403: Failed to create context! " << SDL_GetError() << std::endl;
+		}else{
+			glewExperimental = GL_TRUE;
+			glewInit();
+		}
 	}else{
 		glewExperimental = GL_TRUE;
 		glewInit();
@@ -51,40 +60,40 @@ void AppWindow::SetOpenGLVersion(int MajorVersion, int MinorVersion){
 	}
 }
 
-void AppWindow::AddState(GameState* newState){
+void AppWindow::addState(GameState* newState){
 	state.push_back(newState);
 }
 
-void AppWindow::Init(){
+void AppWindow::init(){
 	if(!state.empty()){
 		for(unsigned int i = 0; i < state.size(); i++){
-			state.at(i)->Init();
+			state.at(i)->init();
 		}
 	}
 }
 
-void AppWindow::UpdateInput(SDL_Event& e){
-	input->Poll(e);
+void AppWindow::updateInput(SDL_Event& e){
+	input->poll(e);
 	if(input->isCloseRequested()){
-		SetRunning(false);
+		setRunning(false);
 	}
 
 	if(!state.empty()){
-		state.at(mCurrentState)->UpdateInput(this, delta);
+		state.at(mCurrentState)->updateInput(this, delta);
 	}
 }
 
-void AppWindow::UpdateAuto(){
+void AppWindow::updateAuto(){
 	if(!state.empty()){
-		state.at(mCurrentState)->UpdateAuto(this, delta);
+		state.at(mCurrentState)->updateAuto(this, delta);
 	}
 }
 
-void AppWindow::CalcDelta(){
+void AppWindow::calcDelta(){
 	if(newTime > oldTime){
 		delta = newTime - oldTime;
-		Uint32 targetInterval = (Uint32)(1.0/this->GetFPS() * 1000);
-		if(delta < targetInterval){
+		Uint32 targetInterval = (Uint32)(1.0/this->getFPS() * 1000);
+		if(delta < targetInterval || delta > targetInterval){
 			delta = targetInterval;
 		}
 		oldTime = newTime;
@@ -92,38 +101,38 @@ void AppWindow::CalcDelta(){
 	}
 }
 
-void AppWindow::Render(){
+void AppWindow::render(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0, 0.0, 0.2, 1.0);
 
 	glEnable(GL_DEPTH_TEST);
 
 	if(!state.empty()){
-		state.at(mCurrentState)->Render();
+		state.at(mCurrentState)->render();
 	}
 
 	SDL_GL_SwapWindow(mWindow);
 }
 
-void AppWindow::Start(){
-	SetRunning(true);
-	Init();
+void AppWindow::start(){
+	setRunning(true);
+	init();
 	while(Running){
 		if(!pause){
-			CalcDelta();
+			calcDelta();
 		}else{
 			delta = 0;
 		}
 		while(SDL_PollEvent(&e)){
-			UpdateInput(e);
+			updateInput(e);
 		}
 
-		UpdateAuto();
-		Render();
+		updateAuto();
+		render();
 	}
 }
 
-void AppWindow::ShowCursor(bool val){
+void AppWindow::showCursor(bool val){
 	if(val){
 		SDL_ShowCursor(SDL_ENABLE);
 	}else{
@@ -131,9 +140,9 @@ void AppWindow::ShowCursor(bool val){
 	}
 }
 
-void AppWindow::CenterCursor(){
-	int newX = this->GetWidth()/2;
-	int newY = this->GetHeight()/2;
+void AppWindow::centerCursor(){
+	int newX = this->getWidth()/2;
+	int newY = this->getHeight()/2;
 	SDL_WarpMouseInWindow(this->GetWindow(), newX, newY);
 }
 

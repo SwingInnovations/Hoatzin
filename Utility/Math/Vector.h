@@ -21,25 +21,25 @@ public:
 		this->y = _y;
 	}
 
-	void SetX(float _x){ x = _x; }
-	void SetY(float _y){ y = _y; }
+	void setX(float _x){ x = _x; }
+	void setY(float _y){ y = _y; }
 
-	float GetLengthF(){ return sqrtf(x * x + y * y);}
-	double GetLength(){ return sqrt(x * x + y * y); }
+	float getLengthF(){ return sqrtf(x * x + y * y);}
+	double getLength(){ return sqrt(x * x + y * y); }
 
-	Vector2f Normalize(){
-		x /= GetLength();
-		y /= GetLength();
+	Vector2f normalize(){
+		x /= getLength();
+		y /= getLength();
 		return *this;
 	}
 
-	void Print(){
+	void print(){
 		std::cout << "X: " << this->x << std::endl;
 		std::cout << "Y: " << this->y << std::endl;
 	}
 
-	const float GetX(){ return x; }
-	const float GetY(){ return y; }
+	const float getX(){ return x; }
+	const float getY(){ return y; }
 
 	const Vector2f operator+(const Vector2f& vec){
 		float _x = this->x + vec.x;
@@ -86,17 +86,17 @@ public:
 		this->z = _z;
 	}
 
-	float GetLengthF(){ return sqrtf(x * x + y * y + z * z); }
-	float GetLength(){ return sqrt(x * x + y * y + z * z); }
+	float getLengthF(){ return sqrtf(x * x + y * y + z * z); }
+	double GetLength(){ return sqrt(x * x + y * y + z * z); }
 
-	Vector3f Normalize(){
+	Vector3f normalize(){
 		x /= GetLength();
 		y /= GetLength();
 		z /= GetLength();
 		return *this;
 	}
 
-	double Dot(const Vector3f& other){
+	double dot(const Vector3f& other){
 		return x * other.x + y * other.y + z * other.z;
 	}
 
@@ -107,21 +107,21 @@ public:
 		return Vector3f(_x, _y, _z);
 	}
 
-	void Rotate(float angle, Vector3f& axis);
+	void rotate(float angle, Vector3f& axis);
 
-	void Print(){
+	void print(){
 		std::cout << "X: " << this->x << std::endl;
 		std::cout << "Y: " << this->y << std::endl;
 		std::cout << "Z: " << this->z << std::endl;
 	}
 
-	void SetX(const float _x){this->x = _x;}
-	void SetY(const float _y){this->y = _y;}
-	void SetZ(const float _z){this->z = _z;}
+	void setX(const float _x){this->x = _x;}
+	void setY(const float _y){this->y = _y;}
+	void setZ(const float _z){this->z = _z;}
 
-	float GetX(){ return this->x; }
-	float GetY(){ return this->y; }
-	float GetZ(){ return this->z; }
+	float getX(){ return this->x; }
+	float getY(){ return this->y; }
+	float getZ(){ return this->z; }
 
 	const Vector3f operator+(const Vector3f& vec){
 		const float _x = this->x + vec.x;
@@ -181,7 +181,7 @@ public:
         this->w = vec.w;
     }
 
-	void Print(){
+	void print(){
 		std::cout << "X: " << this->x << std::endl;
 		std::cout << "Y: " << this->y << std::endl;
 		std::cout << "Z: " << this->z << std::endl;
@@ -224,10 +224,10 @@ public:
         return Vector4f(_x, _y, _z, _w);
     }
 
-    float GetX(){ return x; }
-    float GetY(){ return y; }
-    float GetZ(){ return z; }
-    float GetW(){ return w; }
+    float getX(){ return x; }
+    float getY(){ return y; }
+    float getZ(){ return z; }
+    float getW(){ return w; }
 
 private:
     float x;

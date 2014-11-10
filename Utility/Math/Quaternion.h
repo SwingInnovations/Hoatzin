@@ -22,21 +22,21 @@ public:
 		this->w = _w;
 	}
 
-	void SetX(const float _x){this->x = _x;}
-	void SetY(const float _y){this->y = _y;}
-	void SetZ(const float _z){this->z = _z;}
-	void SetW(const float _w){this->w = _w;}
+	void setX(const float _x){this->x = _x;}
+	void setY(const float _y){this->y = _y;}
+	void setZ(const float _z){this->z = _z;}
+	void setW(const float _w){this->w = _w;}
 
-	float GetLength(){
+	float getLength(){
 		return (float)sqrt(x * x + y * y + z * z + w * w);
 	}
 
-	void Inverse(){
+	void inverse(){
 
 	}
 
-	Quaternion Normalize(){
-		float Length = GetLength();
+	Quaternion normalize(){
+		float Length = getLength();
 		this->x /= Length;
 		this->y /= Length;
 		this->z /= Length;
@@ -64,10 +64,10 @@ public:
 	}
 
 	inline Quaternion Multiply(Vector3f& r)const{
-		float _x = (w * r.GetX()) + (y * r.GetZ()) - (z * r.GetY());
-		float _y = (w * r.GetY()) + (z * r.GetX()) - (x * r.GetZ());
-		float _z = (w * r.GetZ()) + (x * r.GetY()) - (y * r.GetX());
-		float _w = -(x * r.GetX()) - (y * r.GetY()) - (z * r.GetZ());
+		float _x = (w * r.getX()) + (y * r.getZ()) - (z * r.getY());
+		float _y = (w * r.getY()) + (z * r.getX()) - (x * r.getZ());
+		float _z = (w * r.getZ()) + (x * r.getY()) - (y * r.getX());
+		float _w = -(x * r.getX()) - (y * r.getY()) - (z * r.getZ());
 
 		return Quaternion(_x, _y, _z, _w);
 	}

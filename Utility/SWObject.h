@@ -29,135 +29,135 @@ public:
 	SWObject(Mesh* mesh, Shader* shader, Texture* texture);
 	virtual ~SWObject(){}
 
-	void AddChild(SWObject* child){hasChildren = true; children.push_back(child);}
-	SWObject* GetChild(int i){return children.at(i);}
+	void addChild(SWObject* child){hasChildren = true; children.push_back(child);}
+	SWObject* getChild(int i){return children.at(i);}
 
 	void SetTranslate(Vector3f& vec){
 		if(!hasChildren){
-			transform->SetTranslate(vec);
+			transform->setTranslate(vec);
 		}else{
 			for(unsigned int i = 0; i < children.size(); i++){
-				transform->SetTranslate(vec);
-				children[i]->transform->SetTranslate(vec);
+				transform->setTranslate(vec);
+				children[i]->transform->setTranslate(vec);
 			}
 		}
 	}
 	void SetTranslateX(float _x){
 		if(!hasChildren){
-			transform->SetTranslateX(_x);
+			transform->setTranslateX(_x);
 		}else{
 			for(unsigned int i = 0; i < children.size(); i++){
-				transform->SetTranslateX(_x);
-				children[i]->transform->SetTranslateX(_x);
+				transform->setTranslateX(_x);
+				children[i]->transform->setTranslateX(_x);
 			}
 		}
 	}
 	void SetTranslateY(float _y){
 		if(!hasChildren){
-			transform->SetTranslateY(_y);
+			transform->setTranslateY(_y);
 		}else{
 			for(unsigned int i = 0; i < children.size(); i++){
-				transform->SetTranslateY(_y);
-				children[i]->transform->SetTranslateY(_y);
+				transform->setTranslateY(_y);
+				children[i]->transform->setTranslateY(_y);
 			}
 		}
 	}
 	void SetTranslateZ(float _z){
 		if(!hasChildren){
-			transform->SetTranslateZ(_z);
+			transform->setTranslateZ(_z);
 		}else{
 			for(unsigned int i = 0; i < children.size(); i++){
-				transform->SetTranslateZ(_z);
-				children[i]->transform->SetTranslateZ(_z);
+				transform->setTranslateZ(_z);
+				children[i]->transform->setTranslateZ(_z);
 			}
 		}
 	}
 
 	void SetRotate(Vector3f& vec){
 		if(!hasChildren){
-			transform->SetRotate(vec);
+			transform->setRotate(vec);
 		}else{
 			for(unsigned int i = 0; i < children.size(); i++){
-				transform->SetRotate(vec);
-				children[i]->transform->SetRotate(vec);
+				transform->setRotate(vec);
+				children[i]->transform->setRotate(vec);
 			}
 		}
 	}
 	void SetRotateX(float _x){
 		if(!hasChildren){
-			transform->SetRotateX(_x);
+			transform->setRotateX(_x);
 		}else{
 			for(unsigned int i = 0; i < children.size(); i++){
-				transform->SetRotateX(_x);
-				children[i]->transform->SetRotateX(_x);
+				transform->setRotateX(_x);
+				children[i]->transform->setRotateX(_x);
 			}
 		}
 	}
 	void SetRotateY(float _y){
 		if(!hasChildren){
-			transform->SetRotateY(_y);
+			transform->setRotateY(_y);
 		}else{
 			for(unsigned int i = 0; i < children.size(); i++){
-				transform->SetRotateY(_y);
-				children[i]->transform->SetRotateY(_y);
+				transform->setRotateY(_y);
+				children[i]->transform->setRotateY(_y);
 			}
 		}
 	}
 	void SetRotateZ(float _z){
 		if(!hasChildren){
-			transform->SetRotateZ(_z);
+			transform->setRotateZ(_z);
 		}else{
 			for(unsigned int i = 0; i < children.size(); i++){
-				transform->SetRotateZ(_z);
-				children[i]->transform->SetRotateZ(_z);
+				transform->setRotateZ(_z);
+				children[i]->transform->setRotateZ(_z);
 			}
 		}
 	}
 
 	void SetScale(Vector3f& vec){
 		if(!hasChildren){
-			transform->SetScale(vec);
+			transform->setScale(vec);
 		}else{
 			for(unsigned int i = 0; i < children.size(); i++){
-				transform->SetScale(vec);
+				transform->setScale(vec);
 				children[i]->SetScale(vec);
 			}
 		}
 	}
 	void SetScaleX(float _x){
 		if(!hasChildren){
-			transform->SetScaleX(_x);
+			transform->setScaleX(_x);
 		}else{
 			for(unsigned int i = 0; i < children.size(); i++){
-				transform->SetScaleX(_x);
+				transform->setScaleX(_x);
 				children[i]->SetScaleX(_x);
 			}
 		}
 	}
 	void SetScaleY(float _y){
 		if(!hasChildren){
-			transform->SetScaleY(_y);
+			transform->setScaleY(_y);
 		}else{
 			for(unsigned int i = 0; i < children.size(); i++){
-				transform->SetScaleY(_y);
-				children[i]->transform->SetScaleY(_y);
+				transform->setScaleY(_y);
+				children[i]->transform->setScaleY(_y);
 			}
 		}
 	}
 	void SetScaleZ(float _z){
 		if(!hasChildren){
-			transform->SetScaleZ(_z);
+			transform->setScaleZ(_z);
 		}else{
 			for(unsigned int i = 0; i < children.size(); i++){
-				transform->SetScaleZ(_z);
-				children[i]->transform->SetScaleZ(_z);
+				transform->setScaleZ(_z);
+				children[i]->transform->setScaleZ(_z);
 			}
 		}
 	}
 
 	void Draw(Camera& cam){
-		shader->Update(*transform, cam);
-		shader->Bind();
+		shader->update(*transform, cam);
+		shader->bind();
 		tex->bind(0);
 		mesh->Draw();
 		if(hasChildren){
@@ -168,8 +168,8 @@ public:
 	}
 
 	void Draw(){
-		shader->Update(*transform);
-		shader->Bind();
+		shader->update(*transform);
+		shader->bind();
 		tex->bind(0);
 		mesh->Draw();
 		if(hasChildren){

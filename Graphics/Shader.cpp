@@ -14,8 +14,8 @@ Shader::Shader() {
 
 Shader::Shader(const std::string& filePath){
 	mProgram = glCreateProgram();
-	mShaders[0] = CreateShader(LoadShader(filePath + ".vsh"), GL_VERTEX_SHADER);
-	mShaders[1] = CreateShader(LoadShader(filePath + ".fsh"), GL_FRAGMENT_SHADER);
+	mShaders[0] = createShader(loadShader(filePath + ".vsh"), GL_VERTEX_SHADER);
+	mShaders[1] = createShader(loadShader(filePath + ".fsh"), GL_FRAGMENT_SHADER);
 
 	for(unsigned int i = 0; i < NUM_SHADER; i++){
 		glAttachShader(mProgram, mShaders[i]);
@@ -26,10 +26,10 @@ Shader::Shader(const std::string& filePath){
 	glBindAttribLocation(mProgram, 2, "normal");
 
 	glLinkProgram(mProgram);
-	CheckShaderStatus(mProgram, GL_LINK_STATUS, true, "Error Linking Shader Program");
+	checkShaderStatus(mProgram, GL_LINK_STATUS, true, "Error Linking Shader Program");
 
 	glValidateProgram(mProgram);
-	CheckShaderStatus(mProgram, GL_LINK_STATUS, true, "Invalid shader program!");
+	checkShaderStatus(mProgram, GL_LINK_STATUS, true, "Invalid shader program!");
 
 	uniform = glGetUniformLocation(mProgram, "MVP");
 }
@@ -41,27 +41,27 @@ Shader::~Shader() {
 	glDeleteProgram(mProgram);
 }
 
-void Shader::Bind(){
+void Shader::bind(){
 	glUseProgram(mProgram);
 }
 
-void Shader::Update(Transform& trans){
+void Shader::update(Transform& trans){
 	Matrix4f transform;
 
-	transform = trans.GetModel();
+	transform = trans.getModel();
 
 	glUniformMatrix4fv(uniform, 1, GL_TRUE, &transform.m[0][0]);
 }
 
-void Shader::Update(Transform& trans, Camera& cam){
+void Shader::update(Transform& trans, Camera& cam){
 	Matrix4f transform, camera, ret;
-	transform = trans.GetModel();
-	camera = cam.GetViewProjection();
+	transform = trans.getModel();
+	camera = cam.getViewProjection();
 	ret = camera * transform;
 	glUniformMatrix4fv(uniform, 1, GL_TRUE, &ret.m[0][0]);
 }
 
-void Shader::CheckShaderStatus(GLuint shaderID, GLuint flag, bool isProgram, const std::string& errorMessage){
+void Shader::checkShaderStatus(GLuint shaderID, GLuint flag, bool isProgram, const std::string& errorMessage){
 	GLint success = 0;
 	GLchar error[1024] = {0};
 
@@ -82,7 +82,7 @@ void Shader::CheckShaderStatus(GLuint shaderID, GLuint flag, bool isProgram, con
 	}
 }
 
-std::string Shader::LoadShader(const std::string &filePath){
+std::string Shader::loadShader(const std::string &filePath){
 	std::ifstream file;
 	file.open(filePath.c_str());
 
@@ -103,7 +103,7 @@ std::string Shader::LoadShader(const std::string &filePath){
 	return output;
 }
 
-GLuint Shader::CreateShader(const std::string &text, unsigned int type){
+GLuint Shader::createShader(const std::string &text, unsigned int type){
 	GLuint shader = glCreateShader(type);
 	if(shader == 0){
 		std::cerr << "Error creating Shader type: " << type << std::endl;

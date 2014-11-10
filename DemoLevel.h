@@ -22,9 +22,9 @@ public:
 		this->id = id;
 	}
 
-	void Init(){
+	void init(){
 
-		camPos = Vector3f(0.0, -3.0, 0.0);
+		camPos = Vector3f(0.0, -3.0, 4.0);
 		camera = new Camera(camPos, 66.0f, 1024.0f, 768.0f, 1.0f, 1000.0f);
 
 		l = new LuaScript("script.lua");
@@ -40,7 +40,7 @@ public:
 		plane->SetTranslateZ(3);
 		plane->SetRotateX(90);
 		box = new SWObject(new Mesh(new Box(position, 3.0f, 3.0f, 3.0f)), shader, tex2);
-		box->AddChild(new SWObject(new Mesh(new Plane(10, 10)), shader, new Texture("profilePic.png")));
+		box->addChild(new SWObject(new Mesh(new Plane(10, 10)), shader, new Texture("profilePic.png")));
 
 		rot = 0;
 		rot2 = 0;
@@ -48,7 +48,7 @@ public:
 		transX = 0; transZ = 0;
 	}
 
-	void UpdateAuto(AppWindow* app, int delta){
+	void updateAuto(AppWindow* app, int delta){
 		rot2+= 0.025f * delta;
 		rotAmt = cos(rot2);
 		box->SetRotateY(rot2);
@@ -56,57 +56,57 @@ public:
 		box->SetRotateX(rot2);
 		box->SetTranslateY(rotAmt/4);
 
-		box->GetChild(0)->SetTranslateY(rotAmt);
+		box->getChild(0)->SetTranslateY(rotAmt);
 	}
 
-	void UpdateInput(AppWindow* app, int delta){
-		Input *input = app->GetInput();
-		app->ShowCursor(false);
+	void updateInput(AppWindow* app, int delta){
+		Input *input = app->getInput();
+		app->showCursor(false);
 
 		if(input->isKeyDown(KEY::KEY_Q)){
 			std::cout << "Quiting" << std::endl;
-			input->RequestClose();
+			input->requestClose();
 		}
 
 		if(input->isKeyDown(KEY::KEY_1)){
-			app->EnterState(1);
+			app->enterState(1);
 		}
 
 		if(input->isKeyDown(KEY::KEY_P)){
-			bool temp = app->GetPause();
-			app->SetPause(!temp);
+			bool temp = app->getPause();
+			app->setPause(!temp);
 		}
 
 		if(input->isKeyDown(KEY::KEY_A)){
 			transX += 0.025f*delta;
-			camera->SetTranslateX(transX);
+			camera->setTranslateX(transX);
 		}
 		if(input->isKeyDown(KEY::KEY_D)){
 			transX -= 0.025f*delta;
-			camera->SetTranslateX(transX);
+			camera->setTranslateX(transX);
 		}
 		if(input->isKeyDown(KEY::KEY_W)){
 			transZ += 0.025f*delta;
-			camera->SetTranslateZ(transZ);
+			camera->setTranslateZ(transZ);
 		}
 		if(input->isKeyDown(KEY::KEY_S)){
 			transZ -= 0.025f * delta;
-			camera->SetTranslateZ(transZ);
+			camera->setTranslateZ(transZ);
 		}
 
 		std::cout << "delta: " << delta << std::endl;
 
-		camera->Update(*input);
+		camera->update(*input);
 	}
 
-	void Render(){
+	void render(){
 //		obj->Draw(*camera);
 		plane->Draw(*camera);
 		box->Draw(*camera);
 		//box2->Draw(*camera);
 	}
 
-	int GetID(){
+	int getID(){
 		return id;
 	}
 
