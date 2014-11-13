@@ -57,7 +57,7 @@ public:
 	}
 
 	void render(){
-		box->Draw(*camera);
+		box->draw(*camera);
 	}
 
 	int getID(){

@@ -69,6 +69,9 @@ void AppWindow::init(){
 		for(unsigned int i = 0; i < state.size(); i++){
 			state.at(i)->init();
 		}
+	}else{
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "No levels", "This game has no levels bruh.", NULL);
+		setRunning(false);
 	}
 }
 

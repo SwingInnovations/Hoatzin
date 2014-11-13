@@ -155,26 +155,26 @@ public:
 		}
 	}
 
-	void Draw(Camera& cam){
+	void draw(Camera& cam){
 		shader->update(*transform, cam);
 		shader->bind();
 		tex->bind(0);
-		mesh->Draw();
+		mesh->draw();
 		if(hasChildren){
 			for(unsigned int i = 0; i < children.size(); i++){
-				children[i]->Draw(cam);
+				children[i]->draw(cam);
 			}
 		}
 	}
 
-	void Draw(){
+	void draw(){
 		shader->update(*transform);
 		shader->bind();
 		tex->bind(0);
-		mesh->Draw();
+		mesh->draw();
 		if(hasChildren){
 			for(unsigned int i = 0; i < children.size(); i++){
-				children[i]->Draw();
+				children[i]->draw();
 			}
 		}
 	}

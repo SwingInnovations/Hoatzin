@@ -56,14 +56,14 @@ public:
 		box->SetRotateX(rot2);
 		box->SetTranslateY(rotAmt/4);
 
-		box->getChild(0)->SetTranslateY(rotAmt);
+		box->getChild(0)->SetRotateY(rotAmt);
 	}
 
 	void updateInput(AppWindow* app, int delta){
 		Input *input = app->getInput();
 		app->showCursor(false);
 
-		if(input->isKeyDown(KEY::KEY_Q)){
+		if(input->isKeyDown(KEY::KEY_ESC)){
 			std::cout << "Quiting" << std::endl;
 			input->requestClose();
 		}
@@ -101,8 +101,8 @@ public:
 
 	void render(){
 //		obj->Draw(*camera);
-		plane->Draw(*camera);
-		box->Draw(*camera);
+		plane->draw(*camera);
+		box->draw(*camera);
 		//box2->Draw(*camera);
 	}
 
