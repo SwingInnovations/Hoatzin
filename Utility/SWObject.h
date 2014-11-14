@@ -32,7 +32,7 @@ public:
 	void addChild(SWObject* child){hasChildren = true; children.push_back(child);}
 	SWObject* getChild(int i){return children.at(i);}
 
-	void SetTranslate(Vector3f& vec){
+	void setTranslate(Vector3f& vec){
 		if(!hasChildren){
 			transform->setTranslate(vec);
 		}else{
@@ -42,7 +42,7 @@ public:
 			}
 		}
 	}
-	void SetTranslateX(float _x){
+	void setTranslateX(float _x){
 		if(!hasChildren){
 			transform->setTranslateX(_x);
 		}else{
@@ -52,7 +52,7 @@ public:
 			}
 		}
 	}
-	void SetTranslateY(float _y){
+	void setTranslateY(float _y){
 		if(!hasChildren){
 			transform->setTranslateY(_y);
 		}else{
@@ -62,7 +62,7 @@ public:
 			}
 		}
 	}
-	void SetTranslateZ(float _z){
+	void setTranslateZ(float _z){
 		if(!hasChildren){
 			transform->setTranslateZ(_z);
 		}else{
@@ -73,7 +73,7 @@ public:
 		}
 	}
 
-	void SetRotate(Vector3f& vec){
+	void setRotate(Vector3f& vec){
 		if(!hasChildren){
 			transform->setRotate(vec);
 		}else{
@@ -83,7 +83,7 @@ public:
 			}
 		}
 	}
-	void SetRotateX(float _x){
+	void setRotateX(float _x){
 		if(!hasChildren){
 			transform->setRotateX(_x);
 		}else{
@@ -93,7 +93,7 @@ public:
 			}
 		}
 	}
-	void SetRotateY(float _y){
+	void setRotateY(float _y){
 		if(!hasChildren){
 			transform->setRotateY(_y);
 		}else{
@@ -103,7 +103,7 @@ public:
 			}
 		}
 	}
-	void SetRotateZ(float _z){
+	void setRotateZ(float _z){
 		if(!hasChildren){
 			transform->setRotateZ(_z);
 		}else{
@@ -114,27 +114,27 @@ public:
 		}
 	}
 
-	void SetScale(Vector3f& vec){
+	void setScale(Vector3f& vec){
 		if(!hasChildren){
 			transform->setScale(vec);
 		}else{
 			for(unsigned int i = 0; i < children.size(); i++){
 				transform->setScale(vec);
-				children[i]->SetScale(vec);
+				children[i]->setScale(vec);
 			}
 		}
 	}
-	void SetScaleX(float _x){
+	void setScaleX(float _x){
 		if(!hasChildren){
 			transform->setScaleX(_x);
 		}else{
 			for(unsigned int i = 0; i < children.size(); i++){
 				transform->setScaleX(_x);
-				children[i]->SetScaleX(_x);
+				children[i]->setScaleX(_x);
 			}
 		}
 	}
-	void SetScaleY(float _y){
+	void setScaleY(float _y){
 		if(!hasChildren){
 			transform->setScaleY(_y);
 		}else{
@@ -144,7 +144,7 @@ public:
 			}
 		}
 	}
-	void SetScaleZ(float _z){
+	void setScaleZ(float _z){
 		if(!hasChildren){
 			transform->setScaleZ(_z);
 		}else{

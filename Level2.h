@@ -21,7 +21,7 @@ public:
 		float pX = box->getChild(0)->transform->getTranslate().getX();
 		pX += 0.035f * delta;
 		for(unsigned int i = 0; i < box->children.size(); i++){
-			box->getChild(i)->SetTranslateY(cos(pX)*2);
+			box->getChild(i)->setTranslateY(cos(pX)*2);
 		}
 	}
 

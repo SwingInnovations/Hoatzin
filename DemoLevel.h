@@ -35,10 +35,10 @@ public:
 		Vector3f position(0.0, 0.0, 0.0);
 
 		plane = new SWObject(new Mesh(new Plane(30, 30)), shader, tex);
-		plane->SetTranslateY(-10);
-		plane->SetTranslateX(-10);
-		plane->SetTranslateZ(3);
-		plane->SetRotateX(90);
+		plane->setTranslateY(-10);
+		plane->setTranslateX(-10);
+		plane->setTranslateZ(3);
+		plane->setRotateX(90);
 		box = new SWObject(new Mesh(new Box(position, 3.0f, 3.0f, 3.0f)), shader, tex2);
 		box->addChild(new SWObject(new Mesh(new Plane(10, 10)), shader, new Texture("profilePic.png")));
 
@@ -51,12 +51,12 @@ public:
 	void updateAuto(AppWindow* app, int delta){
 		rot2+= 0.025f * delta;
 		rotAmt = cos(rot2);
-		box->SetRotateY(rot2);
-		box->SetRotateZ(rot2);
-		box->SetRotateX(rot2);
-		box->SetTranslateY(rotAmt/4);
+		box->setRotateY(rot2);
+		box->setRotateZ(rot2);
+		box->setRotateX(rot2);
+		box->setTranslateY(rotAmt/4);
 
-		box->getChild(0)->SetRotateY(rotAmt);
+		box->getChild(0)->setRotateY(rotAmt);
 	}
 
 	void updateInput(AppWindow* app, int delta){

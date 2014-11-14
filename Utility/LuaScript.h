@@ -28,52 +28,52 @@ public:
 
 	}
 
-	int GetVarI(std::string var){
+	int getVarI(std::string var){
 		LuaRef t = getGlobal(L, var.c_str());
 		return t.cast<int>();
 	}
 
-	int GetVarI(std::string tableRef, std::string var){
+	int getVarI(std::string tableRef, std::string var){
 		LuaRef t = getGlobal(L, tableRef.c_str());
 		return t[var.c_str()].cast<int>();
 	}
 
-	float GetVarF(std::string var){
+	float getVarF(std::string var){
 		LuaRef t = getGlobal(L, var.c_str());
 		return (float)t.cast<float>();
 	}
 
-	float GetVarF(std::string tableRef, std::string var){
+	float getVarF(std::string tableRef, std::string var){
 		LuaRef t = getGlobal(L, tableRef.c_str());
 		return t[var.c_str()].cast<float>();
 	}
 
-	double GetVarD(std::string var){
+	double getVarD(std::string var){
 		LuaRef t = getGlobal(L, var.c_str());
 		return (double)t.cast<double>();
 	}
 
-	double GetVarD(std::string tableRef, std::string var){
+	double getVarD(std::string tableRef, std::string var){
 		LuaRef t = getGlobal(L, tableRef.c_str());
 		return t[var.c_str()].cast<double>();
 	}
 
-	bool GetVarB(std::string var){
+	bool getVarB(std::string var){
 		LuaRef t = getGlobal(L, var.c_str());
 		return (bool)t.cast<bool>();
 	}
 
-	bool GetVarB(std::string tableRef, std::string var){
+	bool getVarB(std::string tableRef, std::string var){
 		LuaRef t = getGlobal(L, tableRef.c_str());
 		return t[var.c_str()].cast<bool>();
 	}
 
-	std::string GetVarString(std::string var){
+	std::string getVarString(std::string var){
 		LuaRef t = getGlobal(L, var.c_str());
 		return t.cast<std::string>();
 	}
 
-	std::string GetVarString(std::string tableRef, std::string var){
+	std::string getVarString(std::string tableRef, std::string var){
 		LuaRef t = getGlobal(L, var.c_str());
 		return t[var.c_str()].cast<std::string>();
 	}
