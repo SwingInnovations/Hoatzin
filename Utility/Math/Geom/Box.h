@@ -182,18 +182,18 @@ public:
 		mIndiciesSize = 36;
 	}
 
-	int* GetIndicies(){
+	int* getIndicies(){
 		int* ret = &mIndicies[0];
 		return ret;
 	}
-	Vertex* GetVerticies(){
+	Vertex* getVertices(){
 		Vertex* ret = &mVertices[0];
 		return ret;
 	}
 
-	void SetTransform(Transform& t){mTransform = t;}
-	int GetVerticiesSize(){ return 8;}
-	int GetIndicesSize(){return mIndiciesSize;}
+	void setTransform(Transform& t){mTransform = t;}
+	int getVerticiesSize(){ return 8;}
+	int getIndiciesSize(){return mIndiciesSize;}
 
 	virtual ~Box(){
 

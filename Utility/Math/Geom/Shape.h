@@ -7,14 +7,14 @@
 class Shape{
 public:
 	virtual ~Shape(){}
-	virtual void SetVertices(Vertex* vertices){}
-	virtual void SetTransform(Transform& t){}
-	virtual bool HasIntersected(Shape& other){return 0;}
-	virtual int GetVerticiesSize(){return 0;}
-	virtual int GetIndiciesSize(){return 0;}
-	virtual Transform GetTransform(){}
-	virtual Vertex* GetVertices(){return 0;}
-	virtual int* GetIndicies(){return 0;}
+	virtual void setVerticies(Vertex* vertices){}
+	virtual void setTransform(Transform& t){}
+	virtual bool hasIntersected(Shape& other){return 0;}
+	virtual int getVerticiesSize(){return 0;}
+	virtual int getIndiciesSize(){return 0;}
+	virtual Transform getTransform(){ return Transform();}
+	virtual Vertex* getVerticies(){return 0;}
+	virtual int* getIndicies(){return 0;}
 };
 
 

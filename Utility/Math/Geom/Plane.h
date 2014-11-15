@@ -85,12 +85,12 @@ public:
 		int* ret = &mIndicies[0];
 		return ret;
 	}
-	Vertex* GetVertices(){
+	Vertex* getVerticies(){
 		Vertex* ret = &mVertices[0];
 		return ret;
 	}
 	int GetVerticiesSize(){return mVerticesSize;}
-	int GetIndiciesSize(){return mIndicesSize;}
+	int getIndiciesSize(){return mIndicesSize;}
 	virtual ~Plane(){
 
 	}

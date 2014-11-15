@@ -120,7 +120,7 @@ public:
 		}else{
 			for(unsigned int i = 0; i < children.size(); i++){
 				transform->setScale(vec);
-				children[i]->setScale(vec);
+				children[i]->transform->setScale(vec);
 			}
 		}
 	}
@@ -130,7 +130,7 @@ public:
 		}else{
 			for(unsigned int i = 0; i < children.size(); i++){
 				transform->setScaleX(_x);
-				children[i]->setScaleX(_x);
+				children[i]->transform->setScaleX(_x);
 			}
 		}
 	}
