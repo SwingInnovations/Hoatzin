@@ -2,10 +2,10 @@
 #define VERTEX_H_
 
 #include "Math/Vector.h"
+#include "../Graphics/Color.h"
 
 class Vector3f;
 class Vector2f;
-
 
 class Vertex{
 public:
@@ -17,7 +17,7 @@ public:
 		this->normal = normal;
 	}
 
-	Vertex(const Vector3f& vert, int color, const Vector2f& normal = Vector3f(0.0f, 0.0f, 0.0f)){
+	Vertex(const Vector3f& vert, int color, const Vector3f& normal = Vector3f(0.0f, 0.0f, 0.0f)){
 		useTexture = false;
 
 	}
@@ -31,10 +31,25 @@ public:
 		normal.print();
 	}
 
+	void setColor(int id){
+		color = determineColor(id);
+	}
+
+	void setColor(Vector4f& vec){
+		color = Vector4f(COLOR::Func::assertCol(vec.getX()),
+						 COLOR::Func::assertCol(vec.getY()),
+						 COLOR::Func::assertCol(vec.getZ()),
+						 COLOR::Func::assertCol(vec.getW()));
+	}
+
+	void setAlpha(float val){
+		color.setW(COLOR::Func::assertCol(val));
+	}
+
 	Vector3f* getVerticies(){return &this->vertex;}
 	Vector2f* getTexCoord(){return &this->texCoord;}
 	Vector3f* getNormal(){return &this->normal;}
-	Vector3f* getColor(){return &this->color;}
+	Vector4f* getColor(){return &this->color;}
 private:
 	bool useTexture;
 	bool useAlpha;
@@ -42,14 +57,15 @@ private:
 	Vector2f texCoord;
 	Vector3f normal;
 	Vector4f color;
+
 	Vector4f determineColor(int color)const{
 		Vector4f ret;
 		switch(color){
 		case 0:
-			ret = Vector3f(1.0f, 1.0f, 1.0f);
+			ret = Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
 			break;
 		default:
-			ret = Vector3f(1.0f, 1.0f, 1.0f);
+			ret = Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
 		}
 		return ret;
 	}
