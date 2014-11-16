@@ -10,9 +10,16 @@ class Vector2f;
 class Vertex{
 public:
 	Vertex(const Vector3f& vert, const Vector2f& tex, const Vector3f& normal = Vector3f(0.0f, 0.0f, 0.0f)){
+		useTexture = true;
+		useAlpha = false;
 		this->vertex = vert;
 		this->texCoord = tex;
 		this->normal = normal;
+	}
+
+	Vertex(const Vector3f& vert, int color, const Vector2f& normal = Vector3f(0.0f, 0.0f, 0.0f)){
+		useTexture = false;
+
 	}
 
 	void print(){
@@ -27,11 +34,25 @@ public:
 	Vector3f* getVerticies(){return &this->vertex;}
 	Vector2f* getTexCoord(){return &this->texCoord;}
 	Vector3f* getNormal(){return &this->normal;}
-
+	Vector3f* getColor(){return &this->color;}
 private:
+	bool useTexture;
+	bool useAlpha;
 	Vector3f vertex;
 	Vector2f texCoord;
 	Vector3f normal;
+	Vector4f color;
+	Vector4f determineColor(int color)const{
+		Vector4f ret;
+		switch(color){
+		case 0:
+			ret = Vector3f(1.0f, 1.0f, 1.0f);
+			break;
+		default:
+			ret = Vector3f(1.0f, 1.0f, 1.0f);
+		}
+		return ret;
+	}
 };
 
 class Vertex2D_UV{

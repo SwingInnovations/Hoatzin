@@ -7,19 +7,20 @@ class SWObject;
 
 namespace COLOR{
 	enum{
-		WHITE = 0,
-		LIGHTGRAY = 1,
-		GRAY = 2,
-		DARKGRAY = 3,
-		BLACK = 4,
-		RED = 5,
-		MAGENTA = 6,
-		ORANGE = 7,
-		YELLOW = 8,
-		GREEN = 9,
-		CYAN = 10,
-		BLUE = 11,
-		PURPLE = 12
+		WHITE = 2,
+		LIGHTGRAY = 3,
+		GRAY = 4,
+		DARKGRAY = 5,
+		BLACK = 6,
+		RED = 7,
+		MAGENTA = 8,
+		ORANGE = 9,
+		YELLOW = 10,
+		GREEN = 11,
+		CYAN = 12,
+		BLUE = 13,
+		PURPLE = 14,
+
 	};
 };
 
