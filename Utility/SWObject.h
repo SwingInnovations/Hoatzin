@@ -27,7 +27,16 @@ public:
 
 	SWObject();
 	SWObject(Mesh* mesh, Shader* shader, Texture* texture);
-	virtual ~SWObject(){}
+	virtual ~SWObject(){
+		children.clear();
+		delete mesh;
+		delete shader;
+		delete tex;
+		delete transform;
+		mesh = NULL;
+		shader = NULL;
+		tex = NULL;
+	}
 
 	void addChild(SWObject* child){hasChildren = true; children.push_back(child);}
 	SWObject* getChild(int i){return children.at(i);}

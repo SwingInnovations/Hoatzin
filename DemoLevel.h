@@ -126,7 +126,6 @@ private:
 	float transX, transZ;
 	Vector3f camPos;
 	SWObject *plane, *box, *box2;
-	SWObject *boxArray[3][3];
 	LuaScript* l;
 };
 

@@ -7,9 +7,11 @@
 class SWObjectManager{
 public:
 	SWObjectManager(){}
-	virtual ~SWObjectManager(){}
+	virtual ~SWObjectManager(){
+		SceneGraph.clear();
+	}
 
-	void AddSWObject(SWObject* NewObject){
+	void addSWObject(SWObject* NewObject){
 		SceneGraph.push_back(NewObject);
 	}
 
