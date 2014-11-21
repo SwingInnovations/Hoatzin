@@ -94,8 +94,6 @@ public:
 			camera->setTranslateZ(transZ);
 		}
 
-		std::cout << "delta: " << delta << std::endl;
-
 		camera->update(*input);
 	}
 
