@@ -7,6 +7,7 @@
 #include <fstream>
 #include <sstream>
 #include "Vertex.h"
+#include "OBJMesh.h"
 #include "Math/Geom/Shape.h"
 #include "Math/Geom/Plane.h"
 #include "Math/Geom/Box.h"
@@ -204,22 +205,54 @@ public:
 	}
 
 	Mesh(const std::string& file, int type){
-		std::vector<Vector3f> tVertex;
-		std::vector<Vector2f> tTexCoord;
-		std::vector<Vector3f> tNormal;
-		std::vector<GLushort> tIndices;
+		std::vector<Vector3f> vertex;
+		std::vector<Vector2f> texCoord;
+		std::vector<Vector3f> normal;
+		std::vector<int> index;
 
-		std::ifstream in(file.c_str(), std::ios::in);
-		if(!in){ std::cout << "Error, cannot open file " << file << std::endl;}
-		std::string line;
 		switch(type){
-		//loading an obj
-		case 0:
-
+		case 0://loading an obj
+			OBJMesh* tMesh;
+			tMesh = new OBJMesh(file);
+			//something something
+			mNumVert = tMesh->getVerticiesSize();
+			mDrawCount = tMesh->getIndiciesSize();
+			for(int i = 0; i < tMesh->getVerticiesSize(); i++){
+				vertex.push_back(*tMesh->verticies[i].getVerticies());
+				texCoord.push_back(*tMesh->verticies[i].getTexCoord());
+				normal.push_back(*tMesh->verticies[i].getNormal());
+			}
+			index = tMesh->index;
+			delete tMesh;
+			tMesh = 0;
 			break;
 		default:
+			tMesh = 0;
 			break;
 		}
+
+		glGenVertexArrays(1, &mVAO);
+		glBindVertexArray(mVAO);
+
+		glGenBuffers(NUM_BUFFERS, mVBO);
+
+		glBindBuffer(GL_ARRAY_BUFFER, mVBO[VERTEX_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, mNumVert*sizeof(vertex[0]), &vertex[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, mVBO[TEXCOORD_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, mNumVert*sizeof(texCoord[0]), &texCoord[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, mVBO[NORMAL_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, mNumVert*sizeof(normal[0]), &normal[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mVBO[INDEX_BUFFER]);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, mDrawCount*sizeof(index[0]), &index[0], GL_STATIC_DRAW);
 	}
 
 

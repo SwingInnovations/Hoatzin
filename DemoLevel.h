@@ -39,6 +39,7 @@ public:
 		plane->setTranslateX(-10);
 		plane->setTranslateZ(3);
 		plane->setRotateX(90);
+		testObj = new SWObject(new Mesh("box.obj", MESH_TYPE::MODEL_OBJ), shader, tex);
 		box = new SWObject(new Mesh(new Box(position, 3.0f, 3.0f, 3.0f)), shader, tex2);
 		box->addChild(new SWObject(new Mesh(new Plane(10, 10)), shader, new Texture("profilePic.png")));
 
@@ -123,7 +124,7 @@ private:
 	float rotAmt;
 	float transX, transZ;
 	Vector3f camPos;
-	SWObject *plane, *box, *box2;
+	SWObject *plane, *box, *box2, *testObj;
 	LuaScript* l;
 };
 
