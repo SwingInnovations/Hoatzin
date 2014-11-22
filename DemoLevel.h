@@ -39,8 +39,7 @@ public:
 		plane->setTranslateX(-10);
 		plane->setTranslateZ(3);
 		plane->setRotateX(90);
-		testObj = new SWObject(new Mesh("box.obj", MESH_TYPE::MODEL_OBJ), shader, tex);
-		testObj->setTranslateY(5);
+		testObj = new SWObject(new Mesh("cylinder.obj", MESH_TYPE::MODEL_OBJ), shader, tex);
 		box = new SWObject(new Mesh(new Box(position, 3.0f, 3.0f, 3.0f)), shader, tex2);
 		box->addChild(new SWObject(new Mesh(new Plane(10, 10)), shader, new Texture("profilePic.png")));
 
@@ -100,9 +99,8 @@ public:
 	}
 
 	void render(){
-//		obj->Draw(*camera);
-		plane->draw(*camera);
-		box->draw(*camera);
+//		plane->draw(*camera);
+//		box->draw(*camera);
 		testObj->draw(*camera);
 	}
 

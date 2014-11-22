@@ -24,9 +24,6 @@ OBJMesh::OBJMesh(const std::string& fileName){
 			std::string vZ = vals.substr(vals.find_last_of(' ')+1);
 			_z = (float)atof(vZ.c_str());
 			vertex.push_back(Vector3f(_x, _y, _z));
-			std::cout << "Loaded Vertex: ";
-			vertex.at(vertex.size()-1).print();
-			std::cout << "\n";
 		}
 		if(line[0] == 'v' && line[1] == 't' && line[2] == ' '){
 			std::string vals = line.substr(3);
@@ -38,9 +35,6 @@ OBJMesh::OBJMesh(const std::string& fileName){
 			std::string tV = vals.substr(tU.length()+1, vals.find(' '));
 			_v = (float)atof(tV.c_str());
 			texCoord.push_back(Vector2f(_u, _v));
-			std::cout << "Loaded TexCoord: ";
-			texCoord.at(texCoord.size()-1).print();
-			std::cout << "\n";
 		}
 		//Extract a normal value
 		if(line[0] == 'v' && line[1] == 'n' && line[2] == ' '){
@@ -56,9 +50,6 @@ OBJMesh::OBJMesh(const std::string& fileName){
 			std::string nZ = vals.substr(vals.find_last_of(' ')+1);
 			_z =  (float)atof(nZ.c_str());
 			normal.push_back(Vector3f(_x, _y, _z));
-			std::cout << "Loaded normal: ";
-			normal.at(normal.size()-1).print();
-			std::cout << "\n";
 		}
 		//review this side;
 		if(line[0]=='f' && line[1]==' '){
@@ -105,14 +96,9 @@ OBJMesh::OBJMesh(const std::string& fileName){
 	for(unsigned int i = 0; i < indicies.size(); i+=3){
 		Vertex vert(vertex.at(indicies.at(i)), texCoord.at(indicies.at(i+1)), normal.at(indicies.at(i+2)));
 		verticies.push_back(vert);
-		inCount++;
 		index.push_back(inCount);
+		inCount++;
 	}
-
-	for(unsigned int i = 0; i < indicies.size(); i++){
-		std::cout << "Indicies: " << indicies.at(i) << std::endl;
-	}
-	std::cout << "Size of indicies: " << indicies.size() << std::endl;
 }
 
 OBJMesh::~OBJMesh() {
