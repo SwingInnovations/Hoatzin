@@ -217,10 +217,19 @@ public:
 			//something something
 			mNumVert = tMesh->getVerticiesSize();
 			mDrawCount = tMesh->getIndiciesSize();
+			std::cout << "Number of Verticies: "<<tMesh->getVerticiesSize() << std::endl;
+			std::cout << "Number of Indicies: " << mDrawCount << std::endl;
+			vertex.reserve(mNumVert);
+			texCoord.reserve(mNumVert);
+			normal.reserve(mNumVert);
 			for(int i = 0; i < tMesh->getVerticiesSize(); i++){
 				vertex.push_back(*tMesh->verticies[i].getVerticies());
 				texCoord.push_back(*tMesh->verticies[i].getTexCoord());
 				normal.push_back(*tMesh->verticies[i].getNormal());
+				std::cout << "Vertex " << i << std::endl;
+				vertex.at(i).print();
+				texCoord.at(i).print();
+				normal.at(i).print();
 			}
 			index = tMesh->index;
 			delete tMesh;

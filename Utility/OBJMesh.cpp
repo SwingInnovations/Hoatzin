@@ -18,7 +18,7 @@ OBJMesh::OBJMesh(const std::string& fileName){
 			std::string vX = vals.substr(0, vals.find(' '));
 			_x = (float)atof(vX.c_str());
 
-			std::string vY = vals.substr(vX.length()+1, vals.find('0'));
+			std::string vY = vals.substr(vX.length()+1, vals.find(' '));
 			_y = (float)atof(vY.c_str());
 
 			std::string vZ = vals.substr(vals.find_last_of(' ')+1);
@@ -68,16 +68,19 @@ OBJMesh::OBJMesh(const std::string& fileName){
 			std::string face1 = hLine.substr(0, hLine.find(' '));
 				std::string v1 = face1.substr(0, face1.find('/'));
 				i = (int)atoi(v1.c_str());
-				std::string t1 = face1.substr(face1.find('/')+1, face1.find_last_of('/'));
+				int midLen1 = face1.find_last_of('/')-face1.find('/')+1;
+				std::string t1 = face1.substr(face1.find('/')+1, midLen1);
 				j = (int)atoi(t1.c_str());
 				std::string n1 = face1.substr(face1.find_last_of('/')+1);
 				k = (int)atoi(n1.c_str());
 				i--; j--; k--;
 				indicies.push_back(i); indicies.push_back(j); indicies.push_back(k);
-			std::string face2 = hLine.substr(hLine.find(' ')+1, hLine.find_last_of(' '));
+			int midLen = hLine.find_last_of(' ')-hLine.find(' ')+1;
+			std::string face2 = hLine.substr(hLine.find(' ')+1, midLen);
 				std::string v2 = face2.substr(0, face2.find('/'));
 				i = (int)atoi(v2.c_str());
-				std::string t2 = face2.substr(v2.length()+1, face2.find_last_of('/'));
+				int midLen2 = face2.find_last_of('/')-face2.find('/')+1;
+				std::string t2 = face2.substr(v2.length()+1, midLen2);
 				j = (int)atoi(t2.c_str());
 				std::string n2 = face2.substr(face2.find_last_of('/')+1);
 				k = (int)atoi(n2.c_str());
@@ -86,7 +89,8 @@ OBJMesh::OBJMesh(const std::string& fileName){
 			std::string face3 = hLine.substr(hLine.find_last_of(' ')+1);
 				std::string v3 = face3.substr(0, face3.find('/'));
 				i = (int)atoi(v3.c_str());
-				std::string t3 = face3.substr(face3.find('/')+1, face3.find_last_of('/'));
+				int midLen3 = face3.find_last_of('/')-face3.find('/')+1;
+				std::string t3 = face3.substr(face3.find('/')+1, midLen3);
 				j = (int)atoi(t3.c_str());
 				std::string n3 = face3.substr(face3.find_last_of('/')+1);
 				k = (int)atoi(n3.c_str());
@@ -96,11 +100,17 @@ OBJMesh::OBJMesh(const std::string& fileName){
 
 	}
 	int inCount = 0;
+	in.close();
 	/*end parsing file*/
 	for(unsigned int i = 0; i < indicies.size(); i+=3){
-		verticies.push_back(Vertex(vertex.at(indicies.at(i)), texCoord.at(indicies.at(i+1)), normal.at(indicies.at(i+2))));
+		Vertex vert(vertex.at(indicies.at(i)), texCoord.at(indicies.at(i+1)), normal.at(indicies.at(i+2)));
+		verticies.push_back(vert);
 		inCount++;
 		index.push_back(inCount);
+	}
+
+	for(unsigned int i = 0; i < indicies.size(); i++){
+		std::cout << "Indicies: " << indicies.at(i) << std::endl;
 	}
 	std::cout << "Size of indicies: " << indicies.size() << std::endl;
 }
