@@ -24,7 +24,7 @@ public:
 
 	void init(){
 
-		camPos = Vector3f(0.0, -3.0, 4.0);
+		camPos = Vector3f(0.0, -3.0, 0.0);
 		camera = new Camera(camPos, 66.0f, 1024.0f, 768.0f, 1.0f, 1000.0f);
 
 		l = new LuaScript("script.lua");
@@ -34,12 +34,12 @@ public:
 		tex2 = new Texture("flower.jpg");
 		Vector3f position(0.0, 0.0, 0.0);
 
-		plane = new SWObject(new Mesh(new Plane(30, 30)), shader, tex);
+		plane = new SWObject(new Mesh(new Plane(30, 30)), shader, tex2);
 		plane->setTranslateY(-10);
 		plane->setTranslateX(-10);
-		plane->setTranslateZ(3);
+		plane->setTranslateZ(0.8f);
 		plane->setRotateX(90);
-		testObj = new SWObject(new Mesh("cylinder.obj", MESH_TYPE::MODEL_OBJ), shader, tex);
+		testObj = new SWObject(new Mesh("defaultFigure.obj", MESH_TYPE::MODEL_OBJ), shader, tex);
 		box = new SWObject(new Mesh(new Box(position, 3.0f, 3.0f, 3.0f)), shader, tex2);
 		box->addChild(new SWObject(new Mesh(new Plane(10, 10)), shader, new Texture("profilePic.png")));
 
@@ -51,13 +51,7 @@ public:
 
 	void updateAuto(AppWindow* app, int delta){
 		rot2+= 0.025f * delta;
-		rotAmt = cos(rot2);
-		box->setRotateY(rot2);
-		box->setRotateZ(rot2);
-		box->setRotateX(rot2);
-		box->setTranslateY(rotAmt/4);
-
-		box->getChild(0)->setRotateY(rotAmt);
+		testObj->setRotateY(rot2);
 	}
 
 	void updateInput(AppWindow* app, int delta){
@@ -67,6 +61,11 @@ public:
 		if(input->isKeyDown(KEY::KEY_ESC)){
 			std::cout << "Quiting" << std::endl;
 			input->requestClose();
+		}
+
+		if(input->isKeyDown(KEY::KEY_R)){
+			Vector3f resetVec(0.0f, 0.0f, 0.0f);
+			testObj->setTranslate(resetVec);
 		}
 
 		if(input->isKeyDown(KEY::KEY_1)){
@@ -99,7 +98,7 @@ public:
 	}
 
 	void render(){
-//		plane->draw(*camera);
+		plane->draw(*camera);
 //		box->draw(*camera);
 		testObj->draw(*camera);
 	}

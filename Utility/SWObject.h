@@ -26,6 +26,7 @@ public:
 	bool hasChildren;
 
 	SWObject();
+	SWObject(const SWObject* other);
 	SWObject(Mesh* mesh, Shader* shader, Texture* texture);
 	virtual ~SWObject(){
 		children.clear();

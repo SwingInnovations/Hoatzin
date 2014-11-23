@@ -8,6 +8,14 @@ SWObject::SWObject(){
 	hasChildren = false;
 }
 
+SWObject::SWObject(const SWObject* other){
+	this->transform = other->transform;
+	this->mesh = other->mesh;
+	this->shader = other->shader;
+	this->tex = other->tex;
+	hasChildren = false;
+}
+
 SWObject::SWObject(Mesh* mesh, Shader* shader, Texture* texture){
 	transform = new Transform();
 	this->mesh = mesh;

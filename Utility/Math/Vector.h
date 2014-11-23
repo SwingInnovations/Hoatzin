@@ -157,6 +157,30 @@ private:
 	float z;
 };
 
+class Vector3i{
+public:
+	Vector3i(){
+		x = 0;
+		y = 0;
+		z = 0;
+	}
+
+	Vector3i(int _x, int _y, int _z){
+		x = _x;
+		y = _y;
+		z = _z;
+	}
+
+	Vector3f toVector3f()const{
+		return Vector3f(x, y, z);
+	}
+
+private:
+	int x;
+	int y;
+	int z;
+};
+
 class Vector4f{
 public:
     Vector4f(){
