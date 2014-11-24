@@ -37,7 +37,7 @@ public:
 		plane = new SWObject(new Mesh(new Plane(30, 30)), shader, tex2);
 		plane->setTranslateY(-10);
 		plane->setTranslateX(-10);
-		plane->setTranslateZ(0.8f);
+		plane->setTranslateZ(0.0f);
 		plane->setRotateX(90);
 		testObj = new SWObject(new Mesh("defaultFigure.obj", MESH_TYPE::MODEL_OBJ), shader, tex);
 		box = new SWObject(new Mesh(new Box(position, 3.0f, 3.0f, 3.0f)), shader, tex2);
@@ -75,6 +75,18 @@ public:
 		if(input->isKeyDown(KEY::KEY_P)){
 			bool temp = app->getPause();
 			app->setPause(!temp);
+		}
+
+		if(input->isKeyDown(KEY::KEY_Q)){
+			float camY = camera->getTransform().getTranslate().getY();
+			camY -= 0.025f * delta;
+			camera->setTranslateY(camY);
+		}
+
+		if(input->isKeyDown(KEY::KEY_Z)){
+			float camY = camera->getTransform().getTranslate().getY();
+			camY += 0.025f * delta;
+			camera->setTranslateY(camY);
 		}
 
 		if(input->isKeyDown(KEY::KEY_A)){

@@ -58,11 +58,9 @@ Camera::Camera(Vector3f& pos, float FOV, float WIDTH, float HEIGHT, float zNear,
 
 	mPosition = pos;
 	transform.setTranslate(pos);
-	mForward = Vector3f(0.0, 0.0, 1.0);
-	mForward = mForward.normalize();
+	mForward = Vector3f(1.0f, 0.0, 0.0);
 	mUp = Vector3f(0.0, 1.0f, 0.0);
-	mView = Vector3f(1.0f, 0.0, 0.0);
-	yAxis = Vector3f(0.0f, 1.0f, 0.0f);
+	mView = Vector3f(0.0f, 0.0, 1.0f);
 
 	hAngle = 0;
 	vAngle = 0;
