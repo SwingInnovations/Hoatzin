@@ -135,8 +135,8 @@ void Camera::update(Input &input){
 		vAngle = 0;
 		start = true;
 	}else{
-		hAngle += 0.035f * (float)((1024/2) - input.getMouseCoord().getX());
-		vAngle += 0.035f * (float)((768/2) - input.getMouseCoord().getY());
+		hAngle += 0.035f * (float)((mWIDTH/2) - input.getMouseCoord().getX());
+		vAngle += 0.035f * (float)((mHEIGHT/2) - input.getMouseCoord().getY());
 
 		Vector3f vAxis(0.0f, 1.0f, 0.0f);
 

@@ -4,7 +4,7 @@
 #include "Level2.h"
 
 int main(int argc, char** argv){
-	AppWindow app("Hoatzin --- ENGINE V.0.0.45", 1024, 768);
+	AppWindow app("Hoatzin --- ENGINE V.0.0.45", 1440, 900);
 	app.SetOpenGLVersion(3, 3);
 	app.addState(new DemoLevel(0));
 	app.addState(new Level2(1));

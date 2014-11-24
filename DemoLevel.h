@@ -25,7 +25,7 @@ public:
 	void init(){
 
 		camPos = Vector3f(0.0, -3.0, 0.0);
-		camera = new Camera(camPos, 66.0f, 1024.0f, 768.0f, 1.0f, 1000.0f);
+		camera = new Camera(camPos, 66.0f, 1440.0f, 900.0f, 1.0f, 1000.0f);
 
 		l = new LuaScript("script.lua");
 
