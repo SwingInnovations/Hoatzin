@@ -7,5 +7,5 @@ uniform sampler2D diffuse;
 out vec4 color;
 
 void main(void){
-	color = texture2D( diffuse, texCoord0) * clamp(dot(-vec3(1, 0, 0), normal0), 0, 1.0);
+	color = texture2D( diffuse, texCoord0) * clamp(dot(-vec3(0.5, -0.5, 0), normal0), 0, 1.0);
 }

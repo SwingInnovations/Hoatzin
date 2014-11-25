@@ -1,3 +1,4 @@
+#include <SDL2/SDL.h>
 #include "OBJMesh.h"
 
 OBJMesh::OBJMesh() {
@@ -92,6 +93,11 @@ OBJMesh::OBJMesh(const std::string& fileName){
 	}
 	int inCount = 0;
 	in.close();
+	if(vertex.empty()){
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Vertex Problem", "No Vertices", NULL);
+	}
+	if(texCoord.empty()){SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "No TexCoords", "No UV's present, consider re-exporting with UV's ", NULL);}
+	if(normal.empty()){SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "No Normals", "Re-Export with Normals.", NULL);}
 	/*end parsing file*/
 	for(unsigned int i = 0; i < indicies.size(); i+=3){
 		Vertex vert(vertex.at(indicies.at(i)), texCoord.at(indicies.at(i+1)), normal.at(indicies.at(i+2)));

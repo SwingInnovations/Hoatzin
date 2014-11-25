@@ -30,7 +30,7 @@ private:
 	GLuint createShader(const std::string &text, unsigned int type);
 	GLuint mProgram;
 	GLuint mShaders[NUM_SHADER];
-	GLuint uniform;
+	GLuint uniform[2];
 };
 
 #endif /* SHADER_H_ */

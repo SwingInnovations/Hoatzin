@@ -31,7 +31,8 @@ Shader::Shader(const std::string& filePath){
 	glValidateProgram(mProgram);
 	checkShaderStatus(mProgram, GL_LINK_STATUS, true, "Invalid shader program!");
 
-	uniform = glGetUniformLocation(mProgram, "MVP");
+	uniform[0] = glGetUniformLocation(mProgram, "model");
+	uniform[1] = glGetUniformLocation(mProgram, "camera");
 }
 
 Shader::~Shader() {
@@ -50,15 +51,16 @@ void Shader::update(Transform& trans){
 
 	transform = trans.getModel();
 
-	glUniformMatrix4fv(uniform, 1, GL_TRUE, &transform.m[0][0]);
+	glUniformMatrix4fv(uniform[0], 1, GL_TRUE, &transform.m[0][0]);
 }
 
 void Shader::update(Transform& trans, Camera& cam){
-	Matrix4f transform, camera, ret;
+	Matrix4f transform, camera;
 	transform = trans.getModel();
 	camera = cam.getViewProjection();
-	ret = camera * transform;
-	glUniformMatrix4fv(uniform, 1, GL_TRUE, &ret.m[0][0]);
+
+	glUniformMatrix4fv(uniform[0], 1, GL_TRUE, &transform.m[0][0]);
+	glUniformMatrix4fv(uniform[1], 1, GL_TRUE, &camera.m[0][0]);
 }
 
 void Shader::checkShaderStatus(GLuint shaderID, GLuint flag, bool isProgram, const std::string& errorMessage){
