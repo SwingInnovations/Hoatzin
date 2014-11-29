@@ -38,8 +38,7 @@ public:
 		plane->setTranslateY(-10);
 		plane->setTranslateX(-10);
 		plane->setTranslateZ(0.0f);
-		plane->setRotateX(90);
-		testObj = new SWObject(new Mesh("defaultFigure.obj", MESH_TYPE::MODEL_OBJ), shader, tex);
+		testObj = new SWObject(new Mesh("sphere.obj", MESH_TYPE::MODEL_OBJ), shader, tex);
 		box = new SWObject(new Mesh(new Box(position, 3.0f, 3.0f, 3.0f)), shader, tex2);
 		box->addChild(new SWObject(new Mesh(new Plane(10, 10)), shader, new Texture("profilePic.png")));
 
@@ -52,6 +51,8 @@ public:
 	void updateAuto(AppWindow* app, int delta){
 		rot2+= 0.025f * delta;
 		testObj->setRotateY(rot2);
+		Vector3f scaleVec(sin(rot2)*0.025f, sin(rot2)*0.025f, sin(rot2)*0.025f);
+		testObj->setScale(scaleVec);
 	}
 
 	void updateInput(AppWindow* app, int delta){
@@ -110,7 +111,7 @@ public:
 	}
 
 	void render(){
-		plane->draw(*camera);
+		//plane->draw(*camera);
 //		box->draw(*camera);
 		testObj->draw(*camera);
 	}

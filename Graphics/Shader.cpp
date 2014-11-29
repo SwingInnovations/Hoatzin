@@ -63,6 +63,22 @@ void Shader::update(Transform& trans, Camera& cam){
 	glUniformMatrix4fv(uniform[1], 1, GL_TRUE, &camera.m[0][0]);
 }
 
+void Shader::update(const std::string& name, int val){
+	glUniform1i(glGetUniformLocation(mProgram, name.c_str()), val);
+}
+
+void Shader::update(const std::string& name, float val){
+	glUniform1f(glGetUniformLocation(mProgram, name.c_str()), val);
+}
+
+void Shader::update(const std::string& name, Vector3f& val){
+	glUniform3f(glGetUniformLocation(mProgram, name.c_str()), val.getX(), val.getY(), val.getZ());
+}
+
+void Shader::update(const std::string& name, Vector4f& val){
+	glUniform4f(glGetUniformLocation(mProgram, name.c_str()), val.getX(), val.getY(), val.getZ(), val.getW());
+}
+
 void Shader::checkShaderStatus(GLuint shaderID, GLuint flag, bool isProgram, const std::string& errorMessage){
 	GLint success = 0;
 	GLchar error[1024] = {0};

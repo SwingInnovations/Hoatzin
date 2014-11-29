@@ -2,6 +2,8 @@
 #define SWOBJECT_H_
 
 #include <vector>
+#include <string>
+#include <sstream>
 
 #include "Math/Vector.h"
 #include "Transform.h"
@@ -23,6 +25,7 @@ public:
 	Shader* shader;
 	Texture* tex;
 	std::vector<SWObject*> children;
+	std::vector<SWShader::ShaderInfo> shaderInfo;
 	bool hasChildren;
 
 	SWObject();
@@ -41,6 +44,11 @@ public:
 
 	void addChild(SWObject* child){hasChildren = true; children.push_back(child);}
 	SWObject* getChild(int i){return children.at(i);}
+
+	void addUniform(const std::string name, int value){
+		shaderInfo.push_back(SWShader::ShaderInfo(name, SWShader::INT, SWShader::toString(value)));
+	}
+
 
 	void setTranslate(Vector3f& vec){
 		if(!hasChildren){
