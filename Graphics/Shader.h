@@ -23,36 +23,51 @@ namespace SWShader{
 		MAT4
 	};
 
-	inline std::string toString(int val){
+	static std::string toString(int val){
 		std::ostringstream buff;
 		buff << val;
 		return buff.str();
 	}
-	inline std::string toString(float val){
+	static std::string toString(float val){
 		std::ostringstream buff;
 		buff << val;
 		return buff.str();
 	}
-	inline std::string toString(Vector3f& val){
+	static std::string toString(Vector3f& val){
 		std::ostringstream buff;
 		buff << val.getX() << "/" << val.getY() << "/" << val.getZ();
 		return buff.str();
 	}
-	inline std::string toString(Vector4f& val){
+	static std::string toString(Vector4f& val){
 		std::ostringstream buff;
 		buff << val.getX() << "/" << val.getY() << "/" << val.getZ() << "/" << val.getW();
 		return buff.str();
 	}
 
-	inline int toInt(const std::string& value)const{
+	static int toInt(const std::string& value){
 		return (int)atoi(value.c_str());
 	}
 
-	inline float toFloat(const std::string& value)const{
+	static float toFloat(const std::string& value){
 		return (float)atof(value.c_str());
 	}
 
-	static Vector3f
+	static Vector3f toVector3f(const std::string& value){
+		float _x = 0.0f, _y = 0.0f, _z = 0.0f;
+		std::string vX = value.substr(0, value.find('/'));
+		std::string vY = value.substr(value.find('/')+1, value.find_last_of('/'));
+		std::string vZ = value.substr(value.find_last_of('/')+1);
+		_x = (float)atof(vX.c_str());
+		_y = (float)atof(vY.c_str());
+		_z = (float)atof(vZ.c_str());
+		return Vector3f(_x, _y, _z);
+	}
+
+	static Vector4f toVector4f(const std::string& value){
+		float _x = 0.0f, _y = 0.0f, _z = 0.0f, _w = 0.0f;
+
+		return Vector4f(_x, _y, _z, _w);
+	}
 
 	struct ShaderInfo{
 		ShaderInfo(const std::string n, int t, const std::string v){
@@ -76,8 +91,8 @@ public:
 	void update(Transform& trans, Camera& cam);
 	void update(const std::string& name, int val);
 	void update(const std::string& name, float val);
-	void update(const std::string& name, Vector3f& val);
-	void update(const std::string& name, Vector4f& val);
+	void update(const std::string& name, Vector3f val);
+	void update(const std::string& name, Vector4f val);
 	virtual ~Shader();
 
 private:

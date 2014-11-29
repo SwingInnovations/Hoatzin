@@ -33,6 +33,7 @@ public:
 	SWObject(Mesh* mesh, Shader* shader, Texture* texture);
 	virtual ~SWObject(){
 		children.clear();
+		shaderInfo.clear();
 		delete mesh;
 		delete shader;
 		delete tex;
@@ -49,6 +50,57 @@ public:
 		shaderInfo.push_back(SWShader::ShaderInfo(name, SWShader::INT, SWShader::toString(value)));
 	}
 
+	void addUniform(const std::string name, float value){
+		shaderInfo.push_back(SWShader::ShaderInfo(name, SWShader::FLOAT, SWShader::toString(value)));
+	}
+
+	void addUniform(const std::string name, Vector3f& value){
+		shaderInfo.push_back(SWShader::ShaderInfo(name, SWShader::VEC3, SWShader::toString(value)));
+	}
+
+	void addUniform(const std::string name, Vector4f& value){
+		shaderInfo.push_back(SWShader::ShaderInfo(name, SWShader::VEC4, SWShader::toString(value)));
+	}
+
+	void setUniform(const std::string name, int value){
+		if(!shaderInfo.empty()){
+			for(unsigned int i = 0; i < shaderInfo.size(); i++){
+				if(shaderInfo.at(i).name == name){
+					shaderInfo[i].value = SWShader::toString(value);
+				}
+			}
+		}
+	}
+
+	void setUniform(const std::string name, float value){
+		if(!shaderInfo.empty()){
+			for(unsigned int i = 0; i < shaderInfo.size(); i++){
+				if(shaderInfo.at(i).name == name){
+					shaderInfo[i].value = SWShader::toString(value);
+				}
+			}
+		}
+	}
+
+	void setUniform(const std::string name, Vector3f& value){
+		if(!shaderInfo.empty()){
+			for(unsigned int i = 0; i < shaderInfo.size(); i++){
+				if(shaderInfo.at(i).name == name){
+					shaderInfo[i].value = SWShader::toString(value);
+				}
+			}
+		}
+	}
+
+	void setUniform(const std::string name, Vector4f& value){
+		if(!shaderInfo.empty()){
+			for(unsigned int i = 0; i < shaderInfo.size(); i++){
+				if(shaderInfo.at(i).name == name){
+					shaderInfo[i].value = SWShader::toString(value);
+				}
+			}
+		}
+	}
 
 	void setTranslate(Vector3f& vec){
 		if(!hasChildren){
@@ -186,6 +238,17 @@ public:
 	}
 
 	void draw(){
+		for(unsigned int i = 0; i < shaderInfo.size(); i++){
+			if(shaderInfo.at(i).type == SWShader::INT){
+				shader->update(shaderInfo.at(i).name, SWShader::toInt(shaderInfo.at(i).value));
+			}else if(shaderInfo.at(i).type == SWShader::FLOAT){
+				shader->update(shaderInfo.at(i).name, SWShader::toFloat(shaderInfo.at(i).value));
+			}else if(shaderInfo.at(i).type == SWShader::VEC3){
+				shader->update(shaderInfo.at(i).name, SWShader::toVector3f(shaderInfo.at(i).value));
+			}else if(shaderInfo.at(i).type == SWShader::VEC4){
+				shader->update(shaderInfo.at(i).name, SWShader::toVector4f(shaderInfo.at(i).value));
+			}
+		}
 		shader->update(*transform);
 		shader->bind();
 		tex->bind(0);
