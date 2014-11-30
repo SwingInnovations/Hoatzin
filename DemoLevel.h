@@ -40,7 +40,7 @@ public:
 		plane->setTranslateZ(0.0f);
 		plane->setRotateX(90);
 		testObj = new SWObject(new Mesh("sphere.obj", MESH_TYPE::MODEL_OBJ), shader, tex);
-		Vector3f colorVec(1.0f, 1.0f, 1.0f);
+		Vector3f colorVec(1.0f, 0.0f, 0.0f);
 		testObj->addUniform("newColor", colorVec);
 		box = new SWObject(new Mesh(new Box(position, 3.0f, 3.0f, 3.0f)), shader, tex2);
 		box->addChild(new SWObject(new Mesh(new Plane(10, 10)), shader, new Texture("profilePic.png")));
@@ -54,6 +54,7 @@ public:
 	void updateAuto(AppWindow* app, int delta){
 		rot2+= 0.025f * delta;
 		testObj->setRotateY(rot2);
+		Vector3f colVec(1.0f, 1.0f, 1.0f);
 	}
 
 	void updateInput(AppWindow* app, int delta){

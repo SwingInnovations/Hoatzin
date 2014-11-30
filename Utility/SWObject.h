@@ -226,6 +226,21 @@ public:
 	}
 
 	void draw(Camera& cam){
+		if(!shaderInfo.empty()){
+			for(unsigned int i = 0; i < shaderInfo.size(); i++){
+				if(shaderInfo.at(i).type == SWShader::INT){
+					shader->update(shaderInfo.at(i).name, SWShader::toInt(shaderInfo.at(i).value));
+				}else if(shaderInfo.at(i).type == SWShader::FLOAT){
+					shader->update(shaderInfo.at(i).name, SWShader::toFloat(shaderInfo.at(i).value));
+				}else if(shaderInfo.at(i).type == SWShader::VEC3){
+					shader->update(shaderInfo.at(i).name, SWShader::toVector3f(shaderInfo.at(i).value));
+				}else if(shaderInfo.at(i).type == SWShader::VEC4){
+					shader->update(shaderInfo.at(i).name, SWShader::toVector4f(shaderInfo.at(i).value));
+				}else{
+					std::cout << "No Uniform present" << std::endl;
+				}
+			}
+		}
 		shader->update(*transform, cam);
 		shader->bind();
 		tex->bind(0);
@@ -238,17 +253,27 @@ public:
 	}
 
 	void draw(){
-		for(unsigned int i = 0; i < shaderInfo.size(); i++){
-			if(shaderInfo.at(i).type == SWShader::INT){
-				shader->update(shaderInfo.at(i).name, SWShader::toInt(shaderInfo.at(i).value));
-			}else if(shaderInfo.at(i).type == SWShader::FLOAT){
-				shader->update(shaderInfo.at(i).name, SWShader::toFloat(shaderInfo.at(i).value));
-			}else if(shaderInfo.at(i).type == SWShader::VEC3){
-				shader->update(shaderInfo.at(i).name, SWShader::toVector3f(shaderInfo.at(i).value));
-			}else if(shaderInfo.at(i).type == SWShader::VEC4){
-				shader->update(shaderInfo.at(i).name, SWShader::toVector4f(shaderInfo.at(i).value));
+		if(!shaderInfo.empty()){
+			for(unsigned int i = 0; i < shaderInfo.size(); i++){
+				if(shaderInfo.at(i).type == SWShader::INT){
+					shader->update(shaderInfo.at(i).name, SWShader::toInt(shaderInfo.at(i).value));
+					std::cout << "Setting Int Uniform" << std::endl;
+				}else if(shaderInfo.at(i).type == SWShader::FLOAT){
+					shader->update(shaderInfo.at(i).name, SWShader::toFloat(shaderInfo.at(i).value));
+					std::cout << "Setting Float Uniform" << std::endl;
+				}else if(shaderInfo.at(i).type == SWShader::VEC3){
+					shader->update(shaderInfo.at(i).name, SWShader::toVector3f(shaderInfo.at(i).value));
+					std::cout << "Setting Vec3 Uniform" << std::endl;
+				}else if(shaderInfo.at(i).type == SWShader::VEC4){
+					shader->update(shaderInfo.at(i).name, SWShader::toVector4f(shaderInfo.at(i).value));
+					std::cout << "Setting Vec4 Uniform" << std::endl;
+				}else{
+					std::cout << "No Uniform present" << std::endl;
+				}
 			}
+			std::cout << "Some Uniforms" << std::endl;
 		}
+
 		shader->update(*transform);
 		shader->bind();
 		tex->bind(0);

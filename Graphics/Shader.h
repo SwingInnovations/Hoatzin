@@ -16,11 +16,11 @@ class Camera;
 
 namespace SWShader{
 	enum{
-		INT,
-		FLOAT,
-		VEC3,
-		VEC4,
-		MAT4
+		INT = 0,
+		FLOAT = 1,
+		VEC3 = 2,
+		VEC4 = 3,
+		MAT4 = 4
 	};
 
 	static std::string toString(int val){
