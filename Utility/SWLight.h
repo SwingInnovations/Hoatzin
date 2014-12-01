@@ -6,9 +6,8 @@
 
 class SWLight : public SWComponent{
 public:
-	SWLight(){
 
-	}
+	Light light;
 };
 
 
