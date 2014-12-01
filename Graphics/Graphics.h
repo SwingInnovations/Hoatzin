@@ -3,14 +3,14 @@
 
 #include "../Utility/SWObject.h"
 
-class SWObject;
+class SWComponent;
 
 class Graphics {
 public:
 	Graphics();
 	virtual ~Graphics();
 
-	void DrawSWObject(SWObject* swobject){
+	void DrawSWObject(SWComponent* swobject){
 
 	}
 private:

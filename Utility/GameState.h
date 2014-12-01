@@ -17,7 +17,6 @@ public:
 	virtual int getID(){return id;}
 private:
 	int id;
-
 };
 
 #endif /* GAMESTATE_H_ */
