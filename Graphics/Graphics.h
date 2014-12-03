@@ -15,6 +15,8 @@ public:
 	}
 private:
 	bool legacyGraphicsInUse;
+	Camera* camera;
+	bool shadowEnabled;
 };
 
 #endif /* GRAPHICS_H_ */
