@@ -14,6 +14,7 @@
 #include "Graphics/Camera.h"
 #include "Utility/Math/Geom/Plane.h"
 #include "Utility/Math/Geom/Box.h"
+#include "Utility/SWLight.h"
 #include "Utility/LuaScript.h"
 
 class DemoLevel : public GameState{
@@ -33,6 +34,10 @@ public:
 		tex = new Texture("grid.png");
 		tex2 = new Texture("flower.jpg");
 		Vector3f position(0.0, 0.0, 0.0);
+		Vector3f lightPosition(0.0, -3.0, 0.0);
+		Vector3f lightIntensity(0.5, 0.5, 0.9);
+		Vector3f coneDirection(0, 0, -1.0);
+		spotLight = new SWSpotLight(lightPosition, lightIntensity, coneDirection, 0.1f, 0.0f, 15.0f, 0);
 
 		plane = new SWObject(new Mesh(new Plane(30, 30)), shader, tex2);
 		plane->setTranslateY(-10);
@@ -54,6 +59,7 @@ public:
 	void updateAuto(AppWindow* app, int delta){
 		rot2+= 0.025f * delta;
 		testObj->setRotateY(rot2);
+		spotLight->draw(shader);
 		Vector3f colVec(1.0f, 1.0f, 1.0f);
 	}
 
@@ -123,6 +129,7 @@ public:
 	}
 
 	~DemoLevel(){
+		delete spotLight;
 		std::cout << SDL_GetError() << std::endl;
 	}
 private:
@@ -138,6 +145,7 @@ private:
 	float transX, transZ;
 	Vector3f camPos;
 	SWObject *plane, *box, *box2, *testObj;
+	SWSpotLight* spotLight;
 	LuaScript* l;
 };
 

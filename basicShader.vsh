@@ -1,5 +1,7 @@
 #version 330
 
+#define MAX_LIGHT 10
+
 in vec3 position;
 in vec2 texCoord;
 in vec3 normal;

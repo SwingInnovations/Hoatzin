@@ -41,15 +41,17 @@ public:
 
 	}
 
-	void addSpotLight(Vector3f position, Vector3f intensity, float at, float amb, float coneAngle){
+	void addSpotLight(Vector3f& position, Vector3f& intensity, Vector3f& coneDirection, float at, float amb, float coneAngle){
 		light.position = Vector4f(position.getX(), position.getY(), position.getZ(), 1.0);
 		transform->setTranslate(position);
 		light.intensity = intensity;
 		light.attenuation = at;
 		light.ambientCoefficient = amb;
 		light.coneAngle = coneAngle;
+		light.coneDirection = coneDirection;
 		addLightUniforms(index, "position", SWShader::VEC4, SWShader::toString(light.position));
 		addLightUniforms(index, "intensity", SWShader::VEC3, SWShader::toString(light.intensity));
+		addLightUniforms(index, "coneDirection", SWShader::VEC3, SWShader::toString(light.coneDirection));
 		addLightUniforms(index, "ambientCoefficient", SWShader::FLOAT, SWShader::toString(light.ambientCoefficient));
 		addLightUniforms(index, "attenuation", SWShader::FLOAT, SWShader::toString(light.attenuation));
 		addLightUniforms(index, "coneAngle", SWShader::FLOAT, SWShader::toString(light.coneAngle));
@@ -105,7 +107,7 @@ public:
 	int index;
 };
 
-class SWDirectionalLight : SWLight{
+class SWDirectionalLight : public SWLight{
 public:
 	SWDirectionalLight(){
 		transform = new Transform();
@@ -139,7 +141,7 @@ public:
 	}
 };
 
-class SWSpotLight : SWLight{
+class SWSpotLight : public SWLight{
 public:
 	SWSpotLight(){
 		transform = new Transform();
@@ -161,10 +163,10 @@ public:
 		index = i;
 	}
 
-	SWSpotLight(Vector3f& position, Vector3f& intensity, float att, float ambCoef, float coneAngle, int index){
+	SWSpotLight(Vector3f& position, Vector3f& intensity, Vector3f& coneDirection, float att, float ambCoef, float coneAngle, int index){
 		this->index = index;
 		transform = new Transform();
-		addSpotLight(position, intensity, att, ambCoef, coneAngle);
+		addSpotLight(position, intensity, coneDirection, att, ambCoef, coneAngle);
 	}
 };
 

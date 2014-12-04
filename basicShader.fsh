@@ -1,5 +1,18 @@
 #version 330
 
+#define MAX_LIGHT 10
+
+in int numLight;
+
+uniform struct Light{
+	vec4 position;
+	vec3 intensity;
+	float attenuation;
+	float ambientCoefficient;
+	float coneAngle;
+	vec3 coneDirection;
+}lights[MAX_LIGHT];
+
 in vec2 texCoord0;
 in vec3 normal0;
 in vec3 newColor0;
