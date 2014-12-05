@@ -8,7 +8,6 @@
 #include "Transform.h"
 #include "../Graphics/Shader.h"
 #include "../Graphics/Texture.h"
-#include "../Graphics/Graphics.h"
 
 class SWComponent{
 public:
@@ -173,8 +172,8 @@ public:
 
 	void addChild(SWComponent* child){hasChildren = true; children.push_back(child);}
 	SWComponent* getChild(int i){return children.at(i);}
-	virtual void draw(Camera& cam){}
-	virtual void draw(){}
+	virtual void draw(Camera& cam){;}
+	virtual void draw(){;}
 
 	Transform* transform;
 	Shader* shader;

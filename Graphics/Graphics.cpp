@@ -6,6 +6,6 @@ Graphics::Graphics() {
 }
 
 Graphics::~Graphics() {
-	// TODO Auto-generated destructor stub
+	delete camera;
 }
 

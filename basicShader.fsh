@@ -22,5 +22,5 @@ out vec4 color;
 
 void main(void){
 	color = texture2D( diffuse, texCoord0) * clamp(dot(-vec3(0.0, -1.0f, 1.0f), normal0), 0, 1.0);
-	//color = vec4(newColor0, 1.0) * clamp(dot(-vec3(0.5, -0.5, 0.0f), normal0), 0, 1.0);
+	//color = vec4(1.0f, 0.0f, 1.0f, 1.0f);
 }

@@ -11,7 +11,7 @@
 #include "../Utility/Math/Matrix.h"
 #include "Camera.h"
 
-class SWComponent;
+//class SWComponent;
 class Camera;
 
 namespace SWShader{
