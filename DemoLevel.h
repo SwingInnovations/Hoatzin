@@ -36,7 +36,7 @@ public:
 		Vector3f position(0.0, 0.0, 0.0);
 		Vector3f lightPosition(0.0, -3.0, 0.0);
 		Vector3f lightIntensity(0.5, 0.5, 0.9);
-		Vector3f coneDirection(0, 0, -1.0);
+		Vector3f coneDirection(0.0, 1.0f, 0.0);
 		spotLight = new SWSpotLight(lightPosition, lightIntensity, coneDirection, 0.1f, 0.0f, 15.0f, 0);
 
 		plane = new SWObject(new Mesh(new Plane(30, 30)), shader, tex2);
@@ -59,6 +59,7 @@ public:
 	void updateAuto(AppWindow* app, int delta){
 		rot2+= 0.025f * delta;
 		testObj->setRotateY(rot2);
+		shader->update("numLight", 1);
 		spotLight->draw(shader);
 		Vector3f colVec(1.0f, 1.0f, 1.0f);
 	}
