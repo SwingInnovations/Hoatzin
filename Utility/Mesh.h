@@ -208,6 +208,8 @@ public:
 		std::vector<Vector3f> vertex;
 		std::vector<Vector2f> texCoord;
 		std::vector<Vector3f> normal;
+		std::vector<Vector3f> tangent;
+		std::vector<Vector3f> biTangent;
 		std::vector<int> index;
 
 		switch(type){
@@ -225,6 +227,8 @@ public:
 				texCoord.push_back(*tMesh->verticies[i].getTexCoord());
 				normal.push_back(*tMesh->verticies[i].getNormal());
 			}
+			tangent = genTangent(vertex, texCoord);
+			biTangent = genBiTangent(vertex, texCoord);
 			index = tMesh->index;
 			delete tMesh;
 			tMesh = 0;
@@ -254,6 +258,16 @@ public:
 		glEnableVertexAttribArray(2);
 		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
+		glBindBuffer(GL_ARRAY_BUFFER, mVBO[TANGENT_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, mNumVert*sizeof(tangent[0]), &tangent[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(3);
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, mVBO[BITANGENT_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, mNumVert*sizeof(biTangent[0]), &biTangent[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(4);
+		glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mVBO[INDEX_BUFFER]);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, mDrawCount*sizeof(index[0]), &index[0], GL_STATIC_DRAW);
 	}
@@ -273,11 +287,68 @@ public:
 		glDeleteVertexArrays(1, &mVAO);
 	}
 private:
+	std::vector<Vector3f>genTangent(std::vector<Vector3f>& vert, std::vector<Vector2f>& tex){
+		std::vector<Vector3f> ret;
+		for(unsigned int i = 0; i < vert.size(); i+=3){
+			Vector3f v0 = vert[i+0];
+			Vector3f v1 = vert[i+1];
+			Vector3f v2 = vert[i+2];
+
+			Vector2f uv0 = tex[i+0];
+			Vector2f uv1 = tex[i+1];
+			Vector2f uv2 = tex[i+2];
+
+			Vector3f dP1 = v1 - v0;
+			Vector3f dP2 = v2 - v0;
+
+			Vector2f dUV1 = uv1 - uv0;
+			Vector2f dUV2 = uv2 - uv0;
+
+			float r = 1.0f / (dUV1.getX() * dUV2.getY() - dUV1.getY() * dUV2.getX());
+			Vector3f a = (dP1 * dUV2.getY())*r;
+			Vector3f b = (dP2 * dUV1.getY())*r;
+			Vector3f tangent = a - b;
+			ret.push_back(tangent);
+			ret.push_back(tangent);
+			ret.push_back(tangent);
+		}
+		return ret;
+	}
+
+	std::vector<Vector3f>genBiTangent(std::vector<Vector3f>& vert, std::vector<Vector2f>& tex){
+		std::vector<Vector3f> ret;
+		for(unsigned int i = 0; i < vert.size(); i+=3){
+			Vector3f v0 = vert[i+0];
+			Vector3f v1 = vert[i+1];
+			Vector3f v2 = vert[i+2];
+
+			Vector2f uv0 = tex[i+0];
+			Vector2f uv1 = tex[i+1];
+			Vector2f uv2 = tex[i+2];
+
+			Vector3f dP1 = v1 - v0;
+			Vector3f dP2 = v2 - v0;
+
+			Vector2f dUV1 = uv1 - uv0;
+			Vector2f dUV2 = uv2 - uv0;
+
+			float r = 1.0f / (dUV1.getX() * dUV2.getY() - dUV1.getY() * dUV2.getX());
+			Vector3f a = (dP1 * dUV2.getX())*r;
+			Vector3f b = (dP2 * dUV1.getX())*r;
+			Vector3f biTangent = b - a;
+			ret.push_back(biTangent);
+			ret.push_back(biTangent);
+			ret.push_back(biTangent);
+		}
+		return ret;
+	}
 	enum{
 		VERTEX_BUFFER,
 		TEXCOORD_BUFFER,
 		NORMAL_BUFFER,
 		INDEX_BUFFER,
+		TANGENT_BUFFER,
+		BITANGENT_BUFFER,
 		NUM_BUFFERS
 	};
 	GLuint mVAO;
