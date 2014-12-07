@@ -7,10 +7,6 @@
 
 class SWComponent;
 
-struct SWMaterial{
-
-};
-
 struct SWRenderPass{
 	std::vector<SWComponent*> objects;
 	void addObjects(SWComponent* comp){

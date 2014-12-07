@@ -22,11 +22,6 @@ public:
 	SWObject();
 	SWObject(const SWObject* other);
 	SWObject(Mesh* mesh, Shader* shader, Texture* texture);
-//		this->mesh = mesh;
-//		this->shader = shader;
-//		this->tex = texture;
-//		hasChildren = false;
-//	}
 
 	void draw(Camera& cam){
 		if(!uniforms.empty()){
@@ -85,6 +80,7 @@ public:
 
 	Mesh* mesh;
 	Texture* tex;
+	SWMaterial* mat;
 };
 
 #endif /* SWOBJECT_H_ */

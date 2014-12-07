@@ -15,6 +15,8 @@ uniform struct Light{
 
 in vec2 texCoord0;
 in vec3 normal0;
+in vec3 tangent0;
+in vec3 biTangent0;
 in vec3 newColor0;
 
 uniform sampler2D diffuse;

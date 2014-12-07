@@ -135,10 +135,6 @@ public:
 		transform->setTranslate(position);
 		addDirectionalLight(position, intensity, ambCoef);
 	}
-
-	void setIndex(int i){
-		index = i;
-	}
 };
 
 class SWSpotLight : public SWLight{
