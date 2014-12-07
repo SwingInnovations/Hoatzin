@@ -8,6 +8,8 @@
 #include "Transform.h"
 #include "../Graphics/Shader.h"
 #include "../Graphics/Texture.h"
+//#include "../Graphics/Camera.h"
+class Camera;
 
 class SWComponent{
 public:

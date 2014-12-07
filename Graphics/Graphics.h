@@ -2,9 +2,9 @@
 #define GRAPHICS_H_
 
 #include <vector>
-#include "../Utility/SWObject.h"
 #include "../Utility/SWComponent.h"
 
+class Camera;
 class SWComponent;
 
 struct SWRenderPass{
@@ -13,8 +13,8 @@ struct SWRenderPass{
 		objects.push_back(comp);
 	}
 	void draw(Camera* cam){
-		for(unsigned int i = 0; i < objects.size(); i++){
-			objects.at(i)->draw(*cam);
+		for(int i = 0; i < (int)objects.size(); i++){
+			objects[i]->draw(*cam);
 		}
 	}
 };

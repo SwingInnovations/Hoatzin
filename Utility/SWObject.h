@@ -11,11 +11,13 @@
 #include "../Graphics/Shader.h"
 #include "../Graphics/Texture.h"
 #include "../Graphics/Graphics.h"
+#include "../Graphics/SWMaterial.h"
 
 class Texture;
 class Mesh;
 class SWComponent;
 class Shader;
+class Camera;
 
 class SWObject : public SWComponent{
 public:

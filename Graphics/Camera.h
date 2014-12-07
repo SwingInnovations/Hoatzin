@@ -4,8 +4,10 @@
 #include "../Utility/Math/Matrix.h"
 #include "../Utility/Math/Vector.h"
 #include "../AppWindow.h"
+#include "../Utility/Transform.h"
 
 class AppWindow;
+class Transform;
 
 namespace CAMERA_VIEW{
 	enum Mode{

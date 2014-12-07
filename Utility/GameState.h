@@ -2,8 +2,10 @@
 #define GAMESTATE_H_
 
 #include "../AppWindow.h"
+#include "../Graphics/Graphics.h"
 
 class AppWindow;
+class Graphics;
 
 class GameState {
 public:
@@ -14,6 +16,7 @@ public:
 	virtual void updateInput(AppWindow* app, int delta){}
 	virtual void updateAuto(AppWindow* app ,int delta){}
 	virtual void render(){}
+	virtual void render(Graphics* g){}
 	virtual int getID(){return id;}
 private:
 	int id;
