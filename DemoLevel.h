@@ -112,7 +112,7 @@ public:
 	}
 
 	void render(){
-		testObj->draw(*camera);
+		testObj->draw(camera);
 	}
 
 	int getID(){

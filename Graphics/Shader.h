@@ -11,11 +11,10 @@
 #include "../Utility/Math/Matrix.h"
 #include "Camera.h"
 
-//class SWComponent;
 class Camera;
 
 namespace SWShader{
-	enum{
+	enum Type{
 		INT = 0,
 		FLOAT = 1,
 		VEC3 = 2,

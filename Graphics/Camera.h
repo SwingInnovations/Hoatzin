@@ -1,13 +1,7 @@
 #ifndef CAMERA_H_
 #define CAMERA_H_
 
-#include "../Utility/Math/Matrix.h"
-#include "../Utility/Math/Vector.h"
-#include "../AppWindow.h"
-#include "../Utility/Transform.h"
-
-class AppWindow;
-class Transform;
+#include "../STechOne.h"
 
 namespace CAMERA_VIEW{
 	enum Mode{

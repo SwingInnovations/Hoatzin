@@ -1,15 +1,12 @@
 #ifndef SWCOMPONENT_H_
 #define SWCOMPONENT_H_
 
+#pragma once
+
 #include <vector>
 #include <string>
 
-#include "Math/Vector.h"
-#include "Transform.h"
-#include "../Graphics/Shader.h"
-#include "../Graphics/Texture.h"
-//#include "../Graphics/Camera.h"
-class Camera;
+#include "../STechOne.h"
 
 class SWComponent{
 public:
@@ -23,7 +20,7 @@ public:
 		delete shader;
 	}
 	void addUniform(const std::string& name, int value){
-		uniforms.push_back(SWShader::ShaderInfo(name, SWShader::INT, SWShader::toString(value)));
+		uniforms.push_back(SWShader::ShaderInfo(name, SWShader::Type::INT,SWShader::toString(value)));
 	}
 	void addUniform(const std::string& name, float value){
 		uniforms.push_back(SWShader::ShaderInfo(name, SWShader::FLOAT, SWShader::toString(value)));
@@ -174,13 +171,13 @@ public:
 
 	void addChild(SWComponent* child){hasChildren = true; children.push_back(child);}
 	SWComponent* getChild(int i){return children.at(i);}
-	virtual void draw(Camera& cam){;}
-	virtual void draw(){;}
+
+	virtual void draw(Camera* cam){}
 
 	Transform* transform;
 	Shader* shader;
 	std::vector<SWComponent*> children;
-	std::vector<SWShader::ShaderInfo> uniforms;
+	std::vector<ShaderInfo> uniforms;
 	bool hasChildren;
 };
 

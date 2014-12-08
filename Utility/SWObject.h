@@ -13,19 +13,13 @@
 #include "../Graphics/Graphics.h"
 #include "../Graphics/SWMaterial.h"
 
-class Texture;
-class Mesh;
-class SWComponent;
-class Shader;
-class Camera;
-
 class SWObject : public SWComponent{
 public:
 	SWObject();
 	SWObject(const SWObject* other);
 	SWObject(Mesh* mesh, Shader* shader, Texture* texture);
 
-	void draw(Camera& cam){
+	void draw(Camera* cam){
 		if(!uniforms.empty()){
 			for(unsigned int i = 0; i < uniforms.size(); i++){
 				if(uniforms.at(i).type == SWShader::INT){
@@ -41,7 +35,7 @@ public:
 				}
 			}
 		}
-		shader->update(*this->transform, cam);
+		shader->update(*this->transform, *cam);
 		shader->bind();
 		tex->bind(0);
 		mesh->draw();
@@ -50,33 +44,6 @@ public:
 				children[i]->draw(cam);
 			}
 		}
-	}
-
-	void draw(){
-			if(!uniforms.empty()){
-				for(unsigned int i = 0; i < uniforms.size(); i++){
-					if(uniforms.at(i).type == SWShader::INT){
-						shader->update(uniforms.at(i).name, SWShader::toInt(uniforms.at(i).value));
-					}else if(uniforms.at(i).type == SWShader::FLOAT){
-						shader->update(uniforms.at(i).name, SWShader::toFloat(uniforms.at(i).value));
-					}else if(uniforms.at(i).type == SWShader::VEC3){
-						shader->update(uniforms.at(i).name, SWShader::toVector3f(uniforms.at(i).value));
-					}else if(uniforms.at(i).type == SWShader::VEC4){
-						shader->update(uniforms.at(i).name, SWShader::toVector4f(uniforms.at(i).value));
-					}else{
-						std::cout << "No Uniform present" << std::endl;
-					}
-				}
-			}
-			shader->update(*this->transform);
-			shader->bind();
-			tex->bind(0);
-			mesh->draw();
-			if(!this->children.empty()){
-				for(unsigned int i = 0; i < this->children.size(); i++){
-					this->children[i]->draw();
-				}
-			}
 	}
 
 

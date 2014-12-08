@@ -1,4 +1,3 @@
-#include "../Utility/SWObject.h"
 #include "Camera.h"
 
 Camera::Camera(){

@@ -9,7 +9,9 @@
 
 AppWindow::AppWindow() {
 	pause = false;
-
+	this->WIDTH = 800;
+	this->HEIGHT = 800;
+	mCurrentState = 0;
 }
 
 AppWindow::AppWindow(const std::string title, int WIDTH, int HEIGHT) : fps(60){
@@ -32,6 +34,7 @@ AppWindow::AppWindow(const std::string title, int WIDTH, int HEIGHT) : fps(60){
 	pause = false;
 	oldTime = 0;
 	newTime = SDL_GetTicks();
+	mCurrentState = 0;
 }
 
 void AppWindow::SetOpenGLVersion(int MajorVersion, int MinorVersion){

@@ -1,11 +1,10 @@
 #ifndef GRAPHICS_H_
 #define GRAPHICS_H_
 
-#include <vector>
-#include "../Utility/SWComponent.h"
+#pragma once
 
-class Camera;
-class SWComponent;
+#include <vector>
+#include "../STechOne.h"
 
 struct SWRenderPass{
 	std::vector<SWComponent*> objects;
@@ -14,7 +13,7 @@ struct SWRenderPass{
 	}
 	void draw(Camera* cam){
 		for(int i = 0; i < (int)objects.size(); i++){
-			objects[i]->draw(*cam);
+			objects[i]->draw(cam);
 		}
 	}
 };
@@ -45,7 +44,7 @@ public:
 	}
 
 	void draw(SWComponent* swobject){
-		swobject->draw(*camera);
+		swobject->draw(camera);
 	}
 
 private:

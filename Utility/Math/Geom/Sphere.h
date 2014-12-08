@@ -7,7 +7,7 @@
 class Sphere : public Shape{
 public:
 	Sphere(){
-		mIndicies = 0;
+		mIndiciesSize = 0;
 		mVerticiesSize = 0;
 	}
 
@@ -43,7 +43,7 @@ private:
 	Transform mTransform;
 	std::vector<Vertex> mVerticies;
 	std::vector<int> mIndicies;
-}
+};
 
 
 
