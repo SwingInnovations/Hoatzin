@@ -5,6 +5,9 @@
 
 #include <vector>
 #include "../STechOne.h"
+#include "../Utility/SWComponent.h"
+
+class Camera;
 
 struct SWRenderPass{
 	std::vector<SWComponent*> objects;

@@ -7,11 +7,12 @@
 #include "Math/Vector.h"
 #include "Transform.h"
 #include "Mesh.h"
-#include "SWComponent.h"
-#include "../Graphics/Shader.h"
 #include "../Graphics/Texture.h"
 #include "../Graphics/Graphics.h"
 #include "../Graphics/SWMaterial.h"
+
+class SWComponent;
+class Shader;
 
 class SWObject : public SWComponent{
 public:

@@ -1,15 +1,10 @@
-/*
- * Shader.cpp
- *
- *  Created on: Jun 12, 2014
- *      Author: Nathan_z400
- */
-
 #include "Shader.h"
 
 Shader::Shader() {
 	// TODO Auto-generated constructor stub
-
+	mProgram = 0;
+	mShaders[0] = 0;
+	mShaders[1] = 0;
 }
 
 Shader::Shader(const std::string& filePath){

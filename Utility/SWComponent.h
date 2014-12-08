@@ -6,7 +6,11 @@
 #include <vector>
 #include <string>
 
-#include "../STechOne.h"
+#include "../Graphics/Shader.h"
+
+class Vector3f;
+class Vector4f;
+
 
 class SWComponent{
 public:
@@ -20,7 +24,7 @@ public:
 		delete shader;
 	}
 	void addUniform(const std::string& name, int value){
-		uniforms.push_back(SWShader::ShaderInfo(name, SWShader::Type::INT,SWShader::toString(value)));
+		uniforms.push_back(SWShader::ShaderInfo(name, SWShader::INT,SWShader::toString(value)));
 	}
 	void addUniform(const std::string& name, float value){
 		uniforms.push_back(SWShader::ShaderInfo(name, SWShader::FLOAT, SWShader::toString(value)));
@@ -177,7 +181,7 @@ public:
 	Transform* transform;
 	Shader* shader;
 	std::vector<SWComponent*> children;
-	std::vector<ShaderInfo> uniforms;
+	std::vector<SWShader::ShaderInfo> uniforms;
 	bool hasChildren;
 };
 
