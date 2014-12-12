@@ -9,7 +9,6 @@
 #include <cstdlib>
 #include "../Utility/Transform.h"
 #include "../Utility/Math/Matrix.h"
-#include "Camera.h"
 
 class Camera;
 

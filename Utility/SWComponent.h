@@ -5,11 +5,11 @@
 
 #include <vector>
 #include <string>
-
 #include "../Graphics/Shader.h"
 
 class Vector3f;
 class Vector4f;
+class Camera;
 
 
 class SWComponent{
@@ -23,57 +23,14 @@ public:
 		delete transform;
 		delete shader;
 	}
-	void addUniform(const std::string& name, int value){
-		uniforms.push_back(SWShader::ShaderInfo(name, SWShader::INT,SWShader::toString(value)));
-	}
-	void addUniform(const std::string& name, float value){
-		uniforms.push_back(SWShader::ShaderInfo(name, SWShader::FLOAT, SWShader::toString(value)));
-	}
-	void addUniform(const std::string& name, Vector3f& value){
-		uniforms.push_back(SWShader::ShaderInfo(name, SWShader::VEC3, SWShader::toString(value)));
-	}
-	void addUniform(const std::string& name, Vector4f& value){
-		uniforms.push_back(SWShader::ShaderInfo(name, SWShader::VEC4, SWShader::toString(value)));
-	}
-	void setUniform(const std::string& name, int value){
-		if(!uniforms.empty()){
-			for(unsigned int i = 0; i < uniforms.size(); i++){
-				if(uniforms[i].name == name){
-					uniforms[i].value = SWShader::toString(value);
-				}
-			}
-		}
-	}
-
-	void setUniform(const std::string& name, float value){
-		if(!uniforms.empty()){
-			for(unsigned int i = 0; i < uniforms.size(); i++){
-				if(uniforms[i].name == name){
-					uniforms[i].value = SWShader::toString(value);
-				}
-			}
-		}
-	}
-
-	void setUniform(const std::string& name, Vector3f& value){
-		if(!uniforms.empty()){
-			for(unsigned int i = 0; i < uniforms.size(); i++){
-				if(uniforms[i].name == name){
-					uniforms[i].value = SWShader::toString(value);
-				}
-			}
-		}
-	}
-
-	void setUniform(const std::string& name, Vector4f& value){
-		if(!uniforms.empty()){
-			for(unsigned int i = 0; i < uniforms.size(); i++){
-				if(uniforms[i].name == name){
-					uniforms[i].value = SWShader::toString(value);
-				}
-			}
-		}
-	}
+	void addUniform(const std::string& name, int value);
+	void addUniform(const std::string& name, float value);
+	void addUniform(const std::string& name, Vector3f& value);
+	void addUniform(const std::string& name, Vector4f& value);
+	void setUniform(const std::string& name, int value);
+	void setUniform(const std::string& name, float value);
+	void setUniform(const std::string& name, Vector3f& value);
+	void setUniform(const std::string& name, Vector4f& value);
 
 	void setTranslate(Vector3f& vec){
 		transform->setTranslate(vec);

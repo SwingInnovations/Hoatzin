@@ -1,4 +1,5 @@
 #include "Shader.h"
+#include "Camera.h"
 
 Shader::Shader() {
 	// TODO Auto-generated constructor stub
