@@ -28,6 +28,10 @@ public:
 		index = i;
 	}
 
+	void setShader(Shader* shader){
+		this->shader = shader;
+	}
+
 	void setIndex(int i){
 		index = i;
 	}
@@ -81,7 +85,6 @@ public:
 					std::cout << "No Uniform present" << std::endl;
 				}
 			}
-			std::cout << "Some Uniforms" << std::endl;
 		}
 	}
 
@@ -101,7 +104,6 @@ public:
 					std::cout << "No Uniform present" << std::endl;
 				}
 			}
-			std::cout << "Some Uniforms" << std::endl;
 		}
 	}
 
@@ -129,6 +131,12 @@ public:
 		light.coneAngle = 0.0f;
 		light.ambientCoefficient = 0.0f;
 		index = i;
+	}
+
+	SWDirectionalLight(Vector3f& position, Vector3f& intensity, float ambCoef){
+		transform = new Transform();
+		transform->setTranslate(position);
+		addDirectionalLight(position, intensity, ambCoef);
 	}
 
 	SWDirectionalLight(Vector3f& position, Vector3f& intensity, float ambCoef, int i){
@@ -159,6 +167,12 @@ public:
 		light.coneAngle = 0.0f;
 		light.ambientCoefficient = 0.0f;
 		index = i;
+	}
+
+	SWSpotLight(Vector3f& position, Vector3f& intensity, Vector3f& coneDirection, float att, float ambCoef, float coneAngle){
+		transform = new Transform();
+		transform->setTranslate(position);
+		addSpotLight(position, intensity, coneDirection, att, ambCoef, coneAngle);
 	}
 
 	SWSpotLight(Vector3f& position, Vector3f& intensity, Vector3f& coneDirection, float att, float ambCoef, float coneAngle, int index){

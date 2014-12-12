@@ -13,6 +13,7 @@ GameState::GameState() {
 }
 
 GameState::~GameState() {
-	// TODO Auto-generated destructor stub
+	id = 0;
+	delete scene;
 }
 

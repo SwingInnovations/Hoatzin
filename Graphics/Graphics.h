@@ -8,6 +8,7 @@
 #include "../Utility/SWComponent.h"
 
 class Camera;
+class SWSceneManager;
 
 struct SWRenderPass{
 	std::vector<SWComponent*> objects;
@@ -50,6 +51,7 @@ public:
 		swobject->draw(camera);
 	}
 
+	void drawScene(SWSceneManager* scene);
 private:
 	std::vector<SWRenderPass> renderPass;
 	bool legacyGraphicsInUse;

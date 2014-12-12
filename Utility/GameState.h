@@ -3,6 +3,7 @@
 
 #include "../AppWindow.h"
 #include "../Graphics/Graphics.h"
+#include "SWSceneManager.h"
 
 class AppWindow;
 class Graphics;
@@ -10,7 +11,7 @@ class Graphics;
 class GameState {
 public:
 	GameState();
-	GameState(int id){this->id = id;}
+	GameState(int id){this->id = id; scene = 0;}
 	virtual ~GameState();
 	virtual void init(){}
 	virtual void updateInput(AppWindow* app, int delta){}
@@ -20,6 +21,7 @@ public:
 	virtual int getID(){return id;}
 private:
 	int id;
+	SWSceneManager* scene;
 };
 
 #endif /* GAMESTATE_H_ */
