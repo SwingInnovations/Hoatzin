@@ -33,7 +33,7 @@ public:
 		shader = new Shader("basicShader");
 		tex = new Texture("grid.png");
 		tex2 = new Texture("flower.jpg");
-		Vector3f position(0.0, 0.0, 0.0);
+		Vector3f position(1.0, -1.0, 1.0);
 		Vector3f lightPosition(0.0, -3.0, 0.0);
 		Vector3f lightIntensity(0.5, 0.5, 0.9);
 		Vector3f coneDirection(0.0, 1.0f, 0.0);
