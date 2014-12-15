@@ -35,7 +35,6 @@ public:
 	void setIndex(int i){
 		index = i;
 		uniforms.push_back(SWShader::ShaderInfo("Num", SWShader::INT, SWShader::toString(index)));
-
 	}
 
 	void addDirectionalLight(Vector3f position, Vector3f intensity, float amb){

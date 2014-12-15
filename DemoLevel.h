@@ -37,7 +37,8 @@ public:
 		Vector3f lightPosition(0.0, -3.0, 0.0);
 		Vector3f lightIntensity(0.5, 0.5, 0.9);
 		Vector3f coneDirection(0.0, 1.0f, 0.0);
-		spotLight = new SWSpotLight(lightPosition, lightIntensity, coneDirection, 0.1f, 0.0f, 15.0f, 0);
+		spotLight = new SWSpotLight(lightPosition, lightIntensity, coneDirection, 0.1f, 0.0f, 15.0f);
+		spotLight->setIndex(0);
 		testObj = new SWObject(new Mesh("defaultFigure.obj", MESH_TYPE::MODEL_OBJ), shader, tex);
 		Vector3f colorVec(1.0f, 0.0f, 0.0f);
 		testObj->addUniform("newColor", colorVec);
@@ -53,7 +54,6 @@ public:
 		testObj->setRotateY(rot2);
 		shader->update("numLight", 1);
 		spotLight->draw(shader);
-		Vector3f colVec(1.0f, 1.0f, 1.0f);
 	}
 
 	void updateInput(AppWindow* app, int delta){

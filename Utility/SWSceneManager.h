@@ -7,7 +7,7 @@
 
 class SWSceneManager{
 public:
-	SWSceneManager(){numLight = 0;}
+	SWSceneManager(){numLight = -1;}
 	void add(SWComponent* component){sceneNodes.push_back(component);}
 	void add(SWLight* light){
 		numLight++;
