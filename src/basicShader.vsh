@@ -8,15 +8,6 @@ in vec3 normal;
 in vec3 tangent;
 in vec3 biTangent;
 
-uniform struct Light{
-	vec4 position;
-	vec3 intensity;
-	float attenuation;
-	float ambientCoefficient;
-	float coneAngle;
-	vec3 coneDirection;
-}SWLight[MAX_LIGHT];
-
 uniform mat4 model;
 uniform mat4 camera; 
 uniform vec3 newColor;

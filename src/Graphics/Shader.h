@@ -63,15 +63,18 @@ namespace SWShader{
 
 	static Vector4f toVector4f(const std::string& value){
 		float _x = 0.0f, _y = 0.0f, _z = 0.0f, _w = 0.0f;
-		std::string temp = value.substr(value.find('/'));
 		std::string vX = value.substr(0, value.find('/'));
-		std::string vY = temp.substr(0, temp.find('/'));
-		std::string vZ = temp.substr(vY.length()+1, temp.find('/'));
-		std::string vW = value.substr(value.find_last_of('/')+1);
+		std::string d1 = value.substr(value.find('/')+1);
+		std::string vY = d1.substr(0, d1.find('/'));
+		std::string d2 = d1.substr(d1.find('/')+1);
+		std::string vZ = d2.substr(0, d2.find('/'));
+		std::string vW = d2.substr(d2.find_last_of('/')+1);
 		_x = (float)atof(vX.c_str());
 		_y = (float)atof(vY.c_str());
 		_z = (float)atof(vZ.c_str());
 		_w = (float)atof(vW.c_str());
+		Vector4f ret(_x, _y, _z, _w);
+		ret.print();
 		return Vector4f(_x, _y, _z, _w);
 	}
 

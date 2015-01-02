@@ -250,6 +250,13 @@ public:
         this->w = _w;
     }
 
+    Vector4f(Vector3f& vec, float _w){
+    	this->x = vec.getX();
+    	this->y = vec.getY();
+    	this->z = vec.getZ();
+    	this->w = _w;
+    }
+
     Vector4f(const Vector4f& vec)
     {
         this->x = vec.x;

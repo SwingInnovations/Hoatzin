@@ -50,7 +50,6 @@ public:
 
 	void addSpotLight(Vector3f& position, Vector3f& intensity, Vector3f& coneDirection, float at, float amb, float coneAngle){
 		light.position = Vector4f(position.getX(), position.getY(), position.getZ(), 1.0);
-		transform->setTranslate(position);
 		light.intensity = intensity;
 		light.attenuation = at;
 		light.ambientCoefficient = amb;
@@ -68,6 +67,7 @@ public:
 		std::ostringstream output;
 		output << "SWLight[" << num << "]." << propertyName;
 		std::string info = output.str();
+		std::cout << info << std::endl;
 		uniforms.push_back(SWShader::ShaderInfo(info, type, propertyVal));
 	}
 
@@ -90,17 +90,16 @@ public:
 	}
 
 	void draw(Shader* shdr){
-		shader = shdr;
 		if(!uniforms.empty()){
 			for(unsigned int i = 0; i < uniforms.size(); i++){
 				if(uniforms.at(i).type == SWShader::INT){
-					shader->update(uniforms.at(i).name, SWShader::toInt(uniforms.at(i).value));
+					shdr->update(uniforms.at(i).name, SWShader::toInt(uniforms.at(i).value));
 				}else if(uniforms.at(i).type == SWShader::FLOAT){
-					shader->update(uniforms.at(i).name, SWShader::toFloat(uniforms.at(i).value));
+					shdr->update(uniforms.at(i).name, SWShader::toFloat(uniforms.at(i).value));
 				}else if(uniforms.at(i).type == SWShader::VEC3){
-					shader->update(uniforms.at(i).name, SWShader::toVector3f(uniforms.at(i).value));
+					shdr->update(uniforms.at(i).name, SWShader::toVector3f(uniforms.at(i).value));
 				}else if(uniforms.at(i).type == SWShader::VEC4){
-					shader->update(uniforms.at(i).name, SWShader::toVector4f(uniforms.at(i).value));
+					shdr->update(uniforms.at(i).name, SWShader::toVector4f(uniforms.at(i).value));
 				}else{
 					std::cout << "No Uniform present" << std::endl;
 				}

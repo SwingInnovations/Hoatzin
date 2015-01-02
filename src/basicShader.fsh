@@ -23,10 +23,11 @@ uniform sampler2D diffuse;
 out vec4 color;
 
 void main(void){
+	//vec3 posTest = SWLight[0].intensity.xyz;
 	float brightness = clamp(dot(-SWLight[0].position.xyz, normal0), 0.0f, 1.0f);
 	
 	//color = texture2D( diffuse, texCoord0) * clamp(dot(-vec3(0.0, -1.0f, 1.0f), normal0), 0, 1.0);
 	//color = vec4(newColor0, 1.0) * clamp(dot(-vec3(0.0, -1.0f, 1.0f), normal0), 0, 1.0f);
 	color = texture2D(diffuse, texCoord0)*brightness;
-	//color = vec4(1.0f, 0.0f, 1.0f, 1.0f);
+	//color = vec4(posTest, 1.0f);
 }
