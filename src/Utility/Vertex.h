@@ -36,14 +36,14 @@ public:
 	}
 
 	void setColor(Vector4f& vec){
-		color = Vector4f(COLOR::Func::assertCol(vec.getX()),
-						 COLOR::Func::assertCol(vec.getY()),
-						 COLOR::Func::assertCol(vec.getZ()),
-						 COLOR::Func::assertCol(vec.getW()));
+		color = Vector4f(COLOR::assertCol(vec.getX()),
+						 COLOR::assertCol(vec.getY()),
+						 COLOR::assertCol(vec.getZ()),
+						 COLOR::assertCol(vec.getW()));
 	}
 
 	void setAlpha(float val){
-		color.setW(COLOR::Func::assertCol(val));
+		color.setW(COLOR::assertCol(val));
 	}
 
 	Vector3f* getVerticies(){return &this->vertex;}

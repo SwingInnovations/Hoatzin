@@ -29,6 +29,7 @@ AppWindow::AppWindow(const std::string title, int WIDTH, int HEIGHT) : fps(60){
 			std::cout << "Error 402: Failed to load Window: " << SDL_GetError() << std::endl;
 		}else{
 			input = new Input(this, e);
+			g = new Graphics();
 		}
 	}
 	pause = false;
@@ -126,7 +127,7 @@ void AppWindow::render(){
 	glEnable(GL_DEPTH_TEST);
 
 	if(!state.empty()){
-		state.at(mCurrentState)->render();
+		state.at(mCurrentState)->render(g);
 	}
 
 	SDL_GL_SwapWindow(mWindow);

@@ -9,7 +9,7 @@
 #include <iostream>
 #include <vector>
 
-
+#include "Graphics/Graphics.h"
 #include "Input.h"
 #include "Utility/GameState.h"
 
@@ -55,6 +55,7 @@ private:
 	SDL_GLContext mContext;
 	SDL_Event e;
 	Input *input;
+	Graphics* g;
 	bool pause;
 	unsigned int WIDTH, HEIGHT;
 	int mCurrentState;

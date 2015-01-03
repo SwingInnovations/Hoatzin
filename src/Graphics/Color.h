@@ -18,52 +18,52 @@ namespace COLOR{
 		PURPLE = 12,
 	};
 
-	struct Func{
-		static Vector3f Color(int entry){
-			switch(entry){
-			case 0:
-				return Vector3f(1.0f, 1.0f, 1.0f);
-				break;
-			case 1:
-				return Vector3f(0.75f, 0.75f, 0.75f);
-				break;
-			case 2:
-				return Vector3f(0.50f, 0.50f, 0.50f);
-				break;
-			case 3:
-				return Vector3f(0.25f, 0.25f, 0.25f);
-				break;
-			case 4:
-				return Vector3f();
-				break;
-			case 5:
-				return Vector3f(1.0f, 0.0f, 0.0f);
-				break;
-			case 6:
-				return Vector3f(1.0f, 0.0f, 1.0f);
-			    break;
-			case 7:
-				return Vector3f(1.0f, 0.5f, 1.0f);
-				break;
-			case 8:
-				return Vector3f(0.0f, 1.0f, 1.0f);
-				break;
-			case 9:
-				return Vector3f(0.0f, 0.0f, 1.0f);
-				break;
-			case 10:
-				return Vector3f(0.0f, 1.0f, 1.0f);
-				break;
-			case 11:
-				return Vector3f(0.0f, 1.0f, 0.0f);
-				break;
-			case 12:
-				return Vector3f(1.0f, 1.0f, 0.0f);
-				break;
-			default:
-				return Vector3f();
-			}
+
+	static Vector3f Color(int entry){
+		switch(entry){
+		case 0:
+			return Vector3f(1.0f, 1.0f, 1.0f);
+			break;
+		case 1:
+			return Vector3f(0.75f, 0.75f, 0.75f);
+			break;
+		case 2:
+			return Vector3f(0.50f, 0.50f, 0.50f);
+			break;
+		case 3:
+			return Vector3f(0.25f, 0.25f, 0.25f);
+			break;
+		case 4:
+			return Vector3f();
+			break;
+		case 5:
+			return Vector3f(1.0f, 0.0f, 0.0f);
+			break;
+		case 6:
+			return Vector3f(1.0f, 0.0f, 1.0f);
+			break;
+		case 7:
+			return Vector3f(1.0f, 0.5f, 1.0f);
+			break;
+		case 8:
+			return Vector3f(0.0f, 1.0f, 1.0f);
+			break;
+		case 9:
+			return Vector3f(0.0f, 0.0f, 1.0f);
+			break;
+		case 10:
+			return Vector3f(0.0f, 1.0f, 1.0f);
+			break;
+		case 11:
+			return Vector3f(0.0f, 1.0f, 0.0f);
+			break;
+		case 12:
+			return Vector3f(1.0f, 1.0f, 0.0f);
+			break;
+		default:
+			return Vector3f();
 		}
+	}
 		//-Asserts the color between range 0.0f and 1.0f
 		static float assertCol(float val){
 			if(val > 1.0f){
@@ -79,7 +79,6 @@ namespace COLOR{
 		}
 	};
 
-};
 
 
 #endif /* COLOR_H_ */

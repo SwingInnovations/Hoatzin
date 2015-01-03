@@ -56,6 +56,7 @@ private:
 	std::vector<SWRenderPass> renderPass;
 	bool legacyGraphicsInUse;
 	Camera* camera;
+	Shader* shader;
 	bool shadowEnabled;
 };
 

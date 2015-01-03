@@ -2,6 +2,7 @@
 #define SWLIGHT_H_
 
 #include "../Graphics/Light.h"
+#include "../Graphics/Color.h"
 
 class Shader;
 struct Light;
@@ -48,6 +49,21 @@ public:
 
 	}
 
+	void addSpotLight(Vector3f& position, int color, Vector3f& coneDirection, float at, float amb, float coneAngle){
+		light.position = Vector4f(position, 1.0);
+		light.intensity = COLOR::Color(color);
+		light.coneDirection = coneDirection;
+		light.attenuation = at;
+		light.ambientCoefficient = amb;
+		light.coneAngle = coneAngle;
+		addLightUniforms(index, "position", SWShader::VEC4, SWShader::toString(light.position));
+		addLightUniforms(index, "intensity", SWShader::VEC3, SWShader::toString(light.intensity));
+		addLightUniforms(index, "coneDirection", SWShader::VEC3, SWShader::toString(light.coneDirection));
+		addLightUniforms(index, "attenuation", SWShader::FLOAT, SWShader::toString(light.attenuation));
+		addLightUniforms(index, "ambientCoefficient", SWShader::FLOAT, SWShader::toString(light.ambientCoefficient));
+		addLightUniforms(index, "coneAngle", SWShader::FLOAT, SWShader::toString(light.coneAngle));
+	}
+
 	void addSpotLight(Vector3f& position, Vector3f& intensity, Vector3f& coneDirection, float at, float amb, float coneAngle){
 		light.position = Vector4f(position.getX(), position.getY(), position.getZ(), 1.0);
 		light.intensity = intensity;
@@ -61,6 +77,50 @@ public:
 		addLightUniforms(index, "ambientCoefficient", SWShader::FLOAT, SWShader::toString(light.ambientCoefficient));
 		addLightUniforms(index, "attenuation", SWShader::FLOAT, SWShader::toString(light.attenuation));
 		addLightUniforms(index, "coneAngle", SWShader::FLOAT, SWShader::toString(light.coneAngle));
+	}
+
+	void updateProperty(const std::string& propertyName, int value){
+		std::ostringstream reference;
+		reference << "SWLight[" << index<<"]."<< propertyName;
+		std::string info = reference.str();
+		for(unsigned int i = 0; i < uniforms.size(); i++){
+			if(uniforms.at(i).name == propertyName){
+				uniforms[i].value = SWShader::toString(value);
+			}
+		}
+	}
+
+	void updateProperty(const std::string& propertyName, float value){
+		std::ostringstream reference;
+		reference << "SWLight[" << index<<"]."<< propertyName;
+		std::string info = reference.str();
+		for(unsigned int i = 0; i < uniforms.size(); i++){
+			if(uniforms.at(i).name == propertyName){
+				uniforms[i].value = SWShader::toString(value);
+			}
+		}
+	}
+
+	void updateProperty(const std::string& propertyName, Vector3f& value){
+		std::ostringstream reference;
+		reference << "SWLight[" << index<<"]."<< propertyName;
+		std::string info = reference.str();
+		for(unsigned int i = 0; i < uniforms.size(); i++){
+			if(uniforms.at(i).name == propertyName){
+				uniforms[i].value = SWShader::toString(value);
+			}
+		}
+	}
+
+	void updateProperty(const std::string& propertyName, Vector4f& value){
+		std::ostringstream reference;
+		reference << "SWLight[" << index<<"]."<< propertyName;
+		std::string info = reference.str();
+		for(unsigned int i = 0; i < uniforms.size(); i++){
+			if(uniforms.at(i).name == propertyName){
+				uniforms[i].value = SWShader::toString(value);
+			}
+		}
 	}
 
 	void addLightUniforms(int num, const std::string& propertyName, int type, const std::string& propertyVal){
@@ -183,6 +243,12 @@ public:
 		this->index = index;
 		transform = new Transform();
 		addSpotLight(position, intensity, coneDirection, att, ambCoef, coneAngle);
+	}
+
+	SWSpotLight(Vector3f& position, int color, Vector3f& coneDirection, float att, float ambCoef, float coneAngle, int index){
+		this->index = index;
+		transform = new Transform();
+		addSpotLight(position, color, coneDirection, att, ambCoef, coneAngle);
 	}
 };
 

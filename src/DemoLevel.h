@@ -34,7 +34,7 @@ public:
 		tex = new Texture("grid.png");
 		tex2 = new Texture("flower.jpg");
 		Vector3f position(1.0, -1.0, 1.0);
-		Vector3f lightPosition(0.0, 1.0, 3.0);
+		lightPosition = Vector3f(0.0, -3.0, 0.0);
 		Vector3f lightIntensity(0.5, 0.5, 0.9);
 		Vector3f coneDirection(0.0, 1.0f, 0.0);
 		spotLight = new SWSpotLight(lightPosition, lightIntensity, coneDirection, 0.1f, 0.0f, 15.0f);
@@ -50,6 +50,10 @@ public:
 		rot2+= 0.025f * delta;
 		testObj->setRotateY(rot2);
 		spotLight->draw(shader);
+		float transAmount = lightPosition.getX() + cos(rot2)*10.0f;
+		lightPosition.setX(transAmount);
+		Vector4f ret(lightPosition, 1.0);
+		spotLight->updateProperty("intensity", ret);
 	}
 
 	void updateInput(AppWindow* app, int delta){
@@ -125,7 +129,7 @@ public:
 		camera->update(*input);
 	}
 
-	void render(){
+	void render(Graphics* g){
 		testObj->draw(camera);
 	}
 
@@ -153,6 +157,7 @@ private:
 	SWObject *plane, *box, *box2, *testObj;
 	SWSpotLight* spotLight;
 	LuaScript* l;
+	Vector3f lightPosition;
 };
 
 
