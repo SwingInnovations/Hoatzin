@@ -153,13 +153,13 @@ public:
 		return ret.str();
 	}
 
-	void setX(const float _x){this->x = _x;}
-	void setY(const float _y){this->y = _y;}
-	void setZ(const float _z){this->z = _z;}
+	void setX(float _x){this->x = _x;}
+	void setY(float _y){this->y = _y;}
+	void setZ(float _z){this->z = _z;}
 
-	float getX(){ return this->x; }
-	float getY(){ return this->y; }
-	float getZ(){ return this->z; }
+	float getX()const{ return this->x; }
+	float getY()const{ return this->y; }
+	float getZ()const{ return this->z; }
 
 	const Vector3f operator+(const float s){
 		const float _x = this->x + s;
@@ -327,10 +327,10 @@ public:
         return Vector4f(_x, _y, _z, _w);
     }
 
-    float getX(){ return x; }
-    float getY(){ return y; }
-    float getZ(){ return z; }
-    float getW(){ return w; }
+    float getX()const{ return x; }
+    float getY()const{ return y; }
+    float getZ()const{ return z; }
+    float getW()const{ return w; }
 
 private:
     float x;

@@ -13,6 +13,7 @@ uniform struct Light{
 	vec3 coneDirection;
 }SWLight[MAX_LIGHT];
 
+in vec3 position0;
 in vec2 texCoord0;
 in vec3 normal0;
 in vec3 tangent0;
@@ -23,11 +24,45 @@ uniform sampler2D diffuse;
 uniform vec3 cameraPosition; 
 out vec4 color;
 
+vec3 applyLight(Light light, vec3 surfaceColor, vec3 normal, vec3 surfacePos, vec3 surfaceToCamera){
+	vec3 surfaceToLight;
+	float attenuation = 0;
+	if(light.position.w == 0.0){
+		surfaceToLight = normalize(light.position.xyz);
+		attenuation = 1.0;
+	}else{
+		surfaceToLight = normalize(light.position.xyz - surfacePos);
+		float distanceToLight = length(light.position.xyz - surfacePos);
+		attenuation = 1.0/(1.0 + light.attenuation + pow(distanceToLight, 2));
+		
+		float lightToSurfaceAngle = degrees(acos(dot(-surfaceToLight, normalize(light.coneDirection))));
+		if(lightToSurfaceAngle > light.coneAngle){
+			attenuation = 0.0;
+		}
+	}
+	vec3 ambient = light.ambientCoefficient * surfaceColor.rgb * light.intensity;
+	
+	float diffuseCoefficient = max(0.0, dot(normal, surfaceToLight));
+	vec3 diffuse = diffuseCoefficient * surfaceColor.rgb * light.intensity;
+	
+	float specularCoefficient = 0.0;
+	if(diffuseCoefficient > 0.0){
+		specularCoefficient = pow(max(0.0, dot(surfaceToCamera, reflect(-surfaceToLight, normal))), 1.0);
+	}
+	vec3 specular = specularCoefficient * vec3(1.0, 1.0, 1.0f) * light.intensity;
+	
+	return ambient + attenuation*(diffuse*specular);
+}
+
 void main(void){
 	//vec3 posTest = SWLight[0].intensity.xyz;
 	float brightness = clamp(dot(-SWLight[0].position.xyz, normal0), 0.0f, 1.0f);
 	
-	vec4 ambientColor = vec4(SWLight[0].intensity, 1.0) * SWLight[0].ambientCoefficient;
+	//vec4 ambientColor = vec4(SWLight[0].intensity, 1.0) * SWLight[0].ambientCoefficient;
+	
+	//vec3 surfaceColor = texture2D(diffuse, texCoord0).rgb;
+	//vec3 linearColor = applyLight(SWLight[0], surfaceColor, normal0, position0, normalize(cameraPosition-position0));
 	
 	color = texture2D(diffuse, texCoord0) * brightness;
+	//color = vec4(linearColor, 1.0);
 }
