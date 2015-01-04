@@ -20,16 +20,14 @@ in vec3 biTangent0;
 in vec3 newColor0;
 
 uniform sampler2D diffuse;
+uniform vec3 cameraPosition; 
 out vec4 color;
 
 void main(void){
 	//vec3 posTest = SWLight[0].intensity.xyz;
 	float brightness = clamp(dot(-SWLight[0].position.xyz, normal0), 0.0f, 1.0f);
-	vec3 ambient = vec3(0.3);
-	vec3 overcastColor = vec3(0.5, 0.0, 0.0);
 	
-	//color = texture2D( diffuse, texCoord0) * clamp(dot(-vec3(0.0, -1.0f, 1.0f), normal0), 0, 1.0);
-	//color = vec4(newColor0, 1.0) * clamp(dot(-vec3(0.0, -1.0f, 1.0f), normal0), 0, 1.0f);
-	color = texture2D(diffuse, texCoord0) * vec4(overcastColor, 0.0) * vec4(ambient, 0.0) * brightness;
-	//color = vec4(posTest, 1.0f);
+	vec4 ambientColor = vec4(SWLight[0].intensity, 1.0) * SWLight[0].ambientCoefficient;
+	
+	color = texture2D(diffuse, texCoord0) * brightness;
 }

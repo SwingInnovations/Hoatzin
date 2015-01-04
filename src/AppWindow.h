@@ -26,6 +26,7 @@ public:
 	void start();
 	void addState(GameState* newState);
 	void enterState(int id){mCurrentState = id;}
+	void useScript(bool val){script = val;}
 	Input *getInput(){ return input; }
 	void setRunning(bool val){Running = val;}
 	void setPause(bool val){pause = val;}
@@ -57,6 +58,7 @@ private:
 	Input *input;
 	Graphics* g;
 	bool pause;
+	bool script;
 	unsigned int WIDTH, HEIGHT;
 	int mCurrentState;
 	Uint32 delta, oldTime, newTime, fps;

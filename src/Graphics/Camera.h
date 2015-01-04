@@ -53,7 +53,7 @@ public:
 	void setScaleX(float _x){transform.setScaleX(_x);}
 	void setScaleY(float _y){transform.setScaleY(_y);}
 	void setScaleZ(float _z){transform.setScaleZ(_z);}
-
+	Transform getTransform(){return transform;}
 	Matrix4f getViewProjection();
 	Vector3f getLeft(){
 		Vector3f left = mForward.cross(mUp);

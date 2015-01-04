@@ -2,10 +2,28 @@
 #include "Camera.h"
 
 Shader::Shader() {
-	// TODO Auto-generated constructor stub
-	mProgram = 0;
-	mShaders[0] = 0;
-	mShaders[1] = 0;
+	mProgram = glCreateProgram();
+	mShaders[0] = createShader(loadShader("standardShader.vsh"), GL_VERTEX_SHADER);
+	mShaders[1] = createShader(loadShader("standardShader.fsh"), GL_FRAGMENT_SHADER);
+	for(unsigned int i = 0; i < NUM_SHADER; i++){
+		glAttachShader(mProgram, mShaders[i]);
+	}
+
+	glBindAttribLocation(mProgram, 0, "position");
+	glBindAttribLocation(mProgram, 1, "texCoord");
+	glBindAttribLocation(mProgram, 2, "normal");
+	glBindAttribLocation(mProgram, 3, "tangent");
+	glBindAttribLocation(mProgram, 4, "biTangent");
+
+	glLinkProgram(mProgram);
+	checkShaderStatus(mProgram, GL_LINK_STATUS, true, "Error Linking Shader Program");
+
+	glValidateProgram(mProgram);
+	checkShaderStatus(mProgram, GL_LINK_STATUS, true, "Invalid Shader Program");
+
+	uniform[0] = glGetUniformLocation(mProgram, "model");
+	uniform[1] = glGetUniformLocation(mProgram, "camera");
+	uniform[2] = glGetUniformLocation(mProgram, "cameraPosition");
 }
 
 Shader::Shader(const std::string& filePath){
@@ -31,6 +49,7 @@ Shader::Shader(const std::string& filePath){
 
 	uniform[0] = glGetUniformLocation(mProgram, "model");
 	uniform[1] = glGetUniformLocation(mProgram, "camera");
+	uniform[2] = glGetUniformLocation(mProgram, "cameraPosition");
 }
 
 Shader::~Shader() {
@@ -56,9 +75,11 @@ void Shader::update(Transform& trans, Camera& cam){
 	Matrix4f transform, camera;
 	transform = trans.getModel();
 	camera = cam.getViewProjection();
+	Vector3f cameraPosition = cam.getTransform().getTranslate();
 
 	glUniformMatrix4fv(uniform[0], 1, GL_TRUE, &transform.m[0][0]);
 	glUniformMatrix4fv(uniform[1], 1, GL_TRUE, &camera.m[0][0]);
+	glUniform3f(uniform[2], cameraPosition.getX(), cameraPosition.getY(), cameraPosition.getZ());
 }
 
 void Shader::update(const std::string& name, int val){
@@ -133,5 +154,4 @@ GLuint Shader::createShader(const std::string &text, unsigned int type){
 	glShaderSource(shader, 1, p, length);
 	glCompileShader(shader);
 	return shader;
-
 }

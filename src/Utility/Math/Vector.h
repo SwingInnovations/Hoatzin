@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <sstream>
 
 class Quaternion;
 class Vector2f;
@@ -39,8 +40,14 @@ public:
 		std::cout << "Y: " << this->y << std::endl;
 	}
 
-	const float getX(){ return x; }
-	const float getY(){ return y; }
+	std::string info()const{
+		std::ostringstream ret;
+		ret << "X: " << x << "\nY: " << y << "\n";
+		return ret.str();
+	}
+
+	float getX()const{ return x; }
+	float getY()const{ return y; }
 
 	const Vector2f operator+(const Vector2f& vec){
 		float _x = this->x + vec.x;
@@ -138,6 +145,12 @@ public:
 		std::cout << "X: " << this->x << std::endl;
 		std::cout << "Y: " << this->y << std::endl;
 		std::cout << "Z: " << this->z << std::endl;
+	}
+
+	std::string info()const{
+		std::ostringstream ret;
+		ret << "X: " << x << "\nY: " << y << "\nZ: " << z << "\n";
+		return ret.str();
 	}
 
 	void setX(const float _x){this->x = _x;}
@@ -272,12 +285,18 @@ public:
 		std::cout << "W: " << this->w << std::endl;
 	}
 
+	std::string info()const{
+		std::ostringstream ret;
+		ret << "X: " << x << "\nY: " << y << "\nZ: " << z << "\nW: " << w << "\n";
+		return ret.str();
+	}
+
     void setX(float _x){ this->x = _x; }
     void setY(float _y){ this->y = _y; }
     void setZ(float _z){ this->z = _z; }
     void setW(float _w){ this->w = _w; }
 
-    double Dot(const Vector4f& other)
+    double dot(const Vector4f& other)
     {
         return x * other.x + y * other.y + z * other.z + w * other.w;
     }
