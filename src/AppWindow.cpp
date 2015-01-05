@@ -29,7 +29,7 @@ AppWindow::AppWindow(const std::string title, int WIDTH, int HEIGHT) : fps(60){
 			std::cout << "Error 402: Failed to load Window: " << SDL_GetError() << std::endl;
 		}else{
 			input = new Input(this, e);
-			g = new Graphics();
+			g = new Graphics(this);
 		}
 	}
 	pause = false;
@@ -83,7 +83,7 @@ void AppWindow::setIcon(const std::string filePath){
 void AppWindow::init(){
 	if(!state.empty()){
 		for(unsigned int i = 0; i < state.size(); i++){
-			state.at(i)->init();
+			state.at(i)->init(this);
 		}
 	}else{
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "No levels", "This game has no levels bruh.", NULL);
@@ -157,6 +157,14 @@ void AppWindow::showCursor(bool val){
 	}else{
 		SDL_ShowCursor(SDL_DISABLE);
 	}
+}
+
+void AppWindow::setCamera(Camera* camera){
+	g->setCamera(camera);
+}
+
+Camera* AppWindow::getCamera(){
+	return g->getCamera();
 }
 
 void AppWindow::centerCursor(){

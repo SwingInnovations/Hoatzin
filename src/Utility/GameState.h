@@ -13,7 +13,7 @@ public:
 	GameState();
 	GameState(int id){this->id = id; scene = 0;}
 	virtual ~GameState();
-	virtual void init(){}
+	virtual void init(AppWindow* app){}
 	virtual void updateInput(AppWindow* app, int delta){}
 	virtual void updateAuto(AppWindow* app ,int delta){}
 	virtual void render(){}

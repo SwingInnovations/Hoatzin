@@ -1,5 +1,10 @@
 #include "Graphics.h"
 
+Graphics::Graphics(AppWindow* app){
+	WIDTH = app->getWidth();
+	HEIGHT = app->getHeight();
+}
+
 Graphics::Graphics() {
 	// TODO Auto-generated constructor stub
 

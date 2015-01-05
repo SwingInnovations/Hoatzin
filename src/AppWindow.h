@@ -35,6 +35,9 @@ public:
 	void setTargetFPS(float val){fps = val;}
 	void setIcon(const std::string filePath);
 
+	void setCamera(Camera* camera);
+	Camera* getCamera();
+
 	int getWidth(){return WIDTH;}
 	int getHeight(){return HEIGHT;}
 	bool getPause(){return pause;}

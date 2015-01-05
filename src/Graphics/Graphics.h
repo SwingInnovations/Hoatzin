@@ -9,6 +9,7 @@
 
 class Camera;
 class SWSceneManager;
+class AppWindow;
 
 struct SWRenderPass{
 	std::vector<SWComponent*> objects;
@@ -24,6 +25,7 @@ struct SWRenderPass{
 
 class Graphics {
 public:
+	Graphics(AppWindow*);
 	Graphics();
 	virtual ~Graphics();
 
@@ -51,9 +53,14 @@ public:
 		swobject->draw(camera);
 	}
 
+	Camera* getCamera(){
+		return camera;
+	}
+
 	void drawScene(SWSceneManager* scene);
 private:
 	std::vector<SWRenderPass> renderPass;
+	int WIDTH, HEIGHT;
 	bool legacyGraphicsInUse;
 	Camera* camera;
 	Shader* shader;

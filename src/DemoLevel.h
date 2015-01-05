@@ -23,10 +23,12 @@ public:
 		this->id = id;
 	}
 
-	void init(){
+	void init(AppWindow* app){
 
-		camPos = Vector3f(0.0, -3.0, 0.0);
-		camera = new Camera(camPos, 66.0f, 1440.0f, 900.0f, 1.0f, 1000.0f);
+		//camPos = Vector3f(0.0, -3.0, 0.0);
+		//camera = new Camera(camPos, 66.0f, 1440.0f, 900.0f, 1.0f, 1000.0f);
+
+		camera = app->getCamera();
 
 		l = new LuaScript("script.lua");
 
@@ -130,7 +132,6 @@ public:
 	}
 
 	void render(Graphics* g){
-		g->setCamera(camera);
 		g->draw(testObj);
 	}
 
