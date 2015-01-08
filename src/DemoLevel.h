@@ -111,23 +111,6 @@ public:
 			colorVec.setZ(b);
 		}
 
-		if(input->isKeyDown(KEY::KEY_A)){
-			transX += 0.025f*delta;
-			camera->setTranslateX(transX);
-		}
-		if(input->isKeyDown(KEY::KEY_D)){
-			transX -= 0.025f*delta;
-			camera->setTranslateX(transX);
-		}
-		if(input->isKeyDown(KEY::KEY_W)){
-			transZ += 0.025f*delta;
-			camera->setTranslateZ(transZ);
-		}
-		if(input->isKeyDown(KEY::KEY_S)){
-			transZ -= 0.025f * delta;
-			camera->setTranslateZ(transZ);
-		}
-		testObj->setUniform("newColor", colorVec);
 		camera->update(*input);
 	}
 
