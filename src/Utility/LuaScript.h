@@ -104,6 +104,7 @@ private:
 			.beginClass<Input>("Input")
 			.addFunction("requestClose", &Input::requestClose)
 			.addFunction("addJoystick", &Input::addJoystick)
+			.addFunction("getJoystickAxis", &Input::getJoystickAxis)
 			.addFunction("getJoystickButton", &Input::getJoystickButton)
 			.addFunction("isKeyDown", &Input::isKeyDown)
 			.addFunction("isMouseDown", &Input::isMouseDown)

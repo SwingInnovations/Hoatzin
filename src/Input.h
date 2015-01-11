@@ -26,6 +26,14 @@ namespace MOVEMENT{
 	};
 };
 
+namespace JOYSTICK_AXIS{
+	enum{
+		X_AXIS = 0,
+		Y_AXIS = 1,
+		Z_AXIS = 2
+	};
+}
+
 namespace JOYSTICKBUTTON{
 	enum{
 		BUTTON_1 = 0,
@@ -140,11 +148,15 @@ public:
     InputMap* inputMapping(){return inputMap;}
 
     void addJoystick(int id);
-    void getJoystickAxis(int numJoystick, double* x, double* y);
-    void getJoystickAxis(int numJoystick, double* x, double* y, double* z);
-    void getJoystickAxis(int numJoystick, int* x, int* y);
-    void getJoystickAxis(int numJoystick, int* x, int* y, int* z);
+//    void getJoystickAxis(int numJoystick, double* x, double* y);
+//    void getJoystickAxis(int numJoystick, double* x, double* y, double* z);
+//    void getJoystickAxis(int numJoystick, int* x, int* y);
+//    void getJoystickAxis(int numJoystick, int* x, int* y, int* z);
+    double getJoystickAxis(int joystickIndex, int axis){
+    	return (double)SDL_JoystickGetAxis(mJoystick[joystickIndex], axis);
+    }
     bool getJoystickButton(int numJoystick, int button);
+
 
     void CenterMouseInWindow();
 

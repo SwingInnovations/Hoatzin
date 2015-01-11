@@ -105,27 +105,27 @@ void Input::addJoystick(int id){
 	}
 }
 
-void Input::getJoystickAxis(int numJoystick, int* x, int* y){
-	*x = SDL_JoystickGetAxis(mJoystick[numJoystick], 0);
-	*y = SDL_JoystickGetAxis(mJoystick[numJoystick], 1);
-}
-
-void Input::getJoystickAxis(int numJoystick, double* x, double* y){
-	*x = SDL_JoystickGetAxis(mJoystick[numJoystick], 0) / 32768.0;
-	*y = SDL_JoystickGetAxis(mJoystick[numJoystick], 1) / 32768.0;
-}
-
-void Input::getJoystickAxis(int numJoystick, int* x, int* y, int* z){
-	*x = SDL_JoystickGetAxis(mJoystick[numJoystick], 0);
-	*y = SDL_JoystickGetAxis(mJoystick[numJoystick], 1);
-	*z = SDL_JoystickGetAxis(mJoystick[numJoystick], 2);
-}
-
-void Input::getJoystickAxis(int numJoystick, double* x, double* y, double* z){
-	*x = SDL_JoystickGetAxis(mJoystick[numJoystick], 0) / 32768.0;
-	*y = SDL_JoystickGetAxis(mJoystick[numJoystick], 1) / 32768.0;
-	*z = SDL_JoystickGetAxis(mJoystick[numJoystick], 2) / 32768.0;
-}
+//void Input::getJoystickAxis(int numJoystick, int* x, int* y){
+//	*x = SDL_JoystickGetAxis(mJoystick[numJoystick], 0);
+//	*y = SDL_JoystickGetAxis(mJoystick[numJoystick], 1);
+//}
+//
+//void Input::getJoystickAxis(int numJoystick, double* x, double* y){
+//	*x = SDL_JoystickGetAxis(mJoystick[numJoystick], 0) / 32768.0;
+//	*y = SDL_JoystickGetAxis(mJoystick[numJoystick], 1) / 32768.0;
+//}
+//
+//void Input::getJoystickAxis(int numJoystick, int* x, int* y, int* z){
+//	*x = SDL_JoystickGetAxis(mJoystick[numJoystick], 0);
+//	*y = SDL_JoystickGetAxis(mJoystick[numJoystick], 1);
+//	*z = SDL_JoystickGetAxis(mJoystick[numJoystick], 2);
+//}
+//
+//void Input::getJoystickAxis(int numJoystick, double* x, double* y, double* z){
+//	*x = SDL_JoystickGetAxis(mJoystick[numJoystick], 0) / 32768.0;
+//	*y = SDL_JoystickGetAxis(mJoystick[numJoystick], 1) / 32768.0;
+//	*z = SDL_JoystickGetAxis(mJoystick[numJoystick], 2) / 32768.0;
+//}
 
 void Input::CenterMouseInWindow(){
 	int cX = screenWidth/2;
