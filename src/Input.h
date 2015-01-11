@@ -8,6 +8,24 @@
 
 class AppWindow;
 
+namespace MOVEMENT{
+	enum{
+		FORWARD = 0,
+		BACKWARD = 1,
+		STRAFE_LEFT = 2,
+		STRAFE_RIGHT = 3,
+		JUMP = 4,
+		AIM = 5,
+		SNEAK = 6,
+		CROUCH = 7,
+
+		LEFT = 8,
+		RIGHT = 9,
+		UP = 10,
+		DOWN = 11
+	};
+};
+
 namespace JOYSTICKBUTTON{
 	enum{
 		BUTTON_1 = 0,
@@ -86,6 +104,27 @@ namespace KEY{
     };
 };
 
+struct InputKey{
+
+	InputKey(int target, int key){
+		this->target = target;
+		this->key = key;
+	}
+
+	int target;
+	int key;
+};
+
+class InputMap{
+public:
+	InputMap();
+	InputMap(const std::string& filePath);
+	void addMapping(int target, int key);
+	int get(int target);
+private:
+	std::vector<InputKey> mapping;
+};
+
 class Input {
 public:
     Input();
@@ -96,6 +135,9 @@ public:
 
     void poll(SDL_Event &e);
     void requestClose(){ closeRequested = true; }
+
+    void setInputMap(InputMap* map){ inputMap = map; }
+    InputMap* inputMapping(){return inputMap;}
 
     void addJoystick(int id);
     void getJoystickAxis(int numJoystick, double* x, double* y);
@@ -125,6 +167,7 @@ private:
     unsigned int screenWidth, screenHeight;
     Uint32 delta;
     SDL_Window* templateWin;
+    InputMap* inputMap;
 };
 
 #endif /* INPUT_H_ */

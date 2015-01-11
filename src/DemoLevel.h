@@ -29,6 +29,7 @@ public:
 		//camera = new Camera(camPos, 66.0f, 1440.0f, 900.0f, 1.0f, 1000.0f);
 
 		camera = app->getCamera();
+		camera->setMoveMode(CAMERA_MOVEMENT::FirstPerson);
 
 		l = new LuaScript("script.lua");
 

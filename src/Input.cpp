@@ -46,7 +46,7 @@ Input::Input(AppWindow* app, SDL_Event& e){
 }
 
 Input::~Input() {
-
+	delete inputMap;
 }
 
 void Input::poll(SDL_Event &event)
@@ -155,4 +155,30 @@ bool Input::isMouseDown(int mouseButton)
 Vector2f Input::getMouseCoord()
 {
     return Vector2f((float)mouseX, (float)mouseY);
+}
+
+InputMap::InputMap(){
+
+}
+
+InputMap::InputMap(const std::string& filePath){
+
+}
+
+void InputMap::addMapping(int target, int key){
+	mapping.push_back(InputKey(target, key));
+}
+
+int InputMap::get(int target){
+	if(!mapping.empty()){
+		for(unsigned int i = 0; i < mapping.size(); i++){
+			if(mapping[i].target == target){
+				return mapping[i].key;
+			}else{
+				return 999;
+			}
+		}
+	}else{
+		return 999;
+	}
 }

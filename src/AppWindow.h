@@ -34,6 +34,7 @@ public:
 	void centerCursor();
 	void setTargetFPS(float val){fps = val;}
 	void setIcon(const std::string filePath);
+	void setInputMapping(InputMap* inMap){input->setInputMap(inMap);}
 
 	void setCamera(Camera* camera);
 	Camera* getCamera();

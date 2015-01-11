@@ -127,7 +127,36 @@ void Camera::setRotateY(const float _y){
 }
 
 void Camera::update(Input &input){
+	if(moveMode == CAMERA_MOVEMENT::FirstPerson){
+		processFPS(input);
 
+		int delta = input.getDelta();
+		if(input.isKeyDown(input.inputMapping()->get(MOVEMENT::FORWARD))){
+
+		}
+
+		if(input.isKeyDown(input.inputMapping()->get(MOVEMENT::BACKWARD))){
+
+		}
+
+		if(input.isKeyDown(input.inputMapping()->get(MOVEMENT::STRAFE_LEFT))){
+
+		}
+
+		if(input.isKeyDown(input.inputMapping()->get(MOVEMENT::STRAFE_RIGHT))){
+
+		}
+
+	}else if(moveMode == CAMERA_MOVEMENT::ThirdPerson){
+
+	}else if(moveMode == CAMERA_MOVEMENT::ISOMETRIC){
+
+	}else{
+
+	}
+}
+
+void Camera::processFPS(Input& input){
 	if(!start){
 		input.CenterMouseInWindow();
 		hAngle = 0;
@@ -152,7 +181,6 @@ void Camera::update(Input &input){
 
 		mUp = mForward.cross(hAxis);
 		mUp.normalize();
-
 		input.CenterMouseInWindow();
 	}
 }

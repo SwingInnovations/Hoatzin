@@ -53,6 +53,7 @@ public:
 	void setScaleX(float _x){transform.setScaleX(_x);}
 	void setScaleY(float _y){transform.setScaleY(_y);}
 	void setScaleZ(float _z){transform.setScaleZ(_z);}
+
 	Transform getTransform(){return transform;}
 	Matrix4f getViewProjection();
 	Vector3f getLeft(){
@@ -67,6 +68,8 @@ public:
 		return right;
 	}
 private:
+	void processFPS(Input& input);
+
 	Transform transform;
 	bool start;
 	int viewMode;
