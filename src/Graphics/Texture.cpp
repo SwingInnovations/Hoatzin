@@ -21,8 +21,11 @@ Texture::Texture(const std::string& fileName){
 		std::cout << "Error with file: " << IMG_GetError() << std::endl;
 	}
 
-	glGenTextures(1, &mTexture);
-	glBindTexture(GL_TEXTURE_2D, mTexture);
+	texIndex = 0;
+
+	glGenTextures(1, tex);
+	glActiveTexture(GL_TEXTURE0+ texIndex);
+	glBindTexture(GL_TEXTURE_2D, tex[0]);
 
 	GLenum mode;
 	GLint nOfColors = image->format->BytesPerPixel;
@@ -64,9 +67,10 @@ GLuint Texture::genTex(const std::string& fileName){
 	if(img == NULL){
 		std::cout << "Error: " << IMG_GetError() << std::endl;
 	}
-
-	glGenTextures(1, &mTexture);
-	glBindTexture(GL_TEXTURE_2D, mTexture);
+	texIndex = 0;
+	glGenTextures(1, tex);
+	glActiveTexture(GL_TEXTURE0 + texIndex);
+	glBindTexture(GL_TEXTURE_2D, tex[0]);
 
 	GLenum mode;
 	GLint nOfColors = img->format->BytesPerPixel;
@@ -98,11 +102,11 @@ GLuint Texture::genTex(const std::string& fileName){
 	SDL_FreeSurface(img);
 	img = 0;
 
-	return mTexture;
+	return tex[texIndex];
 }
 
 Texture::~Texture() {
-	glDeleteTextures(1, &mTexture);
+	glDeleteTextures(1, tex);
 }
 
 void Texture::bind(unsigned int index){
@@ -111,6 +115,6 @@ void Texture::bind(unsigned int index){
 	glEnable(GL_TEXTURE_2D);
 
 	glActiveTexture(GL_TEXTURE0 + index);
-	glBindTexture(GL_TEXTURE_2D, mTexture);
+	glBindTexture(GL_TEXTURE_2D, tex[index]);
 }
 
