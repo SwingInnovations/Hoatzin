@@ -18,8 +18,10 @@ public:
 	void bind(unsigned int index);
 private:
 	//GLuint mTexture;
+	void reBind();
 	GLuint tex[32];
 	unsigned int texIndex;
+	std::vector<std::string> fileReference;
 };
 
 #endif /* TEXTURE_H_ */
