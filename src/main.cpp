@@ -1,4 +1,5 @@
 
+#include <iostream>
 #include "STechOne.h"
 #include "DemoLevel.h"
 
@@ -8,6 +9,8 @@ int main(int argc, char** argv){
 	map->addMapping(MOVEMENT::BACKWARD, KEY::KEY_S);
 	map->addMapping(MOVEMENT::STRAFE_LEFT, KEY::KEY_A);
 	map->addMapping(MOVEMENT::STRAFE_RIGHT, KEY::KEY_D);
+
+	std::cout << map->info() << std::endl;
 
 	AppWindow app("Hoatzin --- ENGINE V.0.0.45", 1440, 900);
 	Vector3f cameraPos(-5.0f, -3.0f, 0.0f);

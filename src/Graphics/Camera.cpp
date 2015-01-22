@@ -126,25 +126,34 @@ void Camera::setRotateY(const float _y){
 	mUp.normalize();
 }
 
-void Camera::update(Input &input){
+void Camera::update(Input *input){
 	if(moveMode == CAMERA_MOVEMENT::FirstPerson){
 		processFPS(input);
 
-		int delta = input.getDelta();
-		if(input.isKeyDown(input.inputMapping()->get(MOVEMENT::FORWARD))){
+		int delta = input->getDelta();
 
+		if(input->isKeyDown(input->inputMapping()->get(MOVEMENT::FORWARD))){
+			float _z = transform.getTranslate().getZ();
+			_z -= 0.025f * delta;
+			setTranslateZ(_z);
 		}
 
-		if(input.isKeyDown(input.inputMapping()->get(MOVEMENT::BACKWARD))){
-
+		if(input->isKeyDown(input->inputMapping()->get(MOVEMENT::BACKWARD))){
+			float _z = transform.getTranslate().getZ();
+			_z += 0.025f * delta;
+			setTranslateZ(_z);
 		}
 
-		if(input.isKeyDown(input.inputMapping()->get(MOVEMENT::STRAFE_LEFT))){
-
+		if(input->isKeyDown(input->inputMapping()->get(MOVEMENT::STRAFE_LEFT))){
+			float _x = transform.getTranslate().getX();
+			_x -= 0.025f * delta;
+			setTranslateX(_x);
 		}
 
-		if(input.isKeyDown(input.inputMapping()->get(MOVEMENT::STRAFE_RIGHT))){
-
+		if(input->isKeyDown(input->inputMapping()->get(MOVEMENT::STRAFE_RIGHT))){
+			float _x = transform.getTranslate().getX();
+			_x += 0.025f * delta;
+			setTranslateX(_x);
 		}
 
 	}else if(moveMode == CAMERA_MOVEMENT::ThirdPerson){
@@ -156,15 +165,30 @@ void Camera::update(Input &input){
 	}
 }
 
-void Camera::processFPS(Input& input){
+void Camera::processFPS(Input* input){
 	if(!start){
-		input.CenterMouseInWindow();
+		input->CenterMouseInWindow();
 		hAngle = 0;
 		vAngle = 0;
+		Vector3f vAxis(0.0f, 1.0f, 0.0f);
+
+		mView = Vector3f(1.0f, 0.0f, 0.0f);
+		mView.rotate(hAngle, vAxis);
+		mView.normalize();
+
+		Vector3f hAxis = vAxis.cross(mView);
+		hAxis.normalize();
+		mView.rotate(vAngle, hAxis);
+
+		mForward = mView;
+		mForward.normalize();
+
+		mUp = mForward.cross(hAxis);
+		mUp.normalize();
 		start = true;
 	}else{
-		hAngle += 0.035f * (float)((mWIDTH/2) - input.getMouseCoord().getX());
-		vAngle += 0.035f * (float)((mHEIGHT/2) - input.getMouseCoord().getY());
+		hAngle += 0.035f * (float)((mWIDTH/2) - input->getMouseCoord().getX());
+		vAngle += 0.035f * (float)((mHEIGHT/2) - input->getMouseCoord().getY());
 
 		Vector3f vAxis(0.0f, 1.0f, 0.0f);
 
@@ -181,7 +205,7 @@ void Camera::processFPS(Input& input){
 
 		mUp = mForward.cross(hAxis);
 		mUp.normalize();
-		input.CenterMouseInWindow();
+		input->CenterMouseInWindow();
 	}
 }
 

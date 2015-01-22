@@ -37,6 +37,7 @@ OBJMesh::OBJMesh(const std::string& fileName){
 			_v = (float)atof(tV.c_str());
 			texCoord.push_back(Vector2f(_u, _v));
 		}
+
 		//Extract a normal value
 		if(line[0] == 'v' && line[1] == 'n' && line[2] == ' '){
 			std::string vals = line.substr(3);
@@ -52,6 +53,7 @@ OBJMesh::OBJMesh(const std::string& fileName){
 			_z =  (float)atof(nZ.c_str());
 			normal.push_back(Vector3f(_x, _y, _z));
 		}
+
 		//review this side;
 		if(line[0]=='f' && line[1]==' '){
 			std::string hLine = line.substr(2);
@@ -98,6 +100,7 @@ OBJMesh::OBJMesh(const std::string& fileName){
 	}
 	if(texCoord.empty()){SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "No TexCoords", "No UV's present, consider re-exporting with UV's ", NULL);}
 	if(normal.empty()){SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "No Normals", "Re-Export with Normals.", NULL);}
+
 	/*end parsing file*/
 	for(unsigned int i = 0; i < indicies.size(); i+=3){
 		Vertex vert(vertex.at(indicies.at(i)), texCoord.at(indicies.at(i+1)), normal.at(indicies.at(i+2)));

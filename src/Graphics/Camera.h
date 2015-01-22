@@ -37,7 +37,7 @@ public:
 
 	void init();
 	void update();
-	void update(Input &input);
+	void update(Input *input);
 
 	float getYaw(){return this->hAngle;}
 	float getPitch(){return this->vAngle;}
@@ -68,7 +68,7 @@ public:
 		return right;
 	}
 private:
-	void processFPS(Input& input);
+	void processFPS(Input* input);
 
 	Transform transform;
 	bool start;

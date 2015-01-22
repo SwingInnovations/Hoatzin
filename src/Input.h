@@ -5,6 +5,7 @@
 #include <SDL2/SDL_joystick.h>
 #include <SDL2/SDL_gamecontroller.h>
 #include "Utility/Math/Vector.h"
+#include <string>
 
 class AppWindow;
 
@@ -113,7 +114,10 @@ namespace KEY{
 };
 
 struct InputKey{
-
+	InputKey(){
+		target = 0;
+		key = 0;
+	}
 	InputKey(int target, int key){
 		this->target = target;
 		this->key = key;
@@ -129,6 +133,13 @@ public:
 	InputMap(const std::string& filePath);
 	void addMapping(int target, int key);
 	int get(int target);
+	std::string info(){
+		std::ostringstream ret;
+		for(unsigned int i = 0; i < mapping.size(); i++){
+			ret << "Target: " << mapping[i].target << " Key: " << mapping[i].key << "\n";
+		}
+		return ret.str();
+	}
 private:
 	std::vector<InputKey> mapping;
 };

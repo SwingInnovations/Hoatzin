@@ -6,19 +6,54 @@
 struct SWMaterial{
 	SWMaterial(){
 		shader = new Shader();
+		initUniforms();
 	}
+
+	SWMaterial(Shader* shdr){
+		shader = shdr;
+		initUniforms();
+	}
+
 	void setShader(Shader* shader){this->shader = shader;}
 
 	Shader* getShader(){return shader;}
 
+	void addDiffuseMap(const std::string& fileName){
+		textures->addTexture(fileName);
+		uniforms.push_back(SWShader::ShaderInfo("SWMaterial.diffuseMap", SWShader::INT, SWShader::toString(0)));
+	}
+
+	void addSpecularMap(const std::string& fileName){
+		textures->addTexture(fileName);
+		uniforms.push_back(SWShader::ShaderInfo("SWMaterial.specularMap", SWShader::INT, SWShader::toString(1)));
+	}
+
+	void addNormalMap(const std::string& fileName){
+		textures->addTexture(fileName);
+		uniforms.push_back(SWShader::ShaderInfo("SWMaterial.normalMap", SWShader::INT, SWShader::toString(2)));
+	}
+
+	void update(){
+		for(unsigned int i = 0; i < uniforms.size(); i++){
+			if(uniforms.at(i).type == SWShader::INT){
+				shader->update(uniforms[i].name, SWShader::toInt(uniforms[i].value));
+			}else if(uniforms.at(i).type == SWShader::VEC3){
+				shader->update(uniforms[i].name, SWShader::toVector3f(uniforms[i].value));
+			}else{
+
+			}
+		}
+	}
+
 	void bind(){
-		for(unsigned int i = 0; i < textures.size(); i++){
-			textures[i]->bind(i);
+		for(unsigned int i = 0; i < textures->getTextureCount(); i++){
+			textures->bind(i);
 		}
 		shader->bind();
 	}
 
 	Vector3f getDiffuseColor(){return diffuseColor;}
+	Vector3f getSpecularColor(){return specularColor;}
 private:
 
 	void initUniforms(){
@@ -31,7 +66,7 @@ private:
 	}
 
 	Shader* shader;
-	std::vector<Texture*> textures;
+	Texture* textures;
 	std::vector<SWShader::ShaderInfo> uniforms;
 	Vector3f diffuseColor;
 	Vector3f specularColor;

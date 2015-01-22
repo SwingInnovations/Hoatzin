@@ -16,6 +16,7 @@ public:
 	GLuint genTex(const std::string& fileName);
 	void addTexture(const std::string& fileName);
 	void bind(unsigned int index);
+	unsigned int getTextureCount(){return fileReference.size();}
 private:
 	//GLuint mTexture;
 	void reBind();

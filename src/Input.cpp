@@ -166,19 +166,17 @@ InputMap::InputMap(const std::string& filePath){
 }
 
 void InputMap::addMapping(int target, int key){
-	mapping.push_back(InputKey(target, key));
+	InputKey add;
+	add.target = target;
+	add.key = key;
+	mapping.push_back(add);
 }
 
 int InputMap::get(int target){
-	if(!mapping.empty()){
-		for(unsigned int i = 0; i < mapping.size(); i++){
-			if(mapping[i].target == target){
-				return mapping[i].key;
-			}else{
-				return 999;
-			}
+	for(unsigned int i = 0; i < mapping.size(); i++){
+		if(mapping.at(i).target == target){
+			return mapping.at(i).key;
 		}
-	}else{
-		return 999;
 	}
+	return -1;
 }

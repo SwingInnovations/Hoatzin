@@ -18,7 +18,8 @@ namespace SWShader{
 		FLOAT = 1,
 		VEC3 = 2,
 		VEC4 = 3,
-		MAT4 = 4
+		MAT4 = 4,
+		STRING = 5
 	};
 
 	static std::string toString(int val){
