@@ -64,7 +64,7 @@ public:
 
     void initRotation(float angle, float u, float v, float w){
         float L = (u * u + v * v + w * w);
-        angle = angle * 3.1415 / 180.0; //convert to radian
+        angle =  ToRadian(angle);
         float u2 = u * u;
         float v2 = v * v;
         float w2 = w * w;
@@ -92,7 +92,7 @@ public:
 
     void initRotation(float angle, Vector3f* vec){
         float L = (vec->getX() * vec->getX() + vec->getY() * vec->getY() + vec->getZ() * vec->getZ());
-        angle = angle * 3.1315 / 180.0;
+        angle = ToRadian(angle);
 
         float u = vec->getX();
         float v = vec->getY();

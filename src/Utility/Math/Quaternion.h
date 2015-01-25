@@ -50,10 +50,10 @@ public:
 	}
 
 	inline Quaternion Multiply(Quaternion r)const{
-		float _x = this->w*r.GetX() + this->x*r.GetW() + this->y*r.GetZ() - this->z*r.GetY();
-		float _y = this->w*r.GetY() - this->x*r.GetZ() + this->y*r.GetW() + this->z*r.GetX();
-		float _z = this->w*r.GetZ() + this->x*r.GetY() - this->y*r.GetX() + this->z*r.GetW();
-		float _w = this->w*r.GetW() - this->x*r.GetX() - this->y*r.GetY() - this->z*r.GetZ();
+		float _x = this->w*r.getX() + this->x*r.getW() + this->y*r.getZ() - this->z*r.getY();
+		float _y = this->w*r.getY() - this->x*r.getZ() + this->y*r.getW() + this->z*r.getX();
+		float _z = this->w*r.getZ() + this->x*r.getY() - this->y*r.getX() + this->z*r.getW();
+		float _w = this->w*r.getW() - this->x*r.getX() - this->y*r.getY() - this->z*r.getZ();
 
 		return Quaternion(_x, _y, _z, _w);
 	}
@@ -73,10 +73,10 @@ public:
 	}
 
 
-	float GetX()const{return this->x;}
-	float GetY()const{return this->y;}
-	float GetZ()const{return this->z;}
-	float GetW()const{return this->w;}
+	float getX()const{return this->x;}
+	float getY()const{return this->y;}
+	float getZ()const{return this->z;}
+	float getW()const{return this->w;}
 
 
 

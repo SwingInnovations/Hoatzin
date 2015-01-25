@@ -175,6 +175,13 @@ public:
 		return Vector3f(_x, _y, _z);
 	}
 
+	const Vector3f operator+=(const Vector3f& vec){
+		this->x += vec.x;
+		this->y += vec.y;
+		this->z += vec.z;
+		return *this;
+	}
+
 	const Vector3f operator-(const float s){
 		const float _x = this->x - s;
 		const float _y = this->y - s;
@@ -187,6 +194,13 @@ public:
 		const float _y = this->y - vec.y;
 		const float _z = this->z - vec.z;
 		return Vector3f(_x, _y, _z);
+	}
+
+	const Vector3f operator-=(const Vector3f& vec){
+		this->x -= vec.x;
+		this->y -= vec.y;
+		this->z -= vec.z;
+		return *this;
 	}
 
 	const Vector3f operator*(const float s)const{

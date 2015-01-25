@@ -133,27 +133,39 @@ void Camera::update(Input *input){
 		int delta = input->getDelta();
 
 		if(input->isKeyDown(input->inputMapping()->get(MOVEMENT::FORWARD))){
+			float _x = transform.getTranslate().getX();
 			float _z = transform.getTranslate().getZ();
-			_z -= 0.025f * delta;
+			_x -= sinf(hAngle) * 0.025f * delta;
+			_z += cosf(hAngle) * 0.025f * delta;
+			setTranslateX(_x);
 			setTranslateZ(_z);
 		}
 
 		if(input->isKeyDown(input->inputMapping()->get(MOVEMENT::BACKWARD))){
+			float _x = transform.getTranslate().getX();
 			float _z = transform.getTranslate().getZ();
-			_z += 0.025f * delta;
+			_x += sinf(hAngle) * 0.025f * delta;
+			_z -= cosf(hAngle) * 0.025f * delta;
+			setTranslateX(_x);
 			setTranslateZ(_z);
 		}
 
 		if(input->isKeyDown(input->inputMapping()->get(MOVEMENT::STRAFE_LEFT))){
 			float _x = transform.getTranslate().getX();
-			_x -= 0.025f * delta;
+			float _z = transform.getTranslate().getZ();
+			_x -= sinf(hAngle-90) * 0.025f * delta;
+			_z += cosf(hAngle-90) * 0.025f * delta;
 			setTranslateX(_x);
+			setTranslateZ(_z);
 		}
 
 		if(input->isKeyDown(input->inputMapping()->get(MOVEMENT::STRAFE_RIGHT))){
 			float _x = transform.getTranslate().getX();
-			_x += 0.025f * delta;
+			float _z = transform.getTranslate().getZ();
+			_x -= sinf(hAngle+90) * 0.025f * delta;
+			_z += cosf(hAngle+90) * 0.025f * delta;
 			setTranslateX(_x);
+			setTranslateZ(_z);
 		}
 
 	}else if(moveMode == CAMERA_MOVEMENT::ThirdPerson){

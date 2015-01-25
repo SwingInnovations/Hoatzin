@@ -14,9 +14,9 @@ void Vector3f::rotate(float angle, Vector3f& axis){
 	ConjQ = RotateQ.Conjugate();
 	W = RotateQ.Multiply(*this).Multiply(ConjQ);
 
-	this->x = W.GetX();
-	this->y = W.GetY();
-	this->z = W.GetZ();
+	this->x = W.getX();
+	this->y = W.getY();
+	this->z = W.getZ();
 }
 
 
