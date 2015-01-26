@@ -29,6 +29,10 @@ public:
 		index = i;
 	}
 
+	virtual void update(){
+
+	}
+
 	void setShader(Shader* shader){
 		this->shader = shader;
 	}

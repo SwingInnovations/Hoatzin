@@ -23,6 +23,36 @@ public:
 		delete transform;
 		delete shader;
 	}
+
+	virtual void update() = 0;
+	void addComponent(SWComponent* comp){
+		elements.push_back(comp);
+	}
+	void updateComponentElements(){
+		if(!elements.empty()){
+			for(unsigned int i = 0; i < elements.size(); i++){
+				elements.at(i)->update();
+			}
+		}
+	}
+
+	void updateUniforms(){
+		if(!uniforms.empty()){
+			for(unsigned int i = 0; i < uniforms.size(); i++){
+				if(uniforms.at(i).type == SWShader::INT){
+					shader->update(uniforms.at(i).name, SWShader::toInt(uniforms.at(i).value));
+				}else if(uniforms.at(i).type == SWShader::FLOAT){
+					shader->update(uniforms.at(i).name, SWShader::toFloat(uniforms.at(i).value));
+				}else if(uniforms.at(i).type == SWShader::VEC3){
+					shader->update(uniforms.at(i).name, SWShader::toVector3f(uniforms.at(i).value));
+				}else if(uniforms.at(i).type == SWShader::VEC4){
+					shader->update(uniforms.at(i).name, SWShader::toVector4f(uniforms.at(i).value));
+				}else{
+					std::cout << "No Uniform present" << std::endl;
+				}
+			}
+		}
+	}
 	void addUniform(const std::string& name, int value);
 	void addUniform(const std::string& name, float value);
 	void addUniform(const std::string& name, Vector3f& value);
@@ -137,6 +167,7 @@ public:
 
 	Transform* transform;
 	Shader* shader;
+	std::vector<SWComponent*> elements;
 	std::vector<SWComponent*> children;
 	std::vector<SWShader::ShaderInfo> uniforms;
 	bool hasChildren;

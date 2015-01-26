@@ -14,11 +14,19 @@
 class SWComponent;
 class Shader;
 
+/*
+ * To Be Deprecated, Avoid using
+ * */
+
 class SWObject : public SWComponent{
 public:
 	SWObject();
 	SWObject(const SWObject* other);
 	SWObject(Mesh* mesh, Shader* shader, Texture* texture);
+
+	virtual void update(){
+
+	}
 
 	void draw(Camera* cam){
 		if(!uniforms.empty()){
@@ -45,10 +53,6 @@ public:
 				children[i]->draw(cam);
 			}
 		}
-	}
-
-	void addPhysicsComponent(){
-
 	}
 
 	Mesh* mesh;

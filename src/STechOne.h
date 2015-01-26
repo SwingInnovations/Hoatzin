@@ -37,4 +37,6 @@
 #include "Graphics/Shader.h"
 #include "Graphics/Texture.h"
 
+#include "Physics/SWPhysicsComponent.h"
+
 #endif /* STECHONE_H_ */
