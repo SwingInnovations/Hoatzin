@@ -3,7 +3,9 @@
 
 
 class BoundingShape{
-
+public:
+	virtual bool isIntersected(BoundingShape other){return false;};
+	virtual ~BoundingShape();
 };
 
 

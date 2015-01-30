@@ -27,6 +27,7 @@ public:
 		shader = shdr;
 		mat->setShader(shdr);
 	}
+
 	void setMaterial(SWMaterial* mat){
 		if(mat->getShader() != 0){
 			this->mat = mat;
@@ -37,10 +38,11 @@ public:
 		}
 	}
 
+	SWMaterial* getMaterial(){return mat;}
+
 	void draw(Camera* cam){
 		updateUniforms();
 		shader->update(*transform, *cam);
-		shader->bind();
 		mat->bind();
 		mesh->draw();
 		if(hasChildren){

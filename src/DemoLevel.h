@@ -16,6 +16,7 @@
 #include "Utility/Math/Geom/Box.h"
 #include "Utility/SWLight.h"
 #include "Utility/LuaScript.h"
+#include "Utility/SWGameObject.h"
 
 class DemoLevel : public GameState{
 public:
@@ -38,8 +39,8 @@ public:
 		Vector3f lightIntensity(0.5, 0.5, 0.9);
 		Vector3f coneDirection(0.0, 1.0f, 0.0);
 		spotLight = new SWSpotLight(lightPosition, lightIntensity, coneDirection, 0.1f, 0.0f, 15.0f);
-		testObj = new SWObject(new Mesh("defaultFigure.obj", MESH_TYPE::MODEL_OBJ), shader, tex);
-
+		gameObject = new SWGameObject(new Mesh("defaultFigure.obj", MESH_TYPE::MODEL_OBJ), new SWMaterial(shader));
+		gameObject->getMaterial()->addDiffuseMap("grid.png");
 		rot = 0;
 		rot2 = 0;
 		rotAmt = 0;
@@ -48,7 +49,6 @@ public:
 
 	void updateAuto(AppWindow* app, int delta){
 		rot2+= 0.025f * delta;
-		testObj->setRotateY(rot2);
 		spotLight->draw(shader);
 		float transAmount = lightPosition.getX() + cos(rot2)*10.0f;
 		lightPosition.setX(transAmount);
@@ -65,10 +65,6 @@ public:
 			input->requestClose();
 		}
 
-		if(input->isKeyDown(KEY::KEY_R)){
-			Vector3f resetVec(0.0f, 0.0f, 0.0f);
-			testObj->setTranslate(resetVec);
-		}
 
 		if(input->isKeyDown(KEY::KEY_1)){
 			app->enterState(1);
@@ -113,7 +109,7 @@ public:
 	}
 
 	void render(Graphics* g){
-		g->draw(testObj);
+		g->draw(gameObject);
 	}
 
 	int getID(){
@@ -137,10 +133,10 @@ private:
 	float rotAmt;
 	float transX, transZ;
 	Vector3f camPos;
-	SWObject *plane, *box, *box2, *testObj;
 	SWSpotLight* spotLight;
 	LuaScript* l;
 	Vector3f lightPosition;
+	SWGameObject* gameObject;
 };
 
 

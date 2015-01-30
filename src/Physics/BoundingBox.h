@@ -5,10 +5,11 @@ class BoundingBox : public BoundingShape{
 public:
 	BoundingBox(){}
 	virtual ~BoundingBox(){}
-	bool intersected(){
-		//return true if intersected, false if it doesn't
+
+	virtual bool hasIntersected(BoundingShape other){
 		return false;
 	}
+
 	void generate(Vector3f* verts, unsigned int size){
 		for(unsigned int i = 0; i < size; i++){
 			if(verts[i].getX() < 0.0f && verts[i].getX() < sX){
