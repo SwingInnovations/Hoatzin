@@ -41,6 +41,7 @@ public:
 		spotLight = new SWSpotLight(lightPosition, lightIntensity, coneDirection, 0.1f, 0.0f, 15.0f);
 		gameObject = new SWGameObject(new Mesh("defaultFigure.obj", MESH_TYPE::MODEL_OBJ), new SWMaterial(shader));
 		gameObject->getMaterial()->addDiffuseMap("grid.png");
+		gameObject->transform->setRotateY(90.0f);
 		rot = 0;
 		rot2 = 0;
 		rotAmt = 0;

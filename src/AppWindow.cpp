@@ -39,22 +39,21 @@ AppWindow::AppWindow(const std::string title, int WIDTH, int HEIGHT) : fps(60){
 }
 
 void AppWindow::SetOpenGLVersion(int MajorVersion, int MinorVersion){
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, MajorVersion);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, MinorVersion);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, MajorVersion);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, MinorVersion);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+//	if(MajorVersion > 2){
+//		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, MajorVersion);
+//		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, MinorVersion);
+//		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+//	}else{
+//		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, MajorVersion);
+//		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, MinorVersion);
+//		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
+//	}
 	mContext = SDL_GL_CreateContext(mWindow);
 	if(mContext == NULL){
 		std::cout << "Error 403: Failed to create context! " << SDL_GetError() << std::endl;
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-		mContext = SDL_GL_CreateContext(mWindow);
-		if(mContext == NULL){
-			std::cout << "Error 403: Failed to create context! " << SDL_GetError() << std::endl;
-		}else{
-			glewExperimental = GL_TRUE;
-			glewInit();
-		}
 	}else{
 		glewExperimental = GL_TRUE;
 		glewInit();

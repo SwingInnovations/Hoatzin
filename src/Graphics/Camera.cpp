@@ -132,11 +132,22 @@ void Camera::update(Input *input){
 
 		int delta = input->getDelta();
 
+		mForward.print();
+
+		float realAngle;
+		if(hAngle > 360){
+			realAngle = hAngle - 360;
+		}else if(hAngle < -360){
+			realAngle = hAngle + 360;
+		}else{
+			realAngle = hAngle;
+		}
+
 		if(input->isKeyDown(input->inputMapping()->get(MOVEMENT::FORWARD))){
 			float _x = transform.getTranslate().getX();
 			float _z = transform.getTranslate().getZ();
-			_x -= sinf(hAngle) * 0.025f * delta;
-			_z += cosf(hAngle) * 0.025f * delta;
+			_x += mForward.getX() * 0.025f * delta;
+			_z += mForward.getZ() * 0.025f * delta;
 			setTranslateX(_x);
 			setTranslateZ(_z);
 		}
@@ -144,8 +155,8 @@ void Camera::update(Input *input){
 		if(input->isKeyDown(input->inputMapping()->get(MOVEMENT::BACKWARD))){
 			float _x = transform.getTranslate().getX();
 			float _z = transform.getTranslate().getZ();
-			_x += sinf(hAngle) * 0.025f * delta;
-			_z -= cosf(hAngle) * 0.025f * delta;
+			_x -= mForward.getX() * 0.025f * delta;
+			_z -= mForward.getZ() * 0.025f * delta;
 			setTranslateX(_x);
 			setTranslateZ(_z);
 		}
@@ -153,8 +164,8 @@ void Camera::update(Input *input){
 		if(input->isKeyDown(input->inputMapping()->get(MOVEMENT::STRAFE_LEFT))){
 			float _x = transform.getTranslate().getX();
 			float _z = transform.getTranslate().getZ();
-			_x -= sinf(hAngle-90) * 0.025f * delta;
-			_z += cosf(hAngle-90) * 0.025f * delta;
+			_x -= cosf(realAngle-90.0f) * 0.025f * delta;
+			_z += sinf(realAngle-90.0f) * 0.025f * delta;
 			setTranslateX(_x);
 			setTranslateZ(_z);
 		}
@@ -162,8 +173,8 @@ void Camera::update(Input *input){
 		if(input->isKeyDown(input->inputMapping()->get(MOVEMENT::STRAFE_RIGHT))){
 			float _x = transform.getTranslate().getX();
 			float _z = transform.getTranslate().getZ();
-			_x -= sinf(hAngle+90) * 0.025f * delta;
-			_z += cosf(hAngle+90) * 0.025f * delta;
+			_x -= cosf(realAngle+90.0f) * 0.025f * delta;
+			_z += sinf(realAngle+90.0f) * 0.025f * delta;
 			setTranslateX(_x);
 			setTranslateZ(_z);
 		}

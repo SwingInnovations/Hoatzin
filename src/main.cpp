@@ -14,7 +14,7 @@ int main(int argc, char** argv){
 
 	AppWindow app("Hoatzin --- ENGINE V.0.0.45", 1440, 900);
 	Vector3f cameraPos(-5.0f, -3.0f, 0.0f);
-	app.setCamera(new Camera(cameraPos, 66.0f, 1440.0f, 900.0f, 1.0f, 1000.0f));
+	app.setCamera(new Camera(cameraPos, 66.0f, 1440.0f, 900.0f, 1.0f, 1000.0f, CAMERA_VIEW::PERSPECTIVE, CAMERA_MOVEMENT::FirstPerson));
 	app.setInputMapping(map);
 	app.SetOpenGLVersion(3, 3);
 	app.addState(new DemoLevel(0));
