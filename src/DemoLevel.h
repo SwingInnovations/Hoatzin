@@ -27,7 +27,6 @@ public:
 	void init(AppWindow* app){
 
 		camera = app->getCamera();
-		camera->setMoveMode(CAMERA_MOVEMENT::FirstPerson);
 
 		l = new LuaScript("script.lua");
 
@@ -50,6 +49,7 @@ public:
 
 	void updateAuto(AppWindow* app, int delta){
 		rot2+= 0.025f * delta;
+		gameObject->setRotateY(rot2);
 		spotLight->draw(shader);
 		float transAmount = lightPosition.getX() + cos(rot2)*10.0f;
 		lightPosition.setX(transAmount);
@@ -88,24 +88,6 @@ public:
 			camera->setTranslateY(camY);
 		}
 
-		if(input->isKeyDown(KEY::KEY_R)){
-			float r = colorVec.getX();
-			r += 0.01f;
-			colorVec.setX(r);
-		}
-
-		if(input->isKeyDown(KEY::KEY_G)){
-			float g = colorVec.getY();
-			g += 0.02f;
-			colorVec.setY(g);
-		}
-
-		if(input->isKeyDown(KEY::KEY_B)){
-			float b = colorVec.getZ();
-			b += 0.01f;
-			colorVec.setZ(b);
-		}
-
 		camera->update(input);
 	}
 
@@ -138,6 +120,7 @@ private:
 	LuaScript* l;
 	Vector3f lightPosition;
 	SWGameObject* gameObject;
+	SWGameObject* planeObject;
 };
 
 

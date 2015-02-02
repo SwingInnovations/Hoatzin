@@ -144,7 +144,6 @@ void AppWindow::start(){
 		while(SDL_PollEvent(&e)){
 			updateInput(e);
 		}
-
 		updateAuto();
 		render();
 	}

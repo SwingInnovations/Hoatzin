@@ -14,6 +14,16 @@ Input::Input() {
     closeRequested = false;
     mouseX = 0;
     mouseY = 0;
+
+    for(int i = 0; i < NUM_KEYS; i++)
+    {
+        mKeyPressed[i] = false;
+    }
+
+    for(int i = 0; i < NUM_MOUSE; i++)
+    {
+        mMouseButtonPressed[i] = false;
+    }
 }
 
 Input::Input(SDL_Event& _e)
@@ -22,6 +32,16 @@ Input::Input(SDL_Event& _e)
     closeRequested = false;
     mouseX = 0;
     mouseY = 0;
+
+    for(int i = 0; i < NUM_KEYS; i++)
+    {
+        mKeyPressed[i] = false;
+    }
+
+    for(int i = 0; i < NUM_MOUSE; i++)
+    {
+        mMouseButtonPressed[i] = false;
+    }
 }
 
 Input::Input(unsigned int _screenWidth, unsigned int _screenHeight, Uint32 delta, SDL_Event& e){
@@ -32,6 +52,16 @@ Input::Input(unsigned int _screenWidth, unsigned int _screenHeight, Uint32 delta
 	screenWidth = _screenWidth;
 	screenHeight = _screenHeight;
 	this->delta = delta;
+
+    for(int i = 0; i < NUM_KEYS; i++)
+    {
+        mKeyPressed[i] = false;
+    }
+
+    for(int i = 0; i < NUM_MOUSE; i++)
+    {
+        mMouseButtonPressed[i] = false;
+    }
 }
 
 Input::Input(AppWindow* app, SDL_Event& e){
@@ -43,6 +73,16 @@ Input::Input(AppWindow* app, SDL_Event& e){
 	screenHeight = app->getHeight();
 	templateWin = app->GetWindow();
 	delta = app->getDelta();
+
+    for(int i = 0; i < NUM_KEYS; i++)
+    {
+        mKeyPressed[i] = false;
+    }
+
+    for(int i = 0; i < NUM_MOUSE; i++)
+    {
+        mMouseButtonPressed[i] = false;
+    }
 }
 
 Input::~Input() {
@@ -56,16 +96,6 @@ void Input::poll(SDL_Event &event)
         closeRequested = true;
     }
 
-    for(int i = 0; i < NUM_KEYS; i++)
-    {
-        mKeyPressed[i] = false;
-    }
-
-    for(int i = 0; i < NUM_MOUSE; i++)
-    {
-        mMouseButtonPressed[i] = false;
-    }
-
     if(event.type == SDL_KEYDOWN)
     {
         int val = event.key.keysym.scancode;
@@ -74,8 +104,7 @@ void Input::poll(SDL_Event &event)
 
     if(event.type == SDL_KEYUP)
     {
-        int val = event.key.keysym.scancode;
-        mKeyPressed[val] = false;
+    	mKeyPressed[event.key.keysym.scancode] = false;
     }
 
     if(event.type == SDL_MOUSEMOTION)

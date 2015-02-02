@@ -16,11 +16,10 @@ public:
 	virtual void init(AppWindow* app){}
 	virtual void updateInput(AppWindow* app, int delta){}
 	virtual void updateAuto(AppWindow* app ,int delta){}
-	virtual void render(){}
 	virtual void render(Graphics* g){}
 	virtual int getID(){return id;}
-private:
 	int id;
+private:
 	SWSceneManager* scene;
 };
 

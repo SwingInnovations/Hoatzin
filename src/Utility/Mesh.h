@@ -120,9 +120,6 @@ public:
 		mNumVert = 4;
 		mDrawCount = shape->getIndiciesSize();
 
-		std::cout << "Num Verts: "<< mNumVert << std::endl;
-		std::cout << "Num Ind: " << mDrawCount << std::endl;
-
 		std::vector<Vector3f> vertex;
 		std::vector<Vector2f> texCoord;
 		std::vector<Vector3f> normal;

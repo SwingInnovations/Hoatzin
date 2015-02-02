@@ -5,6 +5,7 @@
 
 struct SWMaterial{
 	SWMaterial(){
+		textures = new Texture();
 		shader = new Shader();
 		initUniforms();
 	}
@@ -12,6 +13,7 @@ struct SWMaterial{
 	SWMaterial(Shader* shdr){
 		shader = shdr;
 		initUniforms();
+		textures = new Texture();
 	}
 
 	void setShader(Shader* shader){this->shader = shader;}
@@ -46,6 +48,7 @@ struct SWMaterial{
 	}
 
 	void bind(){
+		update();
 		for(unsigned int i = 0; i < textures->getTextureCount(); i++){
 			textures->bind(i);
 		}

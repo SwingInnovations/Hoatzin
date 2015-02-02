@@ -4,6 +4,12 @@
 
 uniform int numLight;
 
+uniform struct SWMaterial{
+	sampler2D diffuseMap;
+	sampler2D specularMap;
+	sampler2D normalMap;
+};
+
 uniform struct Light{
 	vec4 position;
 	vec3 intensity;
@@ -60,9 +66,9 @@ void main(void){
 	
 	//vec4 ambientColor = vec4(SWLight[0].intensity, 1.0) * SWLight[0].ambientCoefficient;
 	
-	//vec3 surfaceColor = texture2D(diffuse, texCoord0).rgb;
-	//vec3 linearColor = applyLight(SWLight[0], surfaceColor, normal0, position0, normalize(cameraPosition-position0));
+	vec3 surfaceColor = texture2D(diffuse, texCoord0).rgb;
+	vec3 linearColor = applyLight(SWLight[0], surfaceColor, normal0, position0, normalize(cameraPosition-position0));
 	
-	color = texture2D(diffuse, texCoord0) * brightness;
+	color = texture2D(diffuse, texCoord0) * brightness * 0.8f;
 	//color = vec4(linearColor, 1.0);
 }
