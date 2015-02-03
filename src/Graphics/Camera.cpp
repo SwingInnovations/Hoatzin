@@ -135,8 +135,8 @@ void Camera::update(Input *input){
 		if(input->isKeyDown(input->inputMapping()->get(MOVEMENT::FORWARD))){
 			float _x = transform.getTranslate().getX();
 			float _z = transform.getTranslate().getZ();
-			_x += mForward.getX() * 0.025f * delta;
-			_z += mForward.getZ() * 0.025f * delta;
+			_x += mForward.getX() * 0.0025f * delta;
+			_z += mForward.getZ() * 0.0025f * delta;
 			setTranslateX(_x);
 			setTranslateZ(_z);
 		}
@@ -144,8 +144,8 @@ void Camera::update(Input *input){
 		if(input->isKeyDown(input->inputMapping()->get(MOVEMENT::BACKWARD))){
 			float _x = transform.getTranslate().getX();
 			float _z = transform.getTranslate().getZ();
-			_x -= mForward.getX() * 0.025f * delta;
-			_z -= mForward.getZ() * 0.025f * delta;
+			_x -= mForward.getX() * 0.0025f * delta;
+			_z -= mForward.getZ() * 0.0025f * delta;
 			setTranslateX(_x);
 			setTranslateZ(_z);
 		}
@@ -156,8 +156,8 @@ void Camera::update(Input *input){
 		if(input->isKeyDown(input->inputMapping()->get(MOVEMENT::STRAFE_LEFT))){
 			float _x = transform.getTranslate().getX();
 			float _z = transform.getTranslate().getZ();
-			_x -= right.getX() * 0.025f * delta;
-			_z -= right.getZ() * 0.025f * delta;
+			_x -= right.getX() * 0.0025f * delta;
+			_z -= right.getZ() * 0.0025f * delta;
 			setTranslateX(_x);
 			setTranslateZ(_z);
 		}
@@ -165,8 +165,8 @@ void Camera::update(Input *input){
 		if(input->isKeyDown(input->inputMapping()->get(MOVEMENT::STRAFE_RIGHT))){
 			float _x = transform.getTranslate().getX();
 			float _z = transform.getTranslate().getZ();
-			_x += right.getX() * 0.025f * delta;
-			_z += right.getZ() * 0.025f * delta;
+			_x += right.getX() * 0.0025f * delta;
+			_z += right.getZ() * 0.0025f * delta;
 			setTranslateX(_x);
 			setTranslateZ(_z);
 		}

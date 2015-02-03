@@ -85,7 +85,7 @@ public:
 
 	void updateProperty(const std::string& propertyName, int value){
 		std::ostringstream reference;
-		reference << "SWLight[" << index<<"]."<< propertyName;
+		reference << "SWLight[" << index <<"]."<< propertyName;
 		std::string info = reference.str();
 		for(unsigned int i = 0; i < uniforms.size(); i++){
 			if(uniforms.at(i).name == propertyName){

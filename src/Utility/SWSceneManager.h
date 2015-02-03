@@ -7,13 +7,16 @@
 
 class SWSceneManager{
 public:
-	SWSceneManager(){numLight = -1;}
+	SWSceneManager(){numLight = 0;}
 	void add(SWComponent* component){sceneNodes.push_back(component);}
 	void add(SWLight* light){
 		numLight++;
 		light->setIndex(numLight);
 		sceneLights.push_back(light);
 	}
+	void purgeObjects(){sceneNodes.clear();}
+	void purgeLights(){sceneLights.clear();}
+	int getNumLight()const{ return numLight; }
 	SWComponent* getComponent(int i){return sceneNodes.at(i);}
 	std::vector<SWComponent*> *getSceneObjects(){return &sceneNodes;}
 	std::vector<SWLight*> *getLights(){return &sceneLights;}

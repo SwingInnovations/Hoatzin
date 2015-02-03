@@ -45,6 +45,10 @@ public:
 		}
 	}
 
+	void setShader(Shader* shdr){
+		shader = shdr;
+	}
+
 	void setCamera(Camera* cam){
 		camera = cam;
 	}
@@ -55,6 +59,10 @@ public:
 
 	Camera* getCamera(){
 		return camera;
+	}
+
+	Shader* getShader(){
+		return shader;
 	}
 
 	void drawScene(SWSceneManager* scene);

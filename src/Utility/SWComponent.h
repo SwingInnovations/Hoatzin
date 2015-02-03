@@ -160,6 +160,8 @@ public:
 		}
 	}
 
+	Transform* getTransform(){return transform;}
+
 	void addChild(SWComponent* child){hasChildren = true; children.push_back(child);}
 	SWComponent* getChild(int i){return children.at(i);}
 

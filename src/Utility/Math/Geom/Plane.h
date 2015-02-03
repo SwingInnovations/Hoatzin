@@ -15,10 +15,10 @@ public:
 		int centerHeight = height/2;
 
 		mVertices.reserve(4);
-		mVertices.push_back(Vertex(Vector3f(centerWidth - centerWidth, centerHeight + centerHeight, 0.0), Vector2f(0.0, 0.0)));
-		mVertices.push_back(Vertex(Vector3f(centerWidth + centerWidth, centerHeight + centerHeight, 0.0), Vector2f(0.0, 1.0)));
-		mVertices.push_back(Vertex(Vector3f(centerWidth + centerWidth, centerHeight - centerHeight, 0.0), Vector2f(1.0, 1.0)));
-		mVertices.push_back(Vertex(Vector3f(centerWidth - centerWidth, centerHeight - centerHeight, 0.0), Vector2f(1.0, 0.0)));
+		mVertices.push_back(Vertex(Vector3f(centerWidth - centerWidth, centerHeight + centerHeight, 0.0), Vector2f(0.0, 0.0), Vector3f(0.0f, 1.0f, 0.0f)));
+		mVertices.push_back(Vertex(Vector3f(centerWidth + centerWidth, centerHeight + centerHeight, 0.0), Vector2f(0.0, 1.0), Vector3f(0.0f, 1.0f, 0.0f)));
+		mVertices.push_back(Vertex(Vector3f(centerWidth + centerWidth, centerHeight - centerHeight, 0.0), Vector2f(1.0, 1.0), Vector3f(0.0f, 1.0f, 0.0f)));
+		mVertices.push_back(Vertex(Vector3f(centerWidth - centerWidth, centerHeight - centerHeight, 0.0), Vector2f(1.0, 0.0), Vector3f(0.0f, 1.0f, 0.0f)));
 
 		mIndicies.reserve(6);
 		mIndicies.push_back(0);

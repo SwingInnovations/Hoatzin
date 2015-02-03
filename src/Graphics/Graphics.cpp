@@ -15,9 +15,14 @@ Graphics::~Graphics() {
 }
 
 void Graphics::drawScene(SWSceneManager* scene){
-	if(scene->getSceneObjects()->size() > 0){
-		for(unsigned int i = 0; i < scene->getSceneObjects()->size(); i++){
-			scene->getSceneObjects()->at(i)->draw(camera);
-		}
+
+	shader->update("numLight", scene->getNumLight());
+
+	for(unsigned int i = 0; i < scene->getSceneObjects()->size(); i++){
+		scene->getSceneObjects()->at(i)->draw(camera);
+	}
+
+	for(unsigned int i = 0; i < scene->getLights()->size(); i++){
+		scene->getLights()->at(i)->draw(shader);
 	}
 }

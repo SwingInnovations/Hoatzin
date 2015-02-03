@@ -32,18 +32,18 @@ out vec4 color;
 
 vec3 applyLight(Light light, vec3 surfaceColor, vec3 normal, vec3 surfacePos, vec3 surfaceToCamera){
 	vec3 surfaceToLight;
-	float attenuation = 0;
+	float attenuation = 0.0f;
 	if(light.position.w == 0.0){
 		surfaceToLight = normalize(light.position.xyz);
 		attenuation = 1.0;
 	}else{
 		surfaceToLight = normalize(light.position.xyz - surfacePos);
 		float distanceToLight = length(light.position.xyz - surfacePos);
-		attenuation = 1.0/(1.0 + light.attenuation + pow(distanceToLight, 2));
+		attenuation = 1.0f/(1.0f + light.attenuation + pow(distanceToLight, 2));
 		
 		float lightToSurfaceAngle = degrees(acos(dot(-surfaceToLight, normalize(light.coneDirection))));
 		if(lightToSurfaceAngle > light.coneAngle){
-			attenuation = 0.0;
+			attenuation = 0.0f;
 		}
 	}
 	vec3 ambient = light.ambientCoefficient * surfaceColor.rgb * light.intensity;
@@ -57,18 +57,23 @@ vec3 applyLight(Light light, vec3 surfaceColor, vec3 normal, vec3 surfacePos, ve
 	}
 	vec3 specular = specularCoefficient * vec3(1.0, 1.0, 1.0f) * light.intensity;
 	
-	return ambient + attenuation*(diffuse*specular);
+	return ambient + attenuation * (diffuse + specular);
 }
 
 void main(void){
 	//vec3 posTest = SWLight[0].intensity.xyz;
-	float brightness = clamp(dot(-SWLight[0].position.xyz, normal0), 0.0f, 1.0f);
+	//float brightness = clamp(dot(-SWLight[0].position.xyz, normal0), 0.0f, 1.0f);
 	
 	//vec4 ambientColor = vec4(SWLight[0].intensity, 1.0) * SWLight[0].ambientCoefficient;
 	
 	vec3 surfaceColor = texture2D(diffuse, texCoord0).rgb;
-	vec3 linearColor = applyLight(SWLight[0], surfaceColor, normal0, position0, normalize(cameraPosition-position0));
+	vec3 linearColor;
+	for(int i = 0; i < numLight; i++){
+		linearColor +=  applyLight(SWLight[i], surfaceColor, normal0, position0, normalize(cameraPosition-SWLight[i].position.xyz)) * clamp(dot(-SWLight[i].position.xyz, normal0), 0.0f, 1.0f);
+	}
 	
-	color = texture2D(diffuse, texCoord0) * brightness * 0.8f;
-	//color = vec4(linearColor, 1.0);
+	//color = texture2D(diffuse, texCoord0) * brightness * 0.8f;
+	//color = vec4(surfaceColor, 1.0f) * brightness * 0.8f;
+	color = vec4(linearColor, 1.0);
+	
 }

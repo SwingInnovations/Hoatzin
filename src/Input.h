@@ -133,6 +133,7 @@ public:
 	InputMap(const std::string& filePath);
 	void addMapping(int target, int key);
 	int get(int target);
+
 	std::string info(){
 		std::ostringstream ret;
 		for(unsigned int i = 0; i < mapping.size(); i++){

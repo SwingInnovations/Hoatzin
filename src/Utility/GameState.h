@@ -16,11 +16,14 @@ public:
 	virtual void init(AppWindow* app){}
 	virtual void updateInput(AppWindow* app, int delta){}
 	virtual void updateAuto(AppWindow* app ,int delta){}
+	virtual void setSceneManager(SWSceneManager* scene){this->scene = scene;}
 	virtual void render(Graphics* g){}
 	virtual int getID(){return id;}
 	int id;
-private:
+protected:
 	SWSceneManager* scene;
+private:
+
 };
 
 #endif /* GAMESTATE_H_ */
