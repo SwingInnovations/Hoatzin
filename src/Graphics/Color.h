@@ -55,7 +55,7 @@ namespace COLOR{
 			return Vector3f(0.0f, 1.0f, 1.0f);
 			break;
 		case 11:
-			return Vector3f(0.0f, 1.0f, 0.0f);
+			return Vector3f(0.0f, 0.0f, 1.0f);
 			break;
 		case 12:
 			return Vector3f(1.0f, 1.0f, 0.0f);
