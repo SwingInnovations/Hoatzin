@@ -157,6 +157,8 @@ public:
     void requestClose(){ closeRequested = true; }
 
     void setInputMap(InputMap* map){ inputMap = map; }
+    void setMoveSpeed(float speed){ moveSpeed = speed; }
+    void setMouseSensitivity(float speed){ mouseSensitivity = speed; }
     InputMap* inputMapping(){return inputMap;}
 
     void addJoystick(int id);
@@ -179,6 +181,8 @@ public:
 
     unsigned int getScreenWidth(){return screenWidth;}
     unsigned int getScreenHeight(){return screenHeight;}
+    float getMouseSensitivity()const{return mouseSensitivity;}
+    float getMoveSpeed()const{return moveSpeed;}
     Uint32 getDelta(){return delta;}
 
     Vector2f getMouseCoord();
@@ -192,6 +196,8 @@ private:
     Uint32 delta;
     SDL_Window* templateWin;
     InputMap* inputMap;
+    float moveSpeed;
+    float mouseSensitivity;
 };
 
 #endif /* INPUT_H_ */

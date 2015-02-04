@@ -40,12 +40,14 @@ public:
 		Vector3f lP2(-3.0, -6.0f, -2.0f);
 		Vector3f lI2 = COLOR::Color(COLOR::GREEN);
 		Vector3f cD2(0.0f, 1.0f, 0.0f);
-		light2 = new SWSpotLight(lP2, lI2, cD2, 0.0f, 0.5f, 15.0f, 1);
+		light2 = new SWSpotLight(lP2, lI2, cD2, 0.0f, 0.5f, 15.0f);
+		light2->setIndex(1);
 
 		Vector3f lP3(-2.0f, -5.0f, 0.0f);
 		Vector3f lI3 = COLOR::Color(COLOR::WHITE);
 		Vector3f cD3(0.0f, 1.0f, 0.0f);
-		SWSpotLight* light3 = new SWSpotLight(lP3, lI3, cD3, 0.0f, 0.8f, 15.0f, 2);
+		SWSpotLight* light3 = new SWSpotLight(lP3, lI3, cD3, 0.0f, 0.8f, 15.0f);
+		light3->setIndex(2);
 
 		figure->getMaterial()->addDiffuseMap("grid.png");
 		scene->add(plane);
@@ -58,6 +60,7 @@ public:
 
 	virtual void updateInput(AppWindow* app, int delta){
 		Input* input = app->getInput();
+		input->setMoveSpeed(0.0025f);
 		app->showCursor(false);
 		if(input->isKeyDown(KEY::KEY_ESC)) input->requestClose();
 		app->getCamera()->update(input);

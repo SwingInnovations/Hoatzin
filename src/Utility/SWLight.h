@@ -39,7 +39,43 @@ public:
 
 	void setIndex(int i){
 		index = i;
-		uniforms.push_back(SWShader::ShaderInfo("Num", SWShader::INT, SWShader::toString(index)));
+		uniforms.clear();
+		addLightUniforms(index, "position", SWShader::VEC4, SWShader::toString(light.position));
+		addLightUniforms(index, "intensity", SWShader::VEC3, SWShader::toString(light.intensity));
+		addLightUniforms(index, "coneDirection", SWShader::VEC3, SWShader::toString(light.coneDirection));
+		addLightUniforms(index, "attenuation", SWShader::FLOAT, SWShader::toString(light.attenuation));
+		addLightUniforms(index, "ambientCoefficient", SWShader::FLOAT, SWShader::toString(light.ambientCoefficient));
+		addLightUniforms(index, "coneAngle", SWShader::FLOAT, SWShader::toString(light.coneAngle));
+	}
+
+	void setPosition(Vector4f& vec){
+		light.position = vec;
+		updateProperty("position", light.position);
+	}
+
+	void setIntensity(Vector3f& vec){
+		light.intensity = vec;
+		updateProperty("intensity", light.intensity);
+	}
+
+	void setConeDirection(Vector3f& vec){
+		light.coneDirection = vec;
+		updateProperty("coneDirection", light.coneDirection);
+	}
+
+	void setAmbientCoefficient(float amb){
+		light.ambientCoefficient = amb;
+		updateProperty("ambientCoefficient", light.ambientCoefficient);
+	}
+
+	void setAttenuation(float at){
+		light.attenuation = at;
+		updateProperty("attenuation", light.attenuation);
+	}
+
+	void setConeAngle(float coneAngle){
+		light.coneAngle = coneAngle;
+		updateProperty("coneAngle", light.coneAngle);
 	}
 
 	void addDirectionalLight(Vector3f position, Vector3f intensity, float amb){
@@ -50,7 +86,6 @@ public:
 		addLightUniforms(index, "position", SWShader::VEC4, SWShader::toString(light.position));
 		addLightUniforms(index, "intensity", SWShader::VEC3, SWShader::toString(light.intensity));
 		addLightUniforms(index, "ambientCoefficient", SWShader::FLOAT, SWShader::toString(light.ambientCoefficient));
-
 	}
 
 	void addSpotLight(Vector3f& position, int color, Vector3f& coneDirection, float at, float amb, float coneAngle){
@@ -96,7 +131,7 @@ public:
 
 	void updateProperty(const std::string& propertyName, float value){
 		std::ostringstream reference;
-		reference << "SWLight[" << index<<"]."<< propertyName;
+		reference << "SWLight[" << index <<"]."<< propertyName;
 		std::string info = reference.str();
 		for(unsigned int i = 0; i < uniforms.size(); i++){
 			if(uniforms.at(i).name == propertyName){
@@ -170,6 +205,13 @@ public:
 			}
 		}
 	}
+
+	Vector4f getPosition()const{ return light.position; }
+	Vector3f getIntensity()const{ return light.intensity; }
+	Vector3f getConeDirection()const{ return light.coneDirection; }
+	float getConeAngle()const{return light.coneAngle;}
+	float getAttenuation()const{return light.attenuation;}
+	float getAmbientCoefficient()const{return light.ambientCoefficient;}
 
 	Light light;
 	int index;

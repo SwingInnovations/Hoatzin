@@ -135,8 +135,8 @@ void Camera::update(Input *input){
 		if(input->isKeyDown(input->inputMapping()->get(MOVEMENT::FORWARD))){
 			float _x = transform.getTranslate().getX();
 			float _z = transform.getTranslate().getZ();
-			_x += mForward.getX() * 0.0025f * delta;
-			_z += mForward.getZ() * 0.0025f * delta;
+			_x += mForward.getX() * input->getMoveSpeed() * delta;
+			_z += mForward.getZ() * input->getMoveSpeed() * delta;
 			setTranslateX(_x);
 			setTranslateZ(_z);
 		}
@@ -144,8 +144,8 @@ void Camera::update(Input *input){
 		if(input->isKeyDown(input->inputMapping()->get(MOVEMENT::BACKWARD))){
 			float _x = transform.getTranslate().getX();
 			float _z = transform.getTranslate().getZ();
-			_x -= mForward.getX() * 0.0025f * delta;
-			_z -= mForward.getZ() * 0.0025f * delta;
+			_x -= mForward.getX() * input->getMoveSpeed() * delta;
+			_z -= mForward.getZ() * input->getMoveSpeed() * delta;
 			setTranslateX(_x);
 			setTranslateZ(_z);
 		}
@@ -156,8 +156,8 @@ void Camera::update(Input *input){
 		if(input->isKeyDown(input->inputMapping()->get(MOVEMENT::STRAFE_LEFT))){
 			float _x = transform.getTranslate().getX();
 			float _z = transform.getTranslate().getZ();
-			_x -= right.getX() * 0.0025f * delta;
-			_z -= right.getZ() * 0.0025f * delta;
+			_x -= right.getX() * input->getMoveSpeed() * delta;
+			_z -= right.getZ() * input->getMoveSpeed() * delta;
 			setTranslateX(_x);
 			setTranslateZ(_z);
 		}
@@ -165,8 +165,8 @@ void Camera::update(Input *input){
 		if(input->isKeyDown(input->inputMapping()->get(MOVEMENT::STRAFE_RIGHT))){
 			float _x = transform.getTranslate().getX();
 			float _z = transform.getTranslate().getZ();
-			_x += right.getX() * 0.0025f * delta;
-			_z += right.getZ() * 0.0025f * delta;
+			_x += right.getX() * input->getMoveSpeed() * delta;
+			_z += right.getZ() * input->getMoveSpeed() * delta;
 			setTranslateX(_x);
 			setTranslateZ(_z);
 		}
@@ -202,8 +202,8 @@ void Camera::processFPS(Input* input){
 		mUp.normalize();
 		start = true;
 	}else{
-		hAngle += 0.035f * (float)((mWIDTH/2) - input->getMouseCoord().getX());
-		vAngle += 0.035f * (float)((mHEIGHT/2) - input->getMouseCoord().getY());
+		hAngle += input->getMouseSensitivity() * (float)((mWIDTH/2) - input->getMouseCoord().getX());
+		vAngle += input->getMouseSensitivity() * (float)((mHEIGHT/2) - input->getMouseCoord().getY());
 
 		Vector3f vAxis(0.0f, 1.0f, 0.0f);
 

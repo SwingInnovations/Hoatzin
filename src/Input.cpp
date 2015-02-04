@@ -15,6 +15,9 @@ Input::Input() {
     mouseX = 0;
     mouseY = 0;
 
+    moveSpeed = 0.025f;
+    mouseSensitivity = 0.035f;
+
     for(int i = 0; i < NUM_KEYS; i++)
     {
         mKeyPressed[i] = false;
@@ -32,6 +35,9 @@ Input::Input(SDL_Event& _e)
     closeRequested = false;
     mouseX = 0;
     mouseY = 0;
+
+    moveSpeed = 0.025f;
+    mouseSensitivity = 0.035f;
 
     for(int i = 0; i < NUM_KEYS; i++)
     {
@@ -51,6 +57,10 @@ Input::Input(unsigned int _screenWidth, unsigned int _screenHeight, Uint32 delta
 	mouseY = 0;
 	screenWidth = _screenWidth;
 	screenHeight = _screenHeight;
+
+    moveSpeed = 0.025f;
+    mouseSensitivity = 0.035f;
+
 	this->delta = delta;
 
     for(int i = 0; i < NUM_KEYS; i++)
@@ -73,6 +83,9 @@ Input::Input(AppWindow* app, SDL_Event& e){
 	screenHeight = app->getHeight();
 	templateWin = app->GetWindow();
 	delta = app->getDelta();
+
+    moveSpeed = 0.025f;
+    mouseSensitivity = 0.035f;
 
     for(int i = 0; i < NUM_KEYS; i++)
     {
