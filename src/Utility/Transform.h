@@ -13,7 +13,7 @@ public:
         scale = Vector3f(1.0, 1.0, 1.0);
     }
 
-     	const Matrix4f getModel(){
+    const Matrix4f getModel(){
 
     	Matrix4f transMat, rotXMat, rotYMat, rotZMat, scaleMat;
 
@@ -31,27 +31,27 @@ public:
         return ret;
     }
 
-    void setTranslate(Vector3f& vec){this->translate = vec;}
-    void setTranslateX(float _x){this->translate.setX(_x);}
-    void setTranslateY(float _y){this->translate.setY(_y);}
-    void setTranslateZ(float _z){this->translate.setZ(_z);}
+    void setTranslate(Vector3f& vec){translate = vec;}
+    void setTranslateX(float _x){translate.setX(_x);}
+    void setTranslateY(float _y){translate.setY(_y);}
+    void setTranslateZ(float _z){translate.setZ(_z);}
 
     void setRotate(Vector3f& axis, float amt){
     	rotate = axis * amt;
     }
-    void setRotate(Vector3f& vec){this->rotate = vec;}
-    void setRotateX(float _x){this->rotate.setX(_x);}
-    void setRotateY(float _y){this->rotate.setY(_y);}
-    void setRotateZ(float _z){this->rotate.setZ(_z);}
+    void setRotate(Vector3f& vec){rotate = vec;}
+    void setRotateX(float _x){rotate.setX(_x);}
+    void setRotateY(float _y){rotate.setY(_y);}
+    void setRotateZ(float _z){rotate.setZ(_z);}
 
-    void setScale(Vector3f& vec){this->scale = vec;}
-    void setScaleX(float _x){this->scale.setX(_x);}
-    void setScaleY(float _y){this->scale.setY(_y);}
-    void setScaleZ(float _z){this->scale.setZ(_z);}
+    void setScale(Vector3f& vec){scale = vec;}
+    void setScaleX(float _x){scale.setX(_x);}
+    void setScaleY(float _y){scale.setY(_y);}
+    void setScaleZ(float _z){scale.setZ(_z);}
 
-    Vector3f getTranslate(){return this->translate;}
-    Vector3f getRotate(){return this->rotate;}
-    Vector3f getScale(){return this->scale;}
+    Vector3f getTranslate()const{return translate;}
+    Vector3f getRotate()const{return rotate;}
+    Vector3f getScale()const{return scale;}
 
 private:
     Vector3f translate;

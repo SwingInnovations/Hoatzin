@@ -79,12 +79,22 @@ public:
 		mIndicesSize = sizeof(mIndicies)/sizeof(mIndicies[0]);
 	}
 
-	//void SetVertices(Vertex* vertices){ mVertices = vertices; mVerticesSize = (sizeof(mVertices)/sizeof(mVertices[0]));}
 	void SetTransform(Transform& t){mTransform = t;}
 	int* GetIndicies(){
 		int* ret = &mIndicies[0];
 		return ret;
 	}
+
+	Vector2f topLeft(){
+		Vector3f vert = mVertices.at(0).getVertex();
+		return Vector2f(vert.getX(), vert.getY());
+	}
+
+	Vector2f topRight(){
+		Vector3f vert = mVertices.at(1).getVertex();
+		return Vector2f(vert.getX(), vert.getY());
+	}
+
 	Vertex* getVerticies(){
 		Vertex* ret = &mVertices[0];
 		return ret;

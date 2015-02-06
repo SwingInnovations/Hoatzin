@@ -46,10 +46,11 @@ public:
 		color.setW(COLOR::assertCol(val));
 	}
 
-	Vector3f* getVerticies(){return &this->vertex;}
-	Vector2f* getTexCoord(){return &this->texCoord;}
-	Vector3f* getNormal(){return &this->normal;}
-	Vector4f* getColor(){return &this->color;}
+	Vector3f* getVerticies(){return &vertex;}
+	Vector2f* getTexCoord(){return &texCoord;}
+	Vector3f* getNormal(){return &normal;}
+	Vector4f* getColor(){return &color;}
+	Vector3f getVertex()const{return vertex;}
 private:
 	bool useTexture;
 	bool useAlpha;
