@@ -14,7 +14,6 @@ public:
     }
 
     const Matrix4f getModel(){
-
     	Matrix4f transMat, rotXMat, rotYMat, rotZMat, scaleMat;
 
     	transMat.initTranslation(translate);
@@ -53,10 +52,47 @@ public:
     Vector3f getRotate()const{return rotate;}
     Vector3f getScale()const{return scale;}
 
+    Vector2f map(Vector2f& vec){
+    	Vector4f v1 = calcModel().toVector4f();
+    	Vector2f v2(v1.getX(), v1.getY());
+    	vec = vec + v2;
+    	return vec;
+    }
+
+    Vector3f map(Vector3f& vec){
+    	Vector4f v1 = calcModel().toVector4f();
+    	Vector3f v2(v1.getX(), v1.getY(), v1.getZ());
+    	vec = vec + v2;
+    	return vec;
+    }
+
+    Vector4f map(Vector4f& vec){
+    	Vector4f v1 = calcModel().toVector4f();
+    	vec = vec + v1;
+    	return vec;
+    }
+
 private:
     Vector3f translate;
     Vector3f scale;
     Vector3f rotate;
+
+    Matrix4f calcModel()const {
+    	Matrix4f transMat, rotXMat, rotYMat, rotZMat, scaleMat;
+
+    	transMat.initTranslation(translate.getX(), translate.getY(), translate.getZ());
+    	rotXMat.initRotation(rotate.getX(), new Vector3f(1.0, 0.0, 0.0));
+    	rotYMat.initRotation(rotate.getY(), new Vector3f(0.0, 1.0, 0.0));
+    	rotZMat.initRotation(rotate.getZ(), new Vector3f(0.0, 0.0, 1.0));
+    	scaleMat.initScale(scale.getX(), scale.getY(), scale.getZ());
+
+        Matrix4f ret, rotMat;
+        rotMat = rotZMat * rotYMat * rotXMat;
+
+        ret = scaleMat * rotMat * transMat;
+
+        return ret;
+    }
 };
 
 

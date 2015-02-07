@@ -332,6 +332,14 @@ public:
         return Vector3f(x, y, z);
     }
 
+    Vector4f operator+(const Vector4f& vec){
+    	const float _x = this->x + vec.x;
+    	const float _y = this->y + vec.y;
+    	const float _z = this->z + vec.z;
+    	const float _w = this->w + vec.w;
+    	return Vector4f(_x, _y, _z, _w);
+    }
+
     Vector4f operator*(const Vector4f& vec)
     {
         const float _x = this->x * vec.x;
