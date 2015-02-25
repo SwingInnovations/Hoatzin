@@ -39,6 +39,12 @@ public:
 	void update();
 	void update(Input *input);
 
+	void info()const{
+		std::cout << "m_Forward: " << mForward.info() << std::endl;
+		std::cout << "m_Up: " << mUp.info() << std::endl;
+	}
+	void setYaw(float _h){ hAngle = _h; }
+	void setPitch(float _v){ vAngle = _v; }
 	float getYaw(){return this->hAngle;}
 	float getPitch(){return this->vAngle;}
 

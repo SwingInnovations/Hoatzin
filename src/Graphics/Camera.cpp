@@ -183,8 +183,8 @@ void Camera::update(Input *input){
 void Camera::processFPS(Input* input){
 	if(!start){
 		input->CenterMouseInWindow();
-		hAngle = 0;
-		vAngle = 0;
+		hAngle = 0.0f;
+		vAngle = 0.0f;
 		Vector3f vAxis(0.0f, 1.0f, 0.0f);
 
 		mView = Vector3f(1.0f, 0.0f, 0.0f);
