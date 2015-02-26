@@ -15,21 +15,25 @@ struct SWRenderPass{
 	int sWidth, sHeight;
 	std::vector<SWComponent*> objects;
 	GLuint frameBuffer;
+	GLuint texBuffer;
 
 	SWRenderPass(){
 		sWidth = 0;
 		sHeight = 0;
 		glGenFramebuffers(1, &frameBuffer);
+		glGenTextures(1, &texBuffer);
 	}
 
 	SWRenderPass(int x, int y){
 		sWidth = x;
 		sHeight = y;
 		glGenFramebuffers(1, &frameBuffer);
+		glGenTextures(1, &texBuffer);
 	}
 
 	~SWRenderPass(){
 		glDeleteFramebuffers(1, &frameBuffer);
+		glDeleteTextures(1, &texBuffer);
 	}
 
 	void addObjects(SWComponent* comp){
@@ -40,14 +44,13 @@ struct SWRenderPass{
 			objects[i]->draw(cam);
 		}
 		glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
-		GLuint texColBuff;
-		glGenTextures(1, &texColBuff);
-		glBindTexture(GL_TEXTURE_2D, texColBuff);
+
+		glBindTexture(GL_TEXTURE_2D, texBuffer);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, sWidth, sHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texColBuff, 0);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texBuffer, 0);
 
 	}
 };
