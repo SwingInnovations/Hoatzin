@@ -12,6 +12,9 @@ class SWSceneManager;
 class AppWindow;
 
 struct SWRenderPass{
+	Plane* p;
+	Mesh* m;
+	Shader* s;
 	int sWidth, sHeight;
 	std::vector<SWComponent*> objects;
 	GLuint frameBuffer;
@@ -22,6 +25,7 @@ struct SWRenderPass{
 		sHeight = 0;
 		glGenFramebuffers(1, &frameBuffer);
 		glGenTextures(1, &texBuffer);
+		p = new Plane(0, 0, sWidth, sHeight);
 	}
 
 	SWRenderPass(int x, int y){
@@ -29,6 +33,7 @@ struct SWRenderPass{
 		sHeight = y;
 		glGenFramebuffers(1, &frameBuffer);
 		glGenTextures(1, &texBuffer);
+		p = new Plane(0, 0, sWidth, sHeight);
 	}
 
 	~SWRenderPass(){
@@ -52,6 +57,7 @@ struct SWRenderPass{
 
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texBuffer, 0);
 
+
 	}
 };
 
@@ -63,18 +69,18 @@ public:
 
 	/*Adds a Render Layer*/
 	void addRenderPass(){
-		renderPass.push_back(SWRenderPass(WIDTH, HEIGHT));
+		renderPass.push_back(new SWRenderPass(WIDTH, HEIGHT));
 	}
 
 	void addToPass(int i, SWComponent* comp){
 		if(i < (int)renderPass.size()){
-			renderPass[i].addObjects(comp);
+			renderPass[i]->addObjects(comp);
 		}
 	}
 
 	void drawPass(int i){
 		if(i < (int)renderPass.size()){
-			renderPass[i].draw(camera);
+			renderPass[i]->draw(camera);
 		}
 	}
 
@@ -104,7 +110,7 @@ public:
 
 	void drawScene(SWSceneManager* scene);
 private:
-	std::vector<SWRenderPass> renderPass;
+	std::vector<SWRenderPass*> renderPass;
 	int WIDTH, HEIGHT;
 	bool legacyGraphicsInUse;
 	Camera* camera;
