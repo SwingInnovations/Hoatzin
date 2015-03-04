@@ -8,42 +8,37 @@
 #include "../Utility/SWComponent.h"
 
 class Camera;
+class Mesh;
 class SWSceneManager;
 class AppWindow;
 
 struct SWRenderPass{
-	Plane* p;
-	Mesh* m;
 	Shader* s;
+	Mesh* m;
 	int sWidth, sHeight;
 	std::vector<SWComponent*> objects;
 	GLuint frameBuffer;
 	GLuint texBuffer;
+	GLuint renderBuff;
 
-	SWRenderPass(){
-		sWidth = 0;
-		sHeight = 0;
-		glGenFramebuffers(1, &frameBuffer);
-		glGenTextures(1, &texBuffer);
-		p = new Plane(0, 0, sWidth, sHeight);
-	}
+	SWRenderPass();
 
-	SWRenderPass(int x, int y){
-		sWidth = x;
-		sHeight = y;
-		glGenFramebuffers(1, &frameBuffer);
-		glGenTextures(1, &texBuffer);
-		p = new Plane(0, 0, sWidth, sHeight);
-	}
+	SWRenderPass(int x, int y);
 
 	~SWRenderPass(){
 		glDeleteFramebuffers(1, &frameBuffer);
 		glDeleteTextures(1, &texBuffer);
 	}
 
+	void setShader(Shader* shdr){ s = shdr; }
+	void setShader(std::string& str){ s = new Shader(str); }
+
+	Shader* getShader(){return s;}
+
 	void addObjects(SWComponent* comp){
 		objects.push_back(comp);
 	}
+
 	void draw(Camera* cam){
 		for(int i = 0; i < (int)objects.size(); i++){
 			objects[i]->draw(cam);
@@ -57,7 +52,13 @@ struct SWRenderPass{
 
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texBuffer, 0);
 
+		glBindRenderbuffer(GL_RENDERBUFFER, renderBuff);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, sWidth, sHeight);
+		glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderBuff);
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 };
 

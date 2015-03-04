@@ -2,6 +2,7 @@
 #define TRANSFORM_H_
 
 #include <iostream>
+#include <LinearMath/btTransform.h>
 #include "Math/Vector.h"
 #include "Math/Matrix.h"
 
@@ -70,6 +71,20 @@ public:
     	Vector4f v1 = calcModel().toVector4f();
     	vec = vec + v1;
     	return vec;
+    }
+
+    static Transform toSWTransform(btTransform& in){
+    	Transform ret;
+    	Vector3f trans, rot, scal;
+    	ret.setTranslate(trans);
+    	ret.setRotate(rot);
+    	ret.setScale(scal);
+    	return ret;
+    }
+
+    static btTransform toBtTransform(Transform& in){
+    	btTransform ret;
+    	return ret;
     }
 
 private:
