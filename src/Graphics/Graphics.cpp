@@ -34,20 +34,22 @@ SWRenderPass::SWRenderPass(int x, int y){
 
 	s = new Shader("Shader/screen", "Shader/default");
 
-	glGenFramebuffers(1, &frameBuffer);
-	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
-
 	glGenTextures(1, &texBuffer);
+
+	glGenFramebuffers(1, &frameBuffer);
+
+
+
 	glBindTexture(GL_TEXTURE_2D, texBuffer);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, sWidth, sHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
 	glGenerateMipmap(GL_TEXTURE_2D);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glBindTexture(GL_TEXTURE_2D, 0);
 
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texBuffer, 0);
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texBuffer, 1);
 
 	glGenRenderbuffers(1, &renderBuff);
 	glBindRenderbuffer(GL_RENDERBUFFER, renderBuff);
@@ -55,7 +57,12 @@ SWRenderPass::SWRenderPass(int x, int y){
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderBuff);
 
+	GLenum drawBuffers[] = {GL_COLOR_ATTACHMENT0};
+	glDrawBuffers(1, drawBuffers);
+
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+
 }
 
 SWRenderPass::~SWRenderPass(){
@@ -66,18 +73,27 @@ SWRenderPass::~SWRenderPass(){
 }
 
 void SWRenderPass::draw(Camera* cam){
-	std::cout << "Drawing in Progress" << std::endl;
+	glViewport(0, 0, sWidth, sHeight);
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.0, 0.0, 0.2, 1.0);
+
+	glEnable(GL_DEPTH_TEST);
 
 	for(int i = 0; i < (int)objects.size(); i++){
 		objects[i]->draw(cam);
 	}
+
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	s->bind();
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glDisable(GL_DEPTH_TEST);
+
 	glEnable(GL_TEXTURE_2D);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texBuffer);
+	s->bind();
 	m->draw();
 }
 
@@ -97,6 +113,9 @@ Graphics::~Graphics() {
 }
 
 void Graphics::drawScene(SWSceneManager* scene){
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.0, 0.0, 0.2, 1.0);
+	glEnable(GL_DEPTH_TEST);
 
 	shader->update("numLight", scene->getNumLight());
 

@@ -109,7 +109,7 @@ void Texture::reBind(){
 
 Texture::~Texture() {
 	glDeleteTextures(1, tex);
-	delete tex;
+	//delete tex;
 	fileReference.clear();
 }
 

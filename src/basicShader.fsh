@@ -72,6 +72,7 @@ void main(void){
 		linearColor +=  applyLight(SWLight[i], surfaceColor, normal0, position0, normalize(cameraPosition-SWLight[i].position.xyz)) * clamp(dot(-SWLight[i].position.xyz, normal0), 0.0f, 1.0f);
 	}
 	
-	color = vec4(linearColor, 1.0);
+	//color = vec4(linearColor, 1.0);
+	color = vec4(surfaceColor, 1.0);
 	
 }
