@@ -10,6 +10,28 @@ public:
 
 	}
 
+	Plane(int width, int height, int depthPos){
+		int centerWidth = width/2;
+		int centerHeight = height/2;
+
+		mVertices.reserve(4);
+		mVertices.push_back(Vertex(Vector3f(centerWidth - centerWidth, centerHeight + centerHeight, depthPos), Vector2f(0.0, 0.0), Vector3f(0.0f, 1.0f, 0.0f)));
+		mVertices.push_back(Vertex(Vector3f(centerWidth + centerWidth, centerHeight + centerHeight, depthPos), Vector2f(0.0, 1.0), Vector3f(0.0f, 1.0f, 0.0f)));
+		mVertices.push_back(Vertex(Vector3f(centerWidth + centerWidth, centerHeight - centerHeight, depthPos), Vector2f(1.0, 1.0), Vector3f(0.0f, 1.0f, 0.0f)));
+		mVertices.push_back(Vertex(Vector3f(centerWidth - centerWidth, centerHeight - centerHeight, depthPos), Vector2f(1.0, 0.0), Vector3f(0.0f, 1.0f, 0.0f)));
+
+		mIndicies.reserve(6);
+		mIndicies.push_back(0);
+		mIndicies.push_back(1);
+		mIndicies.push_back(2);
+		mIndicies.push_back(3);
+		mIndicies.push_back(2);
+		mIndicies.push_back(0);
+
+		mVerticesSize = 4;
+		mIndicesSize = 6;
+	}
+
 	Plane(int width, int height){
 		int centerWidth = width/2;
 		int centerHeight = height/2;
@@ -75,8 +97,11 @@ public:
 		mIndicies.push_back(2);
 		mIndicies.push_back(0);
 
-		mVerticesSize = sizeof(mVertices)/sizeof(mVertices[0]);
-		mIndicesSize = sizeof(mIndicies)/sizeof(mIndicies[0]);
+		mVerticesSize = 4;
+		mIndicesSize = 6;
+//
+//		mVerticesSize = sizeof(mVertices)/sizeof(mVertices[0]);
+//		mIndicesSize = sizeof(mIndicies)/sizeof(mIndicies[0]);
 	}
 
 	void SetTransform(Transform& t){mTransform = t;}

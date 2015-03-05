@@ -52,6 +52,7 @@ public:
 		scene->add(sphere);
 		scene->add(spotLight);
 		scene->add(light2);
+		loaded = false;
 	}
 
 	virtual void updateInput(AppWindow* app, int delta){
@@ -68,12 +69,19 @@ public:
 		figure->setRotateY(rot);
 		sphere->setTranslateX(20.0);
 		sphere->setRotateY(-rot);
-		app->getCamera()->info();
 	}
 
 	virtual void render(Graphics* g){
+		while(!loaded){
+			g->addRenderPass();
+			for(unsigned int i = 0; i < scene->getSceneObjects()->size(); i++){
+				g->addToPass(0, scene->getComponent(i));
+			}
+			loaded = true;
+		}
 		g->setShader(shdr);
-		g->drawScene(scene);
+		g->drawPass(0);
+		//g->drawScene(scene);
 	}
 
 	virtual ~ExampleLevel(){
@@ -83,6 +91,7 @@ public:
 	int getID(){return 0;}
 
 private:
+	bool loaded;
 	btVector3 vec;
 	Shader* shdr;
 	SWSpotLight* spotLight;
@@ -90,6 +99,7 @@ private:
 	SWGameObject* figure;
 	SWGameObject* plane;
 	SWGameObject* sphere;
+	Mesh* plane2;
 };
 
 #endif

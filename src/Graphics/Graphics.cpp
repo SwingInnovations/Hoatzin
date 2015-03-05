@@ -6,16 +6,78 @@ SWRenderPass::SWRenderPass(){
 	glGenFramebuffers(1, &frameBuffer);
 	glGenRenderbuffers(1, &renderBuff);
 	glGenTextures(1, &texBuffer);
-	m = new Mesh(new Plane(0, 0, sWidth, sHeight));
+	m = new Mesh(new Plane(0, 0, 1, 1));
+	s = new Shader("Shader/screen", "Shader/default");
+
+
+	glBindTexture(GL_TEXTURE_2D, texBuffer);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, sWidth, sHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glBindRenderbuffer(GL_RENDERBUFFER, renderBuff);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, sWidth, sHeight);
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texBuffer, 0);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderBuff);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 SWRenderPass::SWRenderPass(int x, int y){
 	sWidth = x;
 	sHeight = y;
+	m = new Mesh(new Plane(0, 0, 2, 2));
+
+	s = new Shader("Shader/screen", "Shader/default");
+
 	glGenFramebuffers(1, &frameBuffer);
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+
 	glGenTextures(1, &texBuffer);
+	glBindTexture(GL_TEXTURE_2D, texBuffer);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, sWidth, sHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 	glGenRenderbuffers(1, &renderBuff);
-	m = new Mesh(new Plane(0, 0, sWidth, sHeight));
+	glBindRenderbuffer(GL_RENDERBUFFER, renderBuff);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, sWidth, sHeight);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderBuff);
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texBuffer, 0);
+	glDrawBuffer(GL_COLOR_ATTACHMENT0);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+SWRenderPass::~SWRenderPass(){
+	s->~Shader();
+	m->~Mesh();
+	glDeleteFramebuffers(1, &frameBuffer);
+	glDeleteTextures(1, &texBuffer);
+}
+
+void SWRenderPass::draw(Camera* cam){
+	std::cout << "Drawing in Progress" << std::endl;
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+	glEnable(GL_DEPTH_TEST);
+
+	for(int i = 0; i < (int)objects.size(); i++){
+		objects[i]->draw(cam);
+	}
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glDisable(GL_DEPTH_TEST);
+	s->bind();
+	glEnable(GL_TEXTURE_2D);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texBuffer);
+	m->draw();
 }
 
 Graphics::Graphics(AppWindow* app){
@@ -36,6 +98,7 @@ Graphics::~Graphics() {
 void Graphics::drawScene(SWSceneManager* scene){
 
 	shader->update("numLight", scene->getNumLight());
+
 
 	for(unsigned int i = 0; i < scene->getSceneObjects()->size(); i++){
 		scene->getSceneObjects()->at(i)->draw(camera);

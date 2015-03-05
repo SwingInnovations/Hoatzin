@@ -166,7 +166,6 @@ public:
 		std::ostringstream output;
 		output << "SWLight[" << num << "]." << propertyName;
 		std::string info = output.str();
-		std::cout << info << std::endl;
 		uniforms.push_back(SWShader::ShaderInfo(info, type, propertyVal));
 	}
 

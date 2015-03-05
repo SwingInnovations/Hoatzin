@@ -25,11 +25,7 @@ struct SWRenderPass{
 
 	SWRenderPass(int x, int y);
 
-	~SWRenderPass(){
-		glDeleteFramebuffers(1, &frameBuffer);
-		glDeleteTextures(1, &texBuffer);
-	}
-
+	~SWRenderPass();
 	void setShader(Shader* shdr){ s = shdr; }
 	void setShader(std::string& str){ s = new Shader(str); }
 
@@ -39,27 +35,7 @@ struct SWRenderPass{
 		objects.push_back(comp);
 	}
 
-	void draw(Camera* cam){
-		for(int i = 0; i < (int)objects.size(); i++){
-			objects[i]->draw(cam);
-		}
-		glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
-
-		glBindTexture(GL_TEXTURE_2D, texBuffer);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, sWidth, sHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texBuffer, 0);
-
-		glBindRenderbuffer(GL_RENDERBUFFER, renderBuff);
-		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, sWidth, sHeight);
-		glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderBuff);
-
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	}
+	void draw(Camera* cam);
 };
 
 class Graphics {

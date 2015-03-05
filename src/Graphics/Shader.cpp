@@ -52,6 +52,32 @@ Shader::Shader(const std::string& filePath){
 	uniform[2] = glGetUniformLocation(mProgram, "cameraPosition");
 }
 
+Shader::Shader(const std::string& vertShdrPath, const std::string& fragShdrPath){
+	mProgram = glCreateProgram();
+	mShaders[0] = createShader(loadShader(vertShdrPath + ".vsh"), GL_VERTEX_SHADER);
+	mShaders[1] = createShader(loadShader(fragShdrPath + ".fsh"), GL_FRAGMENT_SHADER);
+
+	for(unsigned int i = 0; i < NUM_SHADER; i++){
+		glAttachShader(mProgram, mShaders[i]);
+	}
+
+	glBindAttribLocation(mProgram, 0, "position");
+	glBindAttribLocation(mProgram, 1, "texCoord");
+	glBindAttribLocation(mProgram, 2, "normal");
+	glBindAttribLocation(mProgram, 3, "tangent");
+	glBindAttribLocation(mProgram, 4, "biTangent");
+
+	glLinkProgram(mProgram);
+	checkShaderStatus(mProgram, GL_LINK_STATUS, true, "Error Linking Shader Program");
+
+	glValidateProgram(mProgram);
+	checkShaderStatus(mProgram, GL_LINK_STATUS, true, "Invalid shader program!");
+
+	uniform[0] = glGetUniformLocation(mProgram, "model");
+	uniform[1] = glGetUniformLocation(mProgram, "camera");
+	uniform[2] = glGetUniformLocation(mProgram, "cameraPosition");
+}
+
 Shader::~Shader() {
 	for(unsigned int i = 0; i < NUM_SHADER; i++){
 		glDeleteShader(mShaders[i]);

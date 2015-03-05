@@ -96,6 +96,7 @@ class Shader {
 public:
 	Shader();
 	Shader(const std::string& filePath);
+	Shader(const std::string& vertShdrPath, const std::string& fragShdrPath);
 	void bind();
 	void update(Transform& trans);
 	void update(Transform& trans, Camera& cam);
