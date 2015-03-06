@@ -9,6 +9,7 @@
 #include "Vertex.h"
 #include "OBJMesh.h"
 #include "Math/Geom/Shape.h"
+#include "Math/Geom/Quad.h"
 #include "Math/Geom/Plane.h"
 #include "Math/Geom/Box.h"
 
@@ -154,6 +155,48 @@ public:
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mVBO[INDEX_BUFFER]);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, mDrawCount * sizeof(shape->GetIndicies()[0]), &shape->GetIndicies()[0], GL_STATIC_DRAW);
+
+		glBindVertexArray(0);
+	}
+
+	Mesh(Quad* shape){
+		mNumVert = shape->mVerticesSize;
+		mDrawCount = shape->mIndicesSize;
+
+		std::vector<Vector3f> vertex;
+		std::vector<Vector2f> texCoord;
+		std::vector<Vector3f> normal;
+
+		glGenVertexArrays(1, &mVAO);
+		glBindVertexArray(mVAO);
+
+		vertex.reserve(mNumVert);
+		texCoord.reserve(mNumVert);
+		normal.reserve(mNumVert);
+		for(unsigned int i = 0; i < mNumVert; i++){
+			vertex.push_back(*shape->mVertices[i].getVerticies());
+			texCoord.push_back(*shape->mVertices[i].getTexCoord());
+			normal.push_back(*shape->mVertices[i].getNormal());
+		}
+		glGenBuffers(NUM_BUFFERS, mVBO);
+
+		glBindBuffer(GL_ARRAY_BUFFER, mVBO[VERTEX_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, mNumVert * sizeof(vertex[0]), &vertex[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, mVBO[TEXCOORD_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, mNumVert * sizeof(texCoord[0]), &texCoord[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, mVBO[NORMAL_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, mNumVert*sizeof(normal[0]), &normal[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mVBO[INDEX_BUFFER]);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, mDrawCount * sizeof(shape->GetIndices()[0]), &shape->GetIndices()[0], GL_STATIC_DRAW);
 
 		glBindVertexArray(0);
 	}

@@ -8,6 +8,7 @@
 #include "../Utility/SWComponent.h"
 
 class Camera;
+class Texture;
 class Mesh;
 class SWSceneManager;
 class AppWindow;
@@ -17,6 +18,7 @@ struct SWRenderPass{
 	Mesh* m;
 	int sWidth, sHeight;
 	std::vector<SWComponent*> objects;
+	Texture* tex;
 	GLuint frameBuffer;
 	GLuint texBuffer;
 	GLuint renderBuff;

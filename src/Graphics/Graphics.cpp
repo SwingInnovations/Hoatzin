@@ -30,18 +30,15 @@ SWRenderPass::SWRenderPass(){
 SWRenderPass::SWRenderPass(int x, int y){
 	sWidth = x;
 	sHeight = y;
-	m = new Mesh(new Plane(0, 0, 2, 2));
+	m = new Mesh(new Quad(2, 2));
 
 	s = new Shader("Shader/screen", "Shader/default");
 
+	glGenFramebuffers(1, &frameBuffer);
 	glGenTextures(1, &texBuffer);
 
-	glGenFramebuffers(1, &frameBuffer);
-
-
-
 	glBindTexture(GL_TEXTURE_2D, texBuffer);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, sWidth, sHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, sWidth, sHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -49,7 +46,10 @@ SWRenderPass::SWRenderPass(int x, int y){
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texBuffer, 1);
+	glFramebufferParameteri(GL_FRAMEBUFFER, GL_FRAMEBUFFER_DEFAULT_WIDTH, sWidth);
+	glFramebufferParameteri(GL_FRAMEBUFFER, GL_FRAMEBUFFER_DEFAULT_HEIGHT, sHeight);
+	glFramebufferParameteri(GL_FRAMEBUFFER, GL_FRAMEBUFFER_DEFAULT_SAMPLES, 4);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texBuffer, 0);
 
 	glGenRenderbuffers(1, &renderBuff);
 	glBindRenderbuffer(GL_RENDERBUFFER, renderBuff);
@@ -59,42 +59,48 @@ SWRenderPass::SWRenderPass(int x, int y){
 
 	GLenum drawBuffers[] = {GL_COLOR_ATTACHMENT0};
 	glDrawBuffers(1, drawBuffers);
-
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-
+	if(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE){
+		std::cout << "Successfully generated FrameBuffer" << std::endl;
+	}
+	glViewport(0, 0, sWidth, sHeight);
 }
 
 SWRenderPass::~SWRenderPass(){
 	s->~Shader();
 	m->~Mesh();
 	glDeleteFramebuffers(1, &frameBuffer);
+	glDeleteRenderbuffers(1, &renderBuff);
 	glDeleteTextures(1, &texBuffer);
 }
 
 void SWRenderPass::draw(Camera* cam){
-	glViewport(0, 0, sWidth, sHeight);
+
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0, 0.0, 0.2, 1.0);
-
 	glEnable(GL_DEPTH_TEST);
-
 	for(int i = 0; i < (int)objects.size(); i++){
 		objects[i]->draw(cam);
 	}
 
+	glEnable(GL_TEXTURE_2D);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glDisable(GL_DEPTH_TEST);
 
-	glEnable(GL_TEXTURE_2D);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texBuffer);
 	s->bind();
 	m->draw();
+
+	glDisable(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 Graphics::Graphics(AppWindow* app){

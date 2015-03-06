@@ -22,11 +22,11 @@ public:
 	virtual void init(AppWindow* app){
 		shdr = new Shader("basicShader");
 		plane = new SWGameObject(new Mesh(new Plane(0, 0, 40, 40)), new SWMaterial(shdr));
-		plane->getMaterial()->addDiffuseMap("grid.png");
-//		plane->setRotateX(90.0f);
-//		plane->setTranslateX(-20.0f);
-//		plane->setTranslateY(-20.0f);
-//		plane->setTranslateZ(0.0f);
+		plane->getMaterial()->addDiffuseMap("flower.jpg");
+		plane->setRotateX(90.0f);
+		plane->setTranslateX(-20.0f);
+		plane->setTranslateY(-20.0f);
+		plane->setTranslateZ(0.0f);
 
 		figure = new SWGameObject(new Mesh("defaultFigure.obj", MESH_TYPE::MODEL_OBJ), new SWMaterial(shdr));
 		sphere = new SWGameObject(new Mesh("sphere.obj", MESH_TYPE::MODEL_OBJ), new SWMaterial(shdr));

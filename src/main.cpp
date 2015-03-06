@@ -18,7 +18,7 @@ int main(int argc, char** argv){
 	app.SetOpenGLVersion(3, 3);
 	app.addState(new ExampleLevel(0));
 	app.enterState(0);
-	app.setTargetFPS(60);
+	app.setTargetFPS(90);
 	app.start();
 	return 0;
 }
