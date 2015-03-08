@@ -12,6 +12,7 @@ AppWindow::AppWindow() {
 	this->WIDTH = 800;
 	this->HEIGHT = 800;
 	mCurrentState = 0;
+	cursorDisplay = false;
 }
 
 AppWindow::AppWindow(const std::string title, int WIDTH, int HEIGHT) : fps(60){
@@ -33,6 +34,7 @@ AppWindow::AppWindow(const std::string title, int WIDTH, int HEIGHT) : fps(60){
 		}
 	}
 	pause = false;
+	cursorDisplay = false;
 	oldTime = 0;
 	newTime = SDL_GetTicks();
 	mCurrentState = 0;
@@ -150,6 +152,7 @@ void AppWindow::start(){
 }
 
 void AppWindow::showCursor(bool val){
+	cursorDisplay = val;
 	if(val){
 		SDL_ShowCursor(SDL_ENABLE);
 	}else{

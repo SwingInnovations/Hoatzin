@@ -202,8 +202,10 @@ void Camera::processFPS(Input* input){
 		mUp.normalize();
 		start = true;
 	}else{
-		hAngle += input->getMouseSensitivity() * (float)((mWIDTH/2) - input->getMouseCoord().getX());
-		vAngle += input->getMouseSensitivity() * (float)((mHEIGHT/2) - input->getMouseCoord().getY());
+		if(input->isCursorBound()){
+			hAngle += input->getMouseSensitivity() * (float)((mWIDTH/2) - input->getMouseCoord().getX());
+			vAngle += input->getMouseSensitivity() * (float)((mHEIGHT/2) - input->getMouseCoord().getY());
+		}
 
 		Vector3f vAxis(0.0f, 1.0f, 0.0f);
 

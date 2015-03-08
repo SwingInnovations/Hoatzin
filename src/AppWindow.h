@@ -42,6 +42,7 @@ public:
 	int getWidth(){return WIDTH;}
 	int getHeight(){return HEIGHT;}
 	bool getPause(){return pause;}
+	bool isCursorShown(){return cursorDisplay;}
 
 	Uint32 getFPS(){return fps;}
 	Uint32 getDelta(){return delta;}
@@ -63,6 +64,7 @@ private:
 	Graphics* g;
 	bool pause;
 	bool script;
+	bool cursorDisplay;
 	unsigned int WIDTH, HEIGHT;
 	int mCurrentState;
 	Uint32 delta, oldTime, newTime, fps;

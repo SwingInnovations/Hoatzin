@@ -12,6 +12,7 @@ static Vector2f mousePosition;
 
 Input::Input() {
     closeRequested = false;
+    cursorBound = true;
     mouseX = 0;
     mouseY = 0;
 
@@ -33,6 +34,7 @@ Input::Input(SDL_Event& _e)
 {
     e =_e;
     closeRequested = false;
+    cursorBound = true;
     mouseX = 0;
     mouseY = 0;
 
@@ -53,6 +55,7 @@ Input::Input(SDL_Event& _e)
 Input::Input(unsigned int _screenWidth, unsigned int _screenHeight, Uint32 delta, SDL_Event& e){
 	this->e = e;
 	closeRequested = false;
+	cursorBound = true;
 	mouseX = 0;
 	mouseY = 0;
 	screenWidth = _screenWidth;
@@ -77,6 +80,7 @@ Input::Input(unsigned int _screenWidth, unsigned int _screenHeight, Uint32 delta
 Input::Input(AppWindow* app, SDL_Event& e){
 	this->e = e;
 	closeRequested = false;
+	cursorBound = true;
 	mouseX = 0;
 	mouseY = 0;
 	screenWidth = app->getWidth();

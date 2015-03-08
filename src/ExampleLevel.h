@@ -60,6 +60,10 @@ public:
 		input->setMoveSpeed(0.0025f);
 		app->showCursor(false);
 		if(input->isKeyDown(KEY::KEY_ESC)) input->requestClose();
+		if(input->isKeyDown(KEY::KEY_L_ALT)){
+			input->setCursorBound(!input->isCursorBound());
+			app->showCursor(!app->isCursorShown());
+		}
 		app->getCamera()->update(input);
 	}
 

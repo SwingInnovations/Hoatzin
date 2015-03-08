@@ -159,6 +159,7 @@ public:
     void setInputMap(InputMap* map){ inputMap = map; }
     void setMoveSpeed(float speed){ moveSpeed = speed; }
     void setMouseSensitivity(float speed){ mouseSensitivity = speed; }
+    void setCursorBound(bool val){ cursorBound = val; }
     InputMap* inputMapping(){return inputMap;}
 
     void addJoystick(int id);
@@ -178,6 +179,7 @@ public:
 
     bool isKeyDown(int Key);
     bool isMouseDown(int mouseButton);
+    bool isCursorBound(){ return cursorBound; }
 
     unsigned int getScreenWidth(){return screenWidth;}
     unsigned int getScreenHeight(){return screenHeight;}
@@ -188,6 +190,7 @@ public:
     Vector2f getMouseCoord();
 private:
     bool closeRequested;
+    bool cursorBound;
     SDL_Event e;
     SDL_Joystick* mJoystick[5];
 
