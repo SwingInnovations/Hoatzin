@@ -188,9 +188,26 @@ bool Input::isCloseRequested()
     return closeRequested;
 }
 
+bool Input::isKeyPressed(int Key){
+	if(mKeyPressed[Key]){
+		mKeyPressed[Key] = false;
+		return true;
+	}
+
+	return false;
+}
+
 bool Input::isKeyDown(int Key)
 {
     return mKeyPressed[Key];
+}
+
+bool Input::isMousePressed(int mouseButton){
+	if(mMouseButtonPressed[mouseButton]){
+		mMouseButtonPressed[mouseButton] = false;
+		return true;
+	}
+	return false;
 }
 
 bool Input::isMouseDown(int mouseButton)

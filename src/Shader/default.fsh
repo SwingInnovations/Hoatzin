@@ -15,7 +15,7 @@ void main(void){
 			sum += texture(frameBuff, vec2(_texCoord.x + x * blurSizeH, _texCoord.y + y * blurSizeW)) / 81.0;
 		}
 	}
-	color = sum;
-	//color = texture(frameBuff, _texCoord);
+	//color = sum;
+	color = texture(frameBuff, _texCoord);
 	//color = vec4(1.0f, 0.0f, 0.0f, 1.0f);
 }

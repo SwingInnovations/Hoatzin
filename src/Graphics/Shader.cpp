@@ -97,6 +97,12 @@ void Shader::update(Transform& trans){
 	glUniformMatrix4fv(uniform[0], 1, GL_TRUE, &transform.m[0][0]);
 }
 
+void Shader::update(Camera& cam){
+	Matrix4f camera;
+	camera = cam.getViewProjection();
+	glUniformMatrix4fv(uniform[1], 1, GL_TRUE, &camera.m[0][0]);
+}
+
 void Shader::update(Transform& trans, Camera& cam){
 	Matrix4f transform, camera;
 	transform = trans.getModel();

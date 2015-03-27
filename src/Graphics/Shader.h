@@ -99,6 +99,7 @@ public:
 	Shader(const std::string& vertShdrPath, const std::string& fragShdrPath);
 	void bind();
 	void update(Transform& trans);
+	void update(Camera& cam);
 	void update(Transform& trans, Camera& cam);
 	void update(const std::string& name, int val);
 	void update(const std::string& name, float val);

@@ -125,7 +125,6 @@ void Graphics::drawScene(SWSceneManager* scene){
 
 	shader->update("numLight", scene->getNumLight());
 
-
 	for(unsigned int i = 0; i < scene->getSceneObjects()->size(); i++){
 		scene->getSceneObjects()->at(i)->draw(camera);
 	}

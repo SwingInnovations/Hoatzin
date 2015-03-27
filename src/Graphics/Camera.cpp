@@ -222,7 +222,7 @@ void Camera::processFPS(Input* input){
 
 		mUp = mForward.cross(hAxis);
 		mUp.normalize();
-		input->CenterMouseInWindow();
+		if(input->isCursorBound()){ input->CenterMouseInWindow(); }
 	}
 }
 

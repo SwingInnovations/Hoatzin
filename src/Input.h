@@ -178,6 +178,8 @@ public:
     bool isCloseRequested();
 
     bool isKeyDown(int Key);
+    bool isKeyPressed(int Key);
+    bool isMousePressed(int mouseButton);
     bool isMouseDown(int mouseButton);
     bool isCursorBound(){ return cursorBound; }
 

@@ -59,10 +59,14 @@ public:
 		Input* input = app->getInput();
 		input->setMoveSpeed(0.0025f);
 		app->showCursor(false);
-		if(input->isKeyDown(KEY::KEY_ESC)) input->requestClose();
-		if(input->isKeyDown(KEY::KEY_L_ALT)){
+		if(input->isKeyPressed(KEY::KEY_ESC)) input->requestClose();
+		if(input->isKeyPressed(KEY::KEY_L_ALT)){
 			input->setCursorBound(!input->isCursorBound());
 			app->showCursor(!app->isCursorShown());
+		}
+		if(input->isMousePressed(1) && !input->isCursorBound()){
+			input->setCursorBound(true);
+			app->showCursor(false);
 		}
 		app->getCamera()->update(input);
 	}
