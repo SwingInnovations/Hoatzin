@@ -18,7 +18,8 @@ class Vertex2D_UV;
 
 namespace MESH_TYPE{
 	enum{
-		MODEL_OBJ
+		MODEL_OBJ = 0,
+		MODEL_OPENGEX = 1
 	};
 };
 

@@ -112,6 +112,12 @@ public:
 		z = 0.0;
 	}
 
+	Vector3f(int i){
+		this->x = i;
+		this->y = i;
+		this->z = i;
+	}
+
 	Vector3f(const float _x, const float _y, const float _z){
 		this->x = _x;
 		this->y = _y;
