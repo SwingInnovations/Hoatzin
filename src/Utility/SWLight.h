@@ -17,6 +17,7 @@ public:
 		light.coneAngle = 0.0f;
 		light.ambientCoefficient = 0.0f;
 		index = 0;
+		setType("Light");
 	}
 
 	SWLight(int i){
@@ -27,6 +28,7 @@ public:
 		light.coneAngle = 0.0f;
 		light.ambientCoefficient = 0.0f;
 		index = i;
+		setType("Light");
 	}
 
 	virtual void update(){
@@ -226,6 +228,7 @@ public:
 		light.coneAngle = 0.0f;
 		light.ambientCoefficient = 0.0f;
 		index = 0;
+		setType("Light");
 	}
 
 	SWDirectionalLight(int i){
@@ -237,12 +240,15 @@ public:
 		light.ambientCoefficient = 0.0f;
 
 		index = i;
+
+		setType("Light");
 	}
 
 	SWDirectionalLight(Vector3f& position, Vector3f& intensity, float ambCoef){
 		transform = new Transform();
 		transform->setTranslate(position);
 		addDirectionalLight(position, intensity, ambCoef);
+		setType("Light");
 	}
 
 	SWDirectionalLight(Vector3f& position, Vector3f& intensity, float ambCoef, int i){
@@ -250,6 +256,7 @@ public:
 		transform = new Transform();
 		transform->setTranslate(position);
 		addDirectionalLight(position, intensity, ambCoef);
+		setType("Light");
 	}
 };
 
@@ -263,6 +270,7 @@ public:
 		light.coneAngle = 0.0f;
 		light.ambientCoefficient = 0.0f;
 		index = 0;
+		setType("Light");
 		//addSpotLight(light.position.toVec3(), light.intensity, light.coneDirection, light.attenuation, light.ambientCoefficient, light.coneAngle);
 	}
 
@@ -274,6 +282,7 @@ public:
 		light.coneAngle = 0.0f;
 		light.ambientCoefficient = 0.0f;
 		index = i;
+		setType("Light");
 		//addSpotLight(light.position.toVec3(), light.intensity, light.coneDirection, light.attenuation, light.ambientCoefficient, light.coneAngle);
 	}
 
@@ -281,18 +290,21 @@ public:
 		transform = new Transform();
 		transform->setTranslate(position);
 		index = 0;
+		setType("Light");
 		addSpotLight(position, intensity, coneDirection, att, ambCoef, coneAngle);
 	}
 
 	SWSpotLight(Vector3f& position, Vector3f& intensity, Vector3f& coneDirection, float att, float ambCoef, float coneAngle, int index){
 		this->index = index;
 		transform = new Transform();
+		setType("Light");
 		addSpotLight(position, intensity, coneDirection, att, ambCoef, coneAngle);
 	}
 
 	SWSpotLight(Vector3f& position, int color, Vector3f& coneDirection, float att, float ambCoef, float coneAngle, int index){
 		this->index = index;
 		transform = new Transform();
+		setType("Light");
 		addSpotLight(position, color, coneDirection, att, ambCoef, coneAngle);
 	}
 };

@@ -25,6 +25,7 @@ in vec3 normal0;
 in vec3 tangent0;
 in vec3 biTangent0;
 in vec3 newColor0;
+in vec3 Normal;
 
 uniform sampler2D diffuse;
 uniform vec3 cameraPosition; 
@@ -72,7 +73,16 @@ void main(void){
 		linearColor +=  applyLight(SWLight[i], surfaceColor, normal0, position0, normalize(cameraPosition-SWLight[i].position.xyz)) * clamp(dot(-SWLight[i].position.xyz, normal0), 0.0f, 1.0f);
 	}
 	
+	vec4 objCol = vec4(surfaceColor, 1.0);
 	//color = vec4(linearColor, 1.0);
-	color = vec4(surfaceColor, 1.0);
+	//color = vec4(surfaceColor, 1.0);
+	
+	vec3 norm = normalize(Normal);
+	vec3 lightDir = normalize(vec3(2) - normal0);
+	float diff = max(dot(norm, lightDir), 0.0);
+	vec3 diffuse = diff * SWLight[1].intensity;
+	
+	vec3 result = diffuse * surfaceColor;
+	color = vec4(result, 1.0);
 	
 }

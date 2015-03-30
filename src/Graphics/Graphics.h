@@ -15,9 +15,11 @@ class AppWindow;
 
 struct SWRenderPass{
 	Shader* s;
+	Shader* sceneShader;
 	Mesh* m;
 	int sWidth, sHeight;
 	std::vector<SWComponent*> objects;
+	std::string m_RPName;
 	Texture* tex;
 	GLuint frameBuffer;
 	GLuint texBuffer;
@@ -26,12 +28,17 @@ struct SWRenderPass{
 	SWRenderPass();
 
 	SWRenderPass(int x, int y);
+	SWRenderPass(int x, int y, char* type);
 
 	~SWRenderPass();
 	void setShader(Shader* shdr){ s = shdr; }
 	void setShader(std::string& str){ s = new Shader(str); }
+	void setRPName(char* n){ m_RPName = n; }
+	void bind();
+	void unbind();
 
 	Shader* getShader(){return s;}
+	std::string getRPName(){return m_RPName;}
 
 	void addObjects(SWComponent* comp){
 		objects.push_back(comp);
@@ -40,11 +47,14 @@ struct SWRenderPass{
 	void draw(Camera* cam);
 };
 
+/*-Graphics Class - Manages drawing the scenes-*/
 class Graphics {
 public:
 	Graphics(AppWindow*);
 	Graphics();
 	virtual ~Graphics();
+
+	void processScene(SWSceneManager* scene);
 
 	/*Adds a Render Layer*/
 	void addRenderPass(){

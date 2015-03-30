@@ -12,6 +12,7 @@ SWGameObject::SWGameObject() {
 	mesh = 0;
 	mat = 0;
 	transform = new Transform();
+	setType("Object");
 }
 
 SWGameObject::SWGameObject(Mesh* mesh, SWMaterial* mat){
@@ -19,6 +20,7 @@ SWGameObject::SWGameObject(Mesh* mesh, SWMaterial* mat){
 	this->mat = mat;
 	this->shader = mat->getShader();
 	transform = new Transform();
+	setType("Object");
 }
 
 SWGameObject::~SWGameObject() {

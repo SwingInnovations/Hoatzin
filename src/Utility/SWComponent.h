@@ -62,6 +62,9 @@ public:
 	void setUniform(const std::string& name, Vector3f& value);
 	void setUniform(const std::string& name, Vector4f& value);
 
+	void setType(char* t){ m_Type = std::string(t); }
+	std::string getType(){ return m_Type; }
+
 	void setTranslate(Vector3f& vec){
 		transform->setTranslate(vec);
 		if(hasChildren){
@@ -172,6 +175,7 @@ public:
 	std::vector<SWComponent*> elements;
 	std::vector<SWComponent*> children;
 	std::vector<SWShader::ShaderInfo> uniforms;
+	std::string m_Type;
 	bool hasChildren;
 };
 

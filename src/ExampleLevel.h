@@ -88,7 +88,9 @@ public:
 			loaded = true;
 		}
 		g->setShader(shdr);
-		g->drawPass(0);
+		g->drawScene(scene);
+		//g->drawPass(0);
+		//g->draw(figure);
 		//g->drawScene(scene);
 	}
 
