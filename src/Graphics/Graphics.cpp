@@ -116,15 +116,20 @@ SWRenderPass::~SWRenderPass(){
 	glDeleteTextures(1, &texBuffer);
 }
 
-void SWRenderPass::draw(Camera* cam){
+void SWRenderPass::draw(Graphics* g){
 
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0, 0.0, 0.2, 1.0);
 	glEnable(GL_DEPTH_TEST);
+
 	for(int i = 0; i < (int)objects.size(); i++){
-		objects[i]->draw(cam);
+		if(objects.at(i)->getType() == "Light"){
+			objects.at(i)->draw(g->getShader());
+		}else if(objects.at(i)->getType() == "Object"){
+			objects.at(i)->draw(g->getCamera());
+		}
 	}
 
 	glEnable(GL_TEXTURE_2D);
@@ -182,6 +187,12 @@ Graphics::Graphics() {
 void Graphics::processScene(SWSceneManager* scene){
 	renderPass.push_back(new SWRenderPass(WIDTH, HEIGHT, "Light"));
 	renderPass.push_back(new SWRenderPass(WIDTH, HEIGHT, "Object"));
+	for(unsigned int i = 0; i < scene->getLights()->size(); i++){
+		renderPass.at(0)->addObjects(scene->getLights()->at(i));
+	}
+	for(unsigned int i = 0; i < scene->getSceneObjects()->size(); i++){
+		renderPass.at(1)->addObjects(scene->getSceneObjects()->at(i));
+	}
 }
 
 Graphics::~Graphics() {
@@ -189,18 +200,21 @@ Graphics::~Graphics() {
 }
 
 void Graphics::drawScene(SWSceneManager* scene){
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.0, 0.0, 0.0, 1.0);
-	glEnable(GL_DEPTH_TEST);
+//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//	glClearColor(0.0, 0.0, 0.0, 1.0);
+//	glEnable(GL_DEPTH_TEST);
+//
+//	shader->update("numLight", scene->getNumLight());
+//
+//	for(unsigned int i = 0; i < scene->getSceneObjects()->size(); i++){
+//		scene->getSceneObjects()->at(i)->draw(camera);
+//	}
+//
+//	for(unsigned int i = 0; i < scene->getLights()->size(); i++){
+//		scene->getLights()->at(i)->draw(shader);
+//	}
 
-	shader->update("numLight", scene->getNumLight());
-
-	for(unsigned int i = 0; i < scene->getSceneObjects()->size(); i++){
-		scene->getSceneObjects()->at(i)->draw(camera);
+	for(unsigned int i = 0; i < renderPass.size(); i++){
+		renderPass.at(i)->draw(this);
 	}
-
-	for(unsigned int i = 0; i < scene->getLights()->size(); i++){
-		scene->getLights()->at(i)->draw(shader);
-	}
-
 }

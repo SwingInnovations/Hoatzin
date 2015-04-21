@@ -18,12 +18,15 @@ SWGameObject::SWGameObject() {
 SWGameObject::SWGameObject(Mesh* mesh, SWMaterial* mat){
 	this->mesh = mesh;
 	this->mat = mat;
-	this->shader = mat->getShader();
+	shader = mat->getShader();
 	transform = new Transform();
 	setType("Object");
 }
 
 SWGameObject::~SWGameObject() {
-	// TODO Auto-generated destructor stub
+	delete mesh;
+	delete mat;
+	delete shader;
+	delete transform;
 }
 

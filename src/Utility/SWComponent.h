@@ -169,6 +169,7 @@ public:
 	SWComponent* getChild(int i){return children.at(i);}
 
 	virtual void draw(Camera* cam){}
+	virtual void draw(Shader* shdr){}
 
 	Transform* transform;
 	Shader* shader;

@@ -23,10 +23,7 @@ public:
 		shdr = new Shader("basicShader");
 		plane = new SWGameObject(new Mesh(new Plane(0, 0, 40, 40)), new SWMaterial(shdr));
 		plane->getMaterial()->addDiffuseMap("flower.jpg");
-		plane->setRotateX(90.0f);
-		plane->setTranslateX(-20.0f);
-		plane->setTranslateY(-20.0f);
-		plane->setTranslateZ(0.0f);
+
 
 		figure = new SWGameObject(new Mesh("defaultFigure.obj", MESH_TYPE::MODEL_OBJ), new SWMaterial(shdr));
 		sphere = new SWGameObject(new Mesh("sphere.obj", MESH_TYPE::MODEL_OBJ), new SWMaterial(shdr));
@@ -41,7 +38,7 @@ public:
 		spotLight = new SWSpotLight(lightPosition, lightIntesity, coneDirection, 0.0f, 0.5f, 15.0f);
 
 		Vector3f lP2(-3.0, -6.0f, -2.0f);
-		Vector3f lI2 = COLOR::Color(COLOR::GREEN);
+		Vector3f lI2 = COLOR::Color(COLOR::BLUE);
 		Vector3f cD2(0.0f, 1.0f, 0.0f);
 		light2 = new SWSpotLight(lP2, lI2, cD2, 0.0f, 0.5f, 15.0f);
 		light2->setIndex(1);
@@ -60,6 +57,7 @@ public:
 		input->setMoveSpeed(0.0025f);
 		app->showCursor(false);
 		if(input->isKeyPressed(KEY::KEY_ESC)) input->requestClose();
+		if(input->isKeyPressed(KEY::KEY_F)){ app->setFullscreen(!app->isFullscreen()); }
 		if(input->isKeyPressed(KEY::KEY_L_ALT)){
 			input->setCursorBound(!input->isCursorBound());
 			app->showCursor(!app->isCursorShown());
@@ -75,23 +73,16 @@ public:
 		float rot = figure->transform->getRotate().getY();
 		rot += 0.025f * delta;
 		figure->setRotateY(rot);
-		sphere->setTranslateX(20.0);
-		sphere->setRotateY(-rot);
+		plane->setRotateX(90.0f);
 	}
 
 	virtual void render(Graphics* g){
 		while(!loaded){
-			g->addRenderPass();
-			for(unsigned int i = 0; i < scene->getSceneObjects()->size(); i++){
-				g->addToPass(0, scene->getComponent(i));
-			}
+			g->processScene(scene);
+			g->setShader(shdr);
 			loaded = true;
 		}
-		g->setShader(shdr);
 		g->drawScene(scene);
-		//g->drawPass(0);
-		//g->draw(figure);
-		//g->drawScene(scene);
 	}
 
 	virtual ~ExampleLevel(){

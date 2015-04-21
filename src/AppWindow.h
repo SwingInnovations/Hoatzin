@@ -31,6 +31,7 @@ public:
 	void setRunning(bool val){Running = val;}
 	void setPause(bool val){pause = val;}
 	void showCursor(bool val);
+	void setFullscreen(bool val);
 	void centerCursor();
 	void setTargetFPS(float val){fps = val;}
 	void setIcon(const std::string filePath);
@@ -42,6 +43,7 @@ public:
 	int getWidth(){return WIDTH;}
 	int getHeight(){return HEIGHT;}
 	bool getPause(){return pause;}
+	bool isFullscreen(){return fullScreen;}
 	bool isCursorShown(){return cursorDisplay;}
 
 	Uint32 getFPS(){return fps;}
@@ -64,6 +66,7 @@ private:
 	Graphics* g;
 	bool pause;
 	bool script;
+	bool fullScreen;
 	bool cursorDisplay;
 	unsigned int WIDTH, HEIGHT;
 	int mCurrentState;

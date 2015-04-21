@@ -75,7 +75,6 @@ namespace SWShader{
 		_z = (float)atof(vZ.c_str());
 		_w = (float)atof(vW.c_str());
 		Vector4f ret(_x, _y, _z, _w);
-		ret.print();
 		return Vector4f(_x, _y, _z, _w);
 	}
 

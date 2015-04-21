@@ -13,6 +13,17 @@ class Mesh;
 class SWSceneManager;
 class AppWindow;
 
+class Graphics;
+
+class SWGBuffer{
+public:
+	SWGBuffer();
+	bool init(Graphics* g);
+
+private:
+	GLuint mFBO, mTexBuff, mRBO;
+};
+
 struct SWRenderPass{
 	Shader* s;
 	Shader* sceneShader;
@@ -44,7 +55,7 @@ struct SWRenderPass{
 		objects.push_back(comp);
 	}
 
-	void draw(Camera* cam);
+	void draw(Graphics* g);
 };
 
 /*-Graphics Class - Manages drawing the scenes-*/
@@ -69,7 +80,7 @@ public:
 
 	void drawPass(int i){
 		if(i < (int)renderPass.size()){
-			renderPass[i]->draw(camera);
+			renderPass[i]->draw(this);
 		}
 	}
 

@@ -69,7 +69,7 @@ void main(void){
 	
 	vec3 surfaceColor = texture2D(diffuse, texCoord0).rgb;
 	vec3 linearColor;
-	for(int i = 1; i < numLight; i++){
+	for(int i = 0; i < numLight; i++){
 		linearColor +=  applyLight(SWLight[i], surfaceColor, normal0, position0, normalize(cameraPosition-SWLight[i].position.xyz)) * clamp(dot(-SWLight[i].position.xyz, normal0), 0.0f, 1.0f);
 	}
 	
@@ -83,6 +83,6 @@ void main(void){
 	vec3 diffuse = diff * SWLight[1].intensity;
 	
 	vec3 result = diffuse * surfaceColor;
-	color = vec4(result, 1.0);
+	color = vec4(surfaceColor, 1.0);
 	
 }

@@ -13,6 +13,17 @@ AppWindow::AppWindow() {
 	this->HEIGHT = 800;
 	mCurrentState = 0;
 	cursorDisplay = false;
+	fullScreen = false;
+	mContext = 0;
+	g = 0;
+	input = 0;
+	oldTime = 0;
+	newTime = SDL_GetTicks();
+	script = 0;
+	fps = 30;
+	delta = 0;
+	Running = true;
+	mWindow = 0;
 }
 
 AppWindow::AppWindow(const std::string title, int WIDTH, int HEIGHT) : fps(60){
@@ -35,24 +46,18 @@ AppWindow::AppWindow(const std::string title, int WIDTH, int HEIGHT) : fps(60){
 	}
 	pause = false;
 	cursorDisplay = false;
+	fullScreen = false;
 	oldTime = 0;
 	newTime = SDL_GetTicks();
 	mCurrentState = 0;
+	fullScreen = false;
 }
 
 void AppWindow::SetOpenGLVersion(int MajorVersion, int MinorVersion){
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, MajorVersion);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, MinorVersion);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-//	if(MajorVersion > 2){
-//		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, MajorVersion);
-//		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, MinorVersion);
-//		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-//	}else{
-//		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, MajorVersion);
-//		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, MinorVersion);
-//		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
-//	}
+
 	mContext = SDL_GL_CreateContext(mWindow);
 	if(mContext == NULL){
 		std::cout << "Error 403: Failed to create context! " << SDL_GetError() << std::endl;
@@ -121,12 +126,10 @@ void AppWindow::calcDelta(){
 	}
 }
 
+/*
+ * Proceed to render the scene
+ */
 void AppWindow::render(){
-//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//	glClearColor(0.0, 0.0, 0.2, 1.0);
-//
-//	glEnable(GL_DEPTH_TEST);
-
 	if(!state.empty()){
 		state.at(mCurrentState)->render(g);
 	}
@@ -164,6 +167,9 @@ void AppWindow::setCamera(Camera* camera){
 	g->setCamera(camera);
 }
 
+/*
+ * - Returns the Camera being used by the game.
+ */
 Camera* AppWindow::getCamera(){
 	return g->getCamera();
 }
@@ -172,6 +178,15 @@ void AppWindow::centerCursor(){
 	int newX = this->getWidth()/2;
 	int newY = this->getHeight()/2;
 	SDL_WarpMouseInWindow(this->GetWindow(), newX, newY);
+}
+
+void AppWindow::setFullscreen(bool val){
+	fullScreen = val;
+	if(fullScreen){
+		SDL_SetWindowFullscreen(mWindow, SDL_WINDOW_FULLSCREEN| SDL_WINDOW_OPENGL);
+	}else{
+		SDL_SetWindowFullscreen(mWindow, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+	}
 }
 
 AppWindow::~AppWindow() {
