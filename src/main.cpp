@@ -11,7 +11,7 @@ int main(int argc, char** argv){
 	map->addMapping(MOVEMENT::STRAFE_LEFT, KEY::KEY_A);
 	map->addMapping(MOVEMENT::STRAFE_RIGHT, KEY::KEY_D);
 
-	AppWindow app("Hoatzin --- ENGINE V.0.0.45", 1440, 900);
+	AppWindow app("Hoatzin --- ENGINE V.0.0.45", 1280, 800);
 	Vector3f cameraPos(-5.0f, -6.0f, 0.0f);
 	app.setCamera(new Camera(cameraPos, 66.0f, 1440.0f, 900.0f, 1.0f, 1000.0f, CAMERA_VIEW::PERSPECTIVE, CAMERA_MOVEMENT::FirstPerson));
 	app.setInputMapping(map);
