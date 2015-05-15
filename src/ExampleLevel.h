@@ -44,11 +44,8 @@ public:
 		light2->setIndex(1);
 
 		figure->getMaterial()->addDiffuseMap("grid.png");
-		scene->add(plane);
-		scene->add(figure);
 		scene->add(sphere);
-		scene->add(spotLight);
-		scene->add(light2);
+		scene->add(figure);
 		loaded = false;
 	}
 

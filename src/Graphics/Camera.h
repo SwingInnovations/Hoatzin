@@ -45,8 +45,14 @@ public:
 	}
 	void setYaw(float _h){ hAngle = _h; }
 	void setPitch(float _v){ vAngle = _v; }
+	void setFOV(float fov ){ mFOV = fov; }
+	void setNear(float zNear ){ mZNear = zNear; }
+	void setFar(float zFar){ mZFar = zFar; }
 	float getYaw(){return this->hAngle;}
 	float getPitch(){return this->vAngle;}
+	float getFOV()const{ return mFOV; }
+	float getZNear()const{ return mZNear; }
+	float getZFar()const{ return mZFar; }
 
 	Transform getTransform()const{return this->transform;}
 
